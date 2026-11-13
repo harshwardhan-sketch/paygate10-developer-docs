@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>Transaction Failed</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="chatbot.css">
+</head>
+<body class="wallet-waiting-page">
+  <div class="d-flex justify-content-center align-items-start h-100 pt-4">
+    <div class="failed-container">
+      <div class="d-flex justify-content-center">
+        <div class="failed-icon-wrapper">
+          <img class="failed-icon" src="images/failed.png" alt="Failed">
+        </div>
+      </div>
+      <div class="failed-title">Transaction Failed</div>
+      <div class="failed-message">
+        We couldn't process your transaction. Please check your payment method and try again.
+      </div>
+      <button class="return-button" onclick="window.location.href='index.html'">Return to Home</button>
+    </div>
+  </div>
+
+  <div class="chat-overlay hidden" id="chatOverlay" aria-hidden="true"></div>
+  <main class="chatbot-popup minimized" id="chatbotPopup">
+    <header class="chat-header">
+      <span class="chat-header-left"><img src="images/chat.svg" alt="" class="support-icon">Payment Assistant</span>
+      <span class="chat-header-right">
+        <button class="chat-minimize-btn" id="minimizeChatBtn" type="button" aria-label="Minimize chat">-</button>
+      </span>
+    </header>
+
+    <section class="chat-log" id="chatLog" aria-live="polite">
+      <div class="bubble bot" id="initialBotBubble"></div>
+
+      <div class="reason-box" id="reasonBox">
+        <p class="reason-title">Choose a reason:</p>
+
+        <label class="reason-option">
+          <input type="radio" name="declineReason" value="insufficient_funds">
+          <span>Insufficient funds</span>
+        </label>
+
+        <label class="reason-option">
+          <input type="radio" name="declineReason" value="bank_block">
+          <span>My bank blocked this transaction</span>
+        </label>
+
+        <label class="reason-option">
+          <input type="radio" name="declineReason" value="network_timeout">
+          <span>Network or device issue</span>
+        </label>
+
+        <label class="reason-option">
+          <input type="radio" name="declineReason" value="multiple_redirects_confusing">
+          <span>Multiple redirects during the payment journey is confusing</span>
+        </label>
+
+        <label class="reason-option reason-option--mobile-only">
+          <input type="radio" name="declineReason" value="missing_upi_apps">
+          <span>I don't have these apps installed</span>
+        </label>
+
+        <label class="reason-option reason-option--mobile-only">
+          <input type="radio" name="declineReason" value="other_apps_button_not_working">
+          <span>"Other Apps" button did not work</span>
+        </label>
+
+        <label class="reason-option reason-option--mobile-only">
+          <input type="radio" name="declineReason" value="app_opened_closed_immediately">
+          <span>My app opened but closed immediately</span>
+        </label>
+
+        <label class="reason-option reason-option--mobile-only">
+          <input type="radio" name="declineReason" value="did_not_understand_interface">
+          <span>Did not understand how to make the payment</span>
+        </label>
+
+        <label class="reason-option">
+          <input type="radio" name="declineReason" value="technical_error">
+          <span>Technical Error</span>
+        </label>
+
+        <label class="reason-option">
+          <input type="radio" name="declineReason" value="verification_or_wrong_pin">
+          <span>Verification or wrong pin entered</span>
+        </label>
+
+        <label class="reason-option reason-option--desktop-only">
+          <input type="radio" name="declineReason" value="could_not_scan_qr">
+          <span>I couldn't scan the QR</span>
+        </label>
+
+        <label class="reason-option reason-option--mobile-only">
+          <input type="radio" name="declineReason" value="trust_payment_flow">
+          <span>The payment process did not feel secure</span>
+        </label>
+
+        <label class="reason-option reason-option--mobile-only">
+          <input type="radio" name="declineReason" value="other">
+          <span>Other</span>
+        </label>
+
+        <div class="other-input-wrap" id="otherInputWrap">
+          <input id="otherInput" type="text" placeholder="Please tell us what happened">
+          <div class="chat-actions">
+          <button class="btn btn-send-message" id="sendOtherBtn" type="button">
+            <span class="btn-send-label">Send Message</span>
+            <svg class="btn-send-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3.478 2.405a.75.75 0 0 0-.926.94l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94l16.5-8.25a.75.75 0 0 0 0-1.34L3.478 2.405Z"/></svg>
+          </button>
+          </div>
+        </div>
+
+        <div class="chat-actions" id="reasonActions">
+          <button class="btn btn-inline btn-send-message" id="submitReasonBtn" type="button" disabled>
+            <span class="btn-send-label">Send Message</span>
+            <svg class="btn-send-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3.478 2.405a.75.75 0 0 0-.926.94l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94l16.5-8.25a.75.75 0 0 0 0-1.34L3.478 2.405Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <button class="chat-open-btn" id="openChatBtn" type="button" aria-label="Open chat">Chat</button>
+
+  <script src="chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Checkout Page</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+  <!-- Wrapper Div -->
+  <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 ">
+
+    <!-- White Card -->
+    <div class="bg-card d-flex flex-column justify-content-center align-items-center">
+
+
+
+      <!-- Payment Options -->
+      <div class="d-flex flex-column payment-box w-100">
+        <div class="d-flex flex-column align-items-start justify-content-between heading-wrapper gap-24-box w-100">
+          <!-- Timer -->
+          <div class="d-flex time-chip-alt w-100 justify-content-between align-items-center w-100">
+            <p class="time-text" data-translate="expires-in">Expires in</p>
+            <div class="d-flex time-wrapper gap-08-box align-items-center">
+              <img class="timer-icon" src="images/schedule-icon.png" alt="">
+              <p class="time-text">
+                13m 12s
+              </p>
+            </div>
+          </div>
+          <div class="d-flex w-100 flex-column gap-08-box align-items-start">
+            <h2 class="payment-head" data-translate="complete-payment">Complete your payment</h2>
+            <!-- Language Pills (below title) -->
+            <div class="d-flex gap-08-box align-items-center">
+              <button class="smallbtn language-pill active" type="button" data-lang="en">English</button>
+              <button class="smallbtn language-pill" type="button" data-lang="ar">العربية</button>
+              <button class="smallbtn language-pill" type="button" data-lang="fr">French</button>
+            </div>
+          </div>
+        </div>
+        <!-- Accordions -->
+        <div class="accordion d-flex flex-column" id="accordionExample">
+          <!-- Bank Transfer Accordion -->
+          <div class="accordion-item accordion-mpesa">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBankTransfer"
+                aria-expanded="true" aria-controls="collapseBankTransfer">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/bank-deposit-icon.png" alt="">
+                  <p class="accordion-head" data-translate="bank-transfer">Bank Transfer</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseBankTransfer" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper w-100">
+                  <!-- Bank Dropdown -->
+                  <div class="d-flex flex-column gap-08-box w-100">
+                    <label class="form-label" data-translate="bank-dropdown-label">Bank</label>
+
+                    <div class="custom-dropdown-wrapper">
+                      <div class="custom-dropdown-selected" id="bankDropdownSelected">
+                        <span class="selected-text" data-translate="select-bank">Select your bank</span>
+                        <span class="dropdown-arrow"></span>
+                      </div>
+
+                      <div class="custom-dropdown-options" id="bankDropdownOptions">
+                        <div class="custom-dropdown-option" data-value="" data-translate="select-bank">Select your bank</div>
+
+                        <div class="custom-dropdown-option" data-value="cih-bank">
+                          <img src="images/cih.png" alt="CIH Bank" class="bank-logo">
+                          <span>CIH Bank</span>
+                        </div>
+
+                        <div class="custom-dropdown-option" data-value="attijariwafabank">
+                          <img src="images/attijari.png" alt="AttijariWafaBank" class="bank-logo">
+                          <span>AttijariWafaBank</span>
+                        </div>
+
+                        <div class="custom-dropdown-option" data-value="lbanka-lik">
+                          <img src="images/lbanka.png" alt="Lbanka Lik" class="bank-logo">
+                          <span>Lbanka Lik</span>
+                        </div>
+
+                        <div class="custom-dropdown-option" data-value="bcp">
+                          <img src="images/bcp.png" alt="BCP" class="bank-logo">
+                          <span>BCP</span>
+                        </div>
+
+                        <div class="custom-dropdown-option" data-value="bank-of-africa">
+                          <img src="images/baf.jpg" alt="Bank Of Africa" class="bank-logo">
+                          <span>Bank Of Africa</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Optional: hidden native select for forms/accessibility -->
+                    <select class="form-select d-none" id="bankSelect" aria-hidden="true">
+                      <option value="">Select your bank</option>
+                      <option value="cih-bank">CIH Bank</option>
+                      <option value="attijariwafabank">AttijariWafaBank</option>
+                      <option value="lbanka-lik">Lbanka Lik</option>
+                      <option value="bcp">BCP</option>
+                      <option value="bank-of-africa">Bank Of Africa</option>
+                    </select>
+                  </div>
+
+                  <!-- Payment Instructions Container -->
+                  <div class="payment-instructions-container">
+                    <div class="payment-instructions-header">
+                      <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                      <span data-translate="payment-instructions">Payment Instructions</span>
+                    </div>
+                    <ol class="payment-instructions-list">
+                      <li>
+                        <div class="payment-instructions-text">
+                          Open the selected Bank Website/App.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          منتخب کردہ بینک ویب سائٹ/ایپ کھولیں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          افتح موقع/تطبيق البنك الذي اخترته.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Ouvrez le site/app bancaire sélectionné.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Transfer the amount to the selected bank within 15 minutes.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          منتخب کردہ بینک میں 15 منٹ کے اندر رقم منتقل کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          نقل المبلغ للبنك المحدد خلال 15 دقيقة.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Transférez le montant à la banque sélectionnée dans les 15 minutes.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Provide the below transfer details after making the payment:
+                          <br>• Bank account details (bank account number &amp; bank account name from which transfer was made)
+                          <br>• Proof of transfer (receipt/screenshot)
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          ادائیگی کرنے کے بعد نیچے دی گئی ٹرانسفر کی تفصیلات فراہم کریں:
+                          <br>• بینک اکاؤنٹ کی تفصیلات (بینک اکاؤنٹ نمبر اور بینک اکاؤنٹ نام جہاں سے ٹرانسفر کیا گیا)
+                          <br>• ٹرانسفر کا ثبوت (رسید/اسکرین شاٹ)
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          من بعد ما تدير الأداء، عطينا معلومات التحويل اللي تحت:
+                          <br>• تفاصيل حساب البنك (رقم حساب البنك واسم حساب البنك الذي تم منه التحويل)
+                          <br>• دليل الأداء (وصل أو سكرينشوت)
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Veuillez fournir les détails de virement ci-dessous après avoir effectué le paiement:
+                          <br>• Coordonnées bancaires (numéro de compte bancaire et nom du compte à partir duquel le virement a été effectué)
+                          <br>• Preuve du virement (reçu / capture d'écran)
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Submit the details to complete the payment process.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          ادائیگی کا عمل مکمل کرنے کے لیے تفصیلات جمع کروائیں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          صيفط المعلومات باش تكمل عملية الأداء
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Soumettez les informations pour finaliser le processus de paiement.
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+
+                  <!-- Continue Button -->
+                  <div class="button-wrapper w-100">
+                    <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="continueButton" onclick="goToWalletDetails()" disabled>
+                      <span data-translate="continue">Continue</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- cancel button -->
+        <div class="button-wrapper w-100 d-flex justify-content-between align-items-center ">
+          <!-- Button trigger modal -->
+          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            class="smallbtn d-flex align-items-center justify-content-center gap-12-box">
+            <span data-translate="order-id">Order ID</span>
+            <img src="images/visibility.png" alt="">
+          </button>
+          <button type="button" class="btn btn-primary checkout-cancel" onclick="handleCancelClick()" data-translate="cancel">Cancel</button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" data-translate="order-id">Order ID</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body scrollable-content">
+                <p class="long-text">
+                  9238650934876509347685095876093487609487654598067540968730591287918355873498573098763457897670287870485120145846769502437985436579862583472654897632976452183756386392386509348765093476850958760934876094876545980675409687305912879183558734985730987634578976702878704851201458467695024379854365798625834726548976329764521837563863
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+
+  </div>
+
+
+  </div>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+
+  <script src="script.js"></script>
+  <script>
+    // Set language on page load and attach event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load saved language from sessionStorage or default to English
+      const savedLanguage = sessionStorage.getItem('selectedLanguage') || 'en';
+      if (typeof switchLanguage === 'function') {
+        switchLanguage(savedLanguage);
+      }
+      
+      // Attach event listeners to language pills
+      const languagePills = document.querySelectorAll('.language-pill');
+      languagePills.forEach(pill => {
+        pill.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const lang = this.getAttribute('data-lang');
+          if (lang && typeof switchLanguage === 'function') {
+            switchLanguage(lang);
+          } else {
+            console.error('Language switching failed. Lang:', lang, 'Function exists:', typeof switchLanguage === 'function');
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- How to Pay Popup -->
+  <div class="how-to-pay-popup d-none" id="howToPayPopup">
+    <div class="popup-overlay" onclick="closeHowToPayPopup()"></div>
+    <div class="popup-container">
+      <div class="popup-instructions-container">
+        <div class="popup-header-section">
+          <h2 class="popup-main-title">How to pay?</h2>
+          <button class="popup-close-btn" onclick="closeHowToPayPopup()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <ol class="payment-instructions-list">
+          <li>
+            <div class="payment-instructions-text">Transfer the exact amount to the wallet number provided.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">دیے گئے والیٹ نمبر پر درست رقم منتقل کریں۔</div>
+          </li>
+          <li>
+            <div class="payment-instructions-text">Enter your Wallet Number along with the Transaction Reference Number.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">اپنا والٹ نمبر اور ٹرانزیکشن ریفرنس نمبر درج کریں۔</div>
+          </li>
+          <li>
+            <div class="payment-instructions-text">Upload a screenshot or receipt as proof.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">ثبوت کے طور پر اسکرین شاٹ یا رسید اپ لوڈ کریں۔</div>
+          </li>
+          <li>
+            <div class="payment-instructions-text">Submit your details to finalize the payment.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">ادائیگی مکمل کرنے کے لیے اپنی تفصیلات جمع کروائیں۔</div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="feedbackModalLabel" data-translate="feedback">Feedback</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption1" value="explore">
+              <label class="form-check-label" for="feedbackOption1" data-translate="feedback-explore">
+                I would like to explore more before completing transaction.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption2" value="dont_understand">
+              <label class="form-check-label" for="feedbackOption2" data-translate="feedback-dont-understand">
+                I didn't understand what to do next.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption3" value="edit_details">
+              <label class="form-check-label" for="feedbackOption3" data-translate="feedback-edit-details">
+                I want to go back and edit my details.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption4" value="changed_mind">
+              <label class="form-check-label" for="feedbackOption4" data-translate="feedback-changed-mind">
+                I changed my mind.
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link skip-link" data-bs-dismiss="modal" data-translate="skip">Skip</button>
+          <button type="button" class="btn btn-primary feedback-submit-btn" id="submitFeedback" data-translate="submit-feedback">Submit Feedback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to Pay Modal -->
+  <div class="modal fade" id="howToPayModal" tabindex="-1" aria-labelledby="howToPayModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content how-to-pay-modal-content">
+        <div class="modal-header how-to-pay-modal-header">
+          <h5 class="modal-title how-to-pay-modal-title" id="howToPayModalLabel">How to pay?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <hr class="how-to-pay-modal-divider">
+        <div class="modal-body how-to-pay-modal-body">
+          <div class="how-to-pay-instruction-item">
+            <div class="instruction-number">1.</div>
+            <div class="instruction-content-wrapper">
+              <p class="instruction-text-english">Select your Mobile Money operator.</p>
+              <p class="instruction-text-urdu" style="display: none;"><em>اپنا موبائل منی آپریٹر منتخب کریں۔</em></p>
+            </div>
+          </div>
+          <div class="how-to-pay-instruction-item">
+            <div class="instruction-number">2.</div>
+            <div class="instruction-content-wrapper">
+              <p class="instruction-text-english">Enter the mobile number registered with your Mobile Money account.</p>
+              <p class="instruction-text-urdu" style="display: none;"><em>اپنے موبائل منی اکاؤنٹ سے منسلک موبائل نمبر درج کریں۔</em></p>
+            </div>
+          </div>
+          <div class="how-to-pay-instruction-item">
+            <div class="instruction-number">3.</div>
+            <div class="instruction-content-wrapper">
+              <p class="instruction-text-english">Click Pay to proceed.</p>
+              <p class="instruction-text-urdu" style="display: none;"><em>آگے بڑھنے کے لیے "ادا کریں" پر کلک کریں۔</em></p>
+            </div>
+          </div>
+          <div class="how-to-pay-instruction-item">
+            <div class="instruction-number">4.</div>
+            <div class="instruction-content-wrapper">
+              <p class="instruction-text-english">A push notification will be sent to your registered mobile number.</p>
+              <p class="instruction-text-urdu" style="display: none;"><em>آپ کے رجسٹرڈ موبائل نمبر پر پش نوٹیفیکیشن بھیجا جائے گا۔</em></p>
+            </div>
+          </div>
+          <div class="how-to-pay-instruction-item">
+            <div class="instruction-number">5.</div>
+            <div class="instruction-content-wrapper">
+              <p class="instruction-text-english">Enter your PIN to authorize the payment.</p>
+              <p class="instruction-text-urdu" style="display: none;"><em>ادائیگی کی منظوری کے لیے اپنا PIN درج کریں۔</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ---- Injected for the demo page: report this page's
+     real content height to the parent window via postMessage, so the
+     embedding iframe resizes correctly. ---- */
+  (function(){
+    function reportHeight(){
+      var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      if(h > 0 && window.parent){
+        window.parent.postMessage({ source: 'checkout-demo', height: h }, location.origin === 'null' ? '*' : location.origin);
+      }
+    }
+    window.addEventListener('load', function(){
+      reportHeight();
+      [60, 150, 400, 800, 1500].forEach(function(d){ setTimeout(reportHeight, d); });
+      if(window.ResizeObserver){
+        new ResizeObserver(reportHeight).observe(document.body);
+      }
+      document.querySelectorAll('img').forEach(function(img){
+        if(!img.complete){
+          img.addEventListener('load', reportHeight, { once: true });
+          img.addEventListener('error', reportHeight, { once: true });
+        }
+      });
+    });
+  })();
+</script>
+</body>
+
+
+</html>
+</html>
+</html>

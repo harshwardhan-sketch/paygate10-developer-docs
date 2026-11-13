@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Checkout Page</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+  <!-- Wrapper Div -->
+  <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 ">
+
+    <!-- White Card -->
+    <div class="bg-card d-flex flex-column justify-content-center align-items-center">
+
+
+
+      <!-- Payment Options -->
+      <div class="d-flex flex-column payment-box w-100">
+        <div class="d-flex flex-column align-items-start justify-content-between heading-wrapper gap-24-box w-100">
+          <div class="checkout-header upi-qr-header-only w-100">
+            <img src="images/your-logo.svg" alt="Your logo" class="checkout-logo">
+          </div>
+          <!-- Timer -->
+          <!-- Pakistan Simpesa wallets tech note:
+               This "Expires in" header is hidden only when Easypaisa accordion is selected. -->
+          <div class="d-flex time-chip-alt w-100 justify-content-between align-items-center w-100" id="checkoutExpiresInHeader">
+            <p class="time-text" data-translate="expires-in">Expires in</p>
+            <div class="d-flex time-wrapper gap-08-box align-items-center">
+              <img class="timer-icon" src="images/schedule-icon.png" alt="">
+              <p class="time-text">
+                13m 12s
+              </p>
+            </div>
+          </div>
+          <div class="d-flex w-100 align-items-center justify-content-between heading-title-row gap-08-box" id="headingTitleRow">
+            <h2 class="payment-head" data-translate="complete-payment">Complete your payment</h2>
+            <div class="heading-language-pills d-flex gap-08-box align-items-center flex-wrap" id="headingLanguagePills">
+              <button class="smallbtn language-pill active" type="button" data-lang="en">English</button>
+              <button class="smallbtn language-pill" type="button" data-lang="ar">العربية</button>
+              <button class="smallbtn language-pill language-pill-french d-none" type="button" data-lang="fr">French</button>
+            </div>
+          </div>
+        </div>
+        <!-- Accordions -->
+        <div class="accordion d-flex flex-column" id="accordionExample">
+          <!-- P2P iGaming Egypt flow: Bank Deposit Accordion -->
+          <div class="accordion-item accordion-mpesa">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBankTransfer"
+                aria-expanded="true" aria-controls="collapseBankTransfer">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/bank-deposit-icon.png" alt="">
+                  <p class="accordion-head" data-translate="bank-transfer">Bank Deposit</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseBankTransfer" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper w-100">
+                  <!-- Payment Instructions Container -->
+                  <div class="payment-instructions-container">
+                    <div class="payment-instructions-header">
+                      <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                      <span data-translate="payment-instructions">Payment Instructions</span>
+                    </div>
+                    <ol class="payment-instructions-list">
+                      <li>
+                        <div class="payment-instructions-text">
+                          Pay the exact amount shown.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          درست دکھائی گئی رقم ادا کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          أدّ المبلغ المعروض بالكامل.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Payez le montant exact indiqué.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Enter your payment details.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          اپنی ادائیگی کی تفصیلات درج کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          أدخل تفاصيل الدفع الخاصة بك.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Saisissez vos informations de paiement.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Upload proof of payment for verification.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          تصدیق کے لیے ادائیگی کا ثبوت اپ لوڈ کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          حمّل إثبات الدفع للتحقق.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Téléchargez une preuve de paiement pour vérification.
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+
+                  <!-- Continue Button -->
+                  <div class="button-wrapper w-100">
+                    <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="continueButton" onclick="goToWalletDetails('bank')">
+                      <span data-translate="continue">Proceed</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- P2P iGaming Egypt flow: Wallets Accordion -->
+          <div class="accordion-item accordion-mpesa">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWallets"
+                aria-expanded="false" aria-controls="collapseWallets">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/wallets-icon.png" alt="">
+                    <p class="accordion-head" data-translate="ban-wallets-payment-method">Wallets</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseWallets" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper w-100">
+                  <!-- Payment Instructions Container -->
+                  <div class="payment-instructions-container">
+                    <div class="payment-instructions-header">
+                      <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                      <span data-translate="payment-instructions">Payment Instructions</span>
+                    </div>
+                    <ol class="payment-instructions-list">
+                      <li>
+                        <div class="payment-instructions-text" data-translate="details-how-to-pay-step-1">
+                          Click Proceed button and copy the wallet number shown in the Beneficiary details section.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          Proceed بٹن پر کلک کریں اور Beneficiary details سیکشن میں دکھایا گیا والیٹ نمبر کاپی کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          انقر على زر المتابعة وانسخ رقم المحفظة الظاهر في قسم تفاصيل المستفيد.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Cliquez sur le bouton Continuer et copiez le numéro de portefeuille affiché dans la section Détails du bénéficiaire.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text" data-translate="details-how-to-pay-step-2">
+                          Open your wallet app and transfer the exact amount to the copied wallet number.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          اپنی والیٹ ایپ کھولیں اور کاپی شدہ والیٹ نمبر پر درست رقم منتقل کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          افتح تطبيق المحفظة وحوّل المبلغ المحدد إلى رقم المحفظة المنسوخ.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Ouvrez votre application de portefeuille et transférez le montant exact vers le numéro de portefeuille copié.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text" data-translate="details-how-to-pay-step-3">
+                          Enter your wallet number and upload a screenshot of the payment receipt.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          اپنا والیٹ نمبر درج کریں اور ادائیگی کی رسید کا اسکرین شاٹ اپ لوڈ کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          أدخل رقم محفظتك وحمّل لقطة شاشة لإيصال الدفع.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Saisissez votre numéro de portefeuille et téléchargez une capture d'écran du reçu de paiement.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text" data-translate="details-how-to-pay-step-4">
+                          Click on Submit button
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          Submit بٹن پر کلک کریں
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          انقر على زر الإرسال
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Cliquez sur le bouton Envoyer
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+
+                  <!-- Continue Button -->
+                  <div class="button-wrapper w-100">
+                    <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" onclick="goToWalletDetails('wallet')">
+                      <span data-translate="continue">Proceed</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- cancel button -->
+        <div class="button-wrapper w-100 d-flex justify-content-between align-items-center ">
+          <!-- Button trigger modal -->
+          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            class="smallbtn d-flex align-items-center justify-content-center gap-12-box">
+            <span data-translate="order-id">Order ID</span>
+            <img src="images/visibility.png" alt="">
+          </button>
+          <button type="button" class="btn btn-primary checkout-cancel" onclick="handleCancelClick()" data-translate="cancel">Cancel</button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" data-translate="order-id">Order ID</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body scrollable-content">
+                <p class="long-text" id="orderIdDisplay">
+                  9238650934876509347685095876093487609487654598067540968730591287918355873498573098763457897670287870485120145846769502437985436579862583472654897632976452183756386392386509348765093476850958760934876094876545980675409687305912879183558734985730987634578976702878704851201458467695024379854365798625834726548976329764521837563863
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+
+  </div>
+
+
+  </div>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.12.9/bundle/libphonenumber-min.js" crossorigin="anonymous" integrity="sha384-IUXXml69IVQ0IMG8AUU5nG0bPh4HTLNFHhOPtxO0GQ9w7u8co2v01WANgWeasbHU"></script>
+
+  <script src="script.js"></script>
+  <script>
+    // Set language on page load and attach event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Default index reload to English, with the Bank Deposit or Wallets
+      // accordion opened depending on the ?method= query param (used by the
+      // demo page to deep-link into the right method demo).
+      sessionStorage.setItem('selectedLanguage', 'en');
+
+      const requestedMethod = new URLSearchParams(window.location.search).get('method');
+      const openWallets = requestedMethod === 'wallet' || requestedMethod === 'wallets';
+
+      const bankDepositCollapse = document.getElementById('collapseBankTransfer');
+      const bankDepositButton = document.querySelector('[data-bs-target="#collapseBankTransfer"]');
+      const walletsCollapse = document.getElementById('collapseWallets');
+      const walletsButton = document.querySelector('[data-bs-target="#collapseWallets"]');
+
+      if (openWallets) {
+        if (bankDepositCollapse) {
+          bankDepositCollapse.classList.remove('show');
+        }
+        if (bankDepositButton) {
+          bankDepositButton.classList.add('collapsed');
+          bankDepositButton.setAttribute('aria-expanded', 'false');
+        }
+        if (walletsCollapse) {
+          walletsCollapse.classList.add('show');
+        }
+        if (walletsButton) {
+          walletsButton.classList.remove('collapsed');
+          walletsButton.setAttribute('aria-expanded', 'true');
+        }
+      } else {
+        if (bankDepositCollapse) {
+          bankDepositCollapse.classList.add('show');
+        }
+        if (bankDepositButton) {
+          bankDepositButton.classList.remove('collapsed');
+          bankDepositButton.setAttribute('aria-expanded', 'true');
+        }
+      }
+
+      if (typeof switchLanguage === 'function') {
+        switchLanguage('en');
+      }
+
+      // Attach event listeners to language pills
+      const languagePills = document.querySelectorAll('.language-pill');
+      languagePills.forEach(pill => {
+        pill.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const lang = this.getAttribute('data-lang');
+          if (lang && typeof switchLanguage === 'function') {
+            switchLanguage(lang);
+          } else {
+            console.error('Language switching failed. Lang:', lang, 'Function exists:', typeof switchLanguage === 'function');
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- How to Pay Popup -->
+  <div class="how-to-pay-popup d-none" id="howToPayPopup">
+    <div class="popup-overlay" onclick="closeHowToPayPopup()"></div>
+    <div class="popup-container">
+      <div class="popup-instructions-container">
+        <div class="popup-header-section">
+          <h2 class="popup-main-title">How to pay?</h2>
+          <button class="popup-close-btn" onclick="closeHowToPayPopup()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <ol class="payment-instructions-list">
+          <li>
+            <div class="payment-instructions-text">Transfer the exact amount to the wallet number provided.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">دیے گئے والیٹ نمبر پر درست رقم منتقل کریں۔</div>
+          </li>
+          <li>
+            <div class="payment-instructions-text">Enter your Wallet Number along with the Transaction Reference Number.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">اپنا والٹ نمبر اور ٹرانزیکشن ریفرنس نمبر درج کریں۔</div>
+          </li>
+          <li>
+            <div class="payment-instructions-text">Upload a screenshot or receipt as proof.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">ثبوت کے طور پر اسکرین شاٹ یا رسید اپ لوڈ کریں۔</div>
+          </li>
+          <li>
+            <div class="payment-instructions-text">Submit your details to finalize the payment.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">ادائیگی مکمل کرنے کے لیے اپنی تفصیلات جمع کروائیں۔</div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="feedbackModalLabel" data-translate="feedback">Feedback</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption1" value="explore">
+              <label class="form-check-label" for="feedbackOption1" data-translate="feedback-explore">
+                I would like to explore more before completing transaction.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption2" value="dont_understand">
+              <label class="form-check-label" for="feedbackOption2" data-translate="feedback-dont-understand">
+                I didn't understand what to do next.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption3" value="edit_details">
+              <label class="form-check-label" for="feedbackOption3" data-translate="feedback-edit-details">
+                I want to go back and edit my details.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption4" value="changed_mind">
+              <label class="form-check-label" for="feedbackOption4" data-translate="feedback-changed-mind">
+                I changed my mind.
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link skip-link" data-bs-dismiss="modal" data-translate="skip">Skip</button>
+          <button type="button" class="btn btn-primary feedback-submit-btn" id="submitFeedback" data-translate="submit-feedback">Submit Feedback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ---- Injected for the demo page: report this page's
+     real content height to the parent window via postMessage, so the
+     embedding iframe resizes correctly. ---- */
+  (function(){
+    function reportHeight(){
+      var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      if(h > 0 && window.parent){
+        window.parent.postMessage({ source: 'checkout-demo', height: h }, location.origin === 'null' ? '*' : location.origin);
+      }
+    }
+    window.addEventListener('load', function(){
+      reportHeight();
+      [60, 150, 400, 800, 1500].forEach(function(d){ setTimeout(reportHeight, d); });
+      if(window.ResizeObserver){
+        new ResizeObserver(reportHeight).observe(document.body);
+      }
+      document.querySelectorAll('img').forEach(function(img){
+        if(!img.complete){
+          img.addEventListener('load', reportHeight, { once: true });
+          img.addEventListener('error', reportHeight, { once: true });
+        }
+      });
+    });
+  })();
+</script>
+</body>
+
+
+</html>

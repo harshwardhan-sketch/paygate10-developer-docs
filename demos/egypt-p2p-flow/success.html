@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>Submission Successful</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0">
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="wallet-waiting-page">
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <div class="successful-container" style="position: relative;">
+      
+      <!-- Language Pills -->
+      <div class="d-flex gap-08-box align-items-center" id="languagePillsContainer" style="position: absolute; top: 1rem; right: 1rem;">
+        <button class="smallbtn language-pill" type="button" data-lang="fr">French</button>
+        <button class="smallbtn language-pill" type="button" data-lang="ar">العربية</button>
+        <button class="smallbtn language-pill active" type="button" data-lang="en">English</button>
+      </div>
+      
+      <!-- Success Icon -->
+      <div style="margin-top: 4rem;">
+        <div class="d-flex justify-content-center">
+          <div class="successful-icon-wrapper">
+            <img class="successful-icon" src="images/success.png" alt="Submission Successful">
+          </div>
+        </div>
+
+        <!-- Success Title -->
+        <div class="successful-title" data-translate="submission-successful">Submission Successful</div>
+
+        <!-- Success Message -->
+        <div class="successful-message" id="submissionMessage" data-translate="submission-message-bank">Your bank account details have been received successfully. We're processing your request and will complete it shortly.</div>
+
+        <!-- Return Button -->
+        <button class="return-button" onclick="returnHome()" data-translate="return-to-home">Return to Home</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+
+  <script src="script.js"></script>
+  <script>
+    // Set language on page load and attach event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      function applySubmissionMessageByPaymentMethod() {
+        const messageElement = document.getElementById('submissionMessage');
+        if (!messageElement) {
+          return;
+        }
+
+        const paymentMethod = sessionStorage.getItem('paymentMethod') || 'bank';
+        const isWalletFlow = paymentMethod === 'wallet' || paymentMethod === 'mobile-wallet';
+        const messageKey = isWalletFlow ? 'submission-message-wallet' : 'submission-message-bank';
+        messageElement.setAttribute('data-translate', messageKey);
+
+        const frenchPill = document.querySelector('.language-pill[data-lang="fr"]');
+        if (frenchPill) {
+          const isFrenchAllowed = paymentMethod === 'mobile-wallet' || paymentMethod === 'bank-transfer';
+          frenchPill.classList.toggle('d-none', !isFrenchAllowed);
+        }
+      }
+
+      applySubmissionMessageByPaymentMethod();
+
+      // Load saved language from sessionStorage or default to English
+      let savedLanguage = sessionStorage.getItem('selectedLanguage') || 'en';
+      const paymentMethod = sessionStorage.getItem('paymentMethod') || 'bank';
+      const isFrenchAllowed = paymentMethod === 'mobile-wallet' || paymentMethod === 'bank-transfer';
+      if (savedLanguage === 'fr' && !isFrenchAllowed) {
+        savedLanguage = 'en';
+      }
+      if (typeof switchLanguage === 'function') {
+        switchLanguage(savedLanguage);
+      }
+      
+      // Function to update language pills position based on language
+      function updateLanguagePillsPosition(lang) {
+        const container = document.getElementById('languagePillsContainer');
+        if (container) {
+          if (lang === 'ur' || lang === 'ar') {
+            // Move to left for RTL languages
+            container.style.right = 'auto';
+            container.style.left = '1rem';
+          } else {
+            // Move to right for LTR languages
+            container.style.left = 'auto';
+            container.style.right = '1rem';
+          }
+        }
+      }
+      
+      // Attach event listeners to language pills
+      const languagePills = document.querySelectorAll('.language-pill');
+      languagePills.forEach(pill => {
+        pill.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const lang = this.getAttribute('data-lang');
+          if (lang && typeof switchLanguage === 'function') {
+            applySubmissionMessageByPaymentMethod();
+            switchLanguage(lang);
+            updateLanguagePillsPosition(lang);
+          } else {
+            console.error('Language switching failed. Lang:', lang, 'Function exists:', typeof switchLanguage === 'function');
+          }
+        });
+      });
+      
+      // Update position on initial load
+      updateLanguagePillsPosition(savedLanguage);
+      
+      // Monitor for language changes
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
+            const currentLang = document.documentElement.getAttribute('lang') || 'en';
+            updateLanguagePillsPosition(currentLang);
+          }
+        });
+      });
+      
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['lang', 'dir']
+      });
+    });
+
+    // Return home function
+    function returnHome() {
+      sessionStorage.setItem('selectedLanguage', 'en');
+      window.location.href = 'index.html';
+    }
+  </script>
+
+<script>
+  /* ---- Injected for the demo page: report this page's
+     real content height to the parent window via postMessage, so the
+     embedding iframe resizes correctly. ---- */
+  (function(){
+    function reportHeight(){
+      var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      if(h > 0 && window.parent){
+        window.parent.postMessage({ source: 'checkout-demo', height: h }, location.origin === 'null' ? '*' : location.origin);
+      }
+    }
+    window.addEventListener('load', function(){
+      reportHeight();
+      [60, 150, 400, 800, 1500].forEach(function(d){ setTimeout(reportHeight, d); });
+      if(window.ResizeObserver){
+        new ResizeObserver(reportHeight).observe(document.body);
+      }
+      document.querySelectorAll('img').forEach(function(img){
+        if(!img.complete){
+          img.addEventListener('load', reportHeight, { once: true });
+          img.addEventListener('error', reportHeight, { once: true });
+        }
+      });
+    });
+  })();
+</script>
+</body>
+
+
+</html>
+
+

@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Wallet Details - Checkout Page</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+  <!-- Wrapper Div -->
+  <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 ">
+
+    <!-- White Card -->
+    <div class="bg-card d-flex flex-column justify-content-center align-items-center">
+
+      <!-- Payment Options -->
+      <div class="d-flex flex-column payment-box w-100">
+        <div class="d-flex flex-column align-items-start justify-content-between heading-wrapper gap-24-box w-100">
+          <!-- Timer -->
+          <div class="d-flex time-chip-alt w-100 justify-content-between align-items-center w-100">
+            <p class="time-text" data-translate="expires-in">Expires in</p>
+            <div class="d-flex time-wrapper gap-08-box align-items-center">
+              <img class="timer-icon" src="images/schedule-icon.png" alt="">
+              <p class="time-text">
+                13m 36s
+              </p>
+            </div>
+          </div>
+          <div class="d-flex w-100 flex-column gap-08-box align-items-start">
+            <h2 class="payment-head" data-translate="complete-payment">Complete your payment</h2>
+            <!-- Language Pills (below title) -->
+            <div class="d-flex gap-08-box align-items-center">
+              <button class="smallbtn language-pill active" type="button" data-lang="en">English</button>
+              <button class="smallbtn language-pill" type="button" data-lang="ar">العربية</button>
+              <button class="smallbtn language-pill" type="button" data-lang="fr">French</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Beneficiary Details -->
+        <div class="d-flex flex-column gap-16-box w-100 section-spacing-top" id="walletDetailsSection">
+          <h3 class="form-label-as-heading" data-translate="wallet-details-for-payment">Beneficiary Details</h3>
+          <div class="details-boxx">
+            <div class="d-flex flex-column gap-16-box">
+              <div class="wallet-number-row">
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="head-bank-details" data-translate="wallet-number">Wallet Number</p>
+                  <button class="copy-button-simple" type="button" onclick="copyWalletNumber(event)">
+                    <span data-translate="copy">Copy</span>
+                    <img src="images/copy.svg" alt="Copy" class="copy-icon">
+                  </button>
+                </div>
+                <p class="tag-bank-details" id="recipientWalletNumber">0634567890</p>
+              </div>
+              <div class="info-row">
+                <div class="d-flex flex-column gap-04-box">
+                  <p class="head-bank-details" data-translate="wallet-name">Wallet Name</p>
+                  <p class="tag-bank-details" id="walletNameDisplay">CashPlus</p>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="d-flex flex-column gap-04-box">
+                  <p class="head-bank-details" data-translate="amount">Amount</p>
+                  <p class="tag-bank-details">MAD 500</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transfer Details Section -->
+        <div class="d-flex flex-column gap-16-box w-100 section-spacing-top">
+          <h3 class="form-label-as-heading" data-translate="transfer-details">Your Wallet Details</h3>
+          <div class="d-flex flex-column form-wrapper gap-32-wrapper transfer-details-form-spacing">
+            <div class="d-flex flex-column upi-input-wrapper w-100">
+              <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+                <label for="userWalletNumber" class="form-label" data-translate="wallet-number">Wallet Number</label>
+                <input type="text" class="form-control upi-input" id="userWalletNumber" placeholder="Enter your wallet number" data-translate-placeholder="enter-wallet-number" maxlength="10">
+                <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="walletNumberError">
+                  <span class="error-exclamation">!</span>
+                  <span data-translate="valid-wallet-number">Enter a valid wallet number (Length must be 10 digits, starting with 06 or 07).</span>
+                </p>
+              </div>
+            </div>
+            <div class="d-flex flex-column upi-input-wrapper w-100">
+              <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+                <label for="walletName" class="form-label" data-translate="wallet-name">Wallet Name</label>
+                <input type="text" class="form-control upi-input" id="walletName" placeholder="Enter your wallet name" data-translate-placeholder="enter-wallet-name">
+                <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="walletNameError">
+                  <span class="error-exclamation">!</span>
+                  <span data-translate="valid-wallet-name">Enter a valid wallet name</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Receipt Section -->
+        <div class="d-flex flex-column gap-16-box w-100 upload-section-spacing">
+          <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+            <div class="d-flex align-items-center w-100 gap-12-box">
+              <input type="file" id="receiptFile" accept="image/*,.pdf" style="display: none;" onchange="handleFileSelect(this)">
+              <button type="button" class="smallbtn d-flex align-items-center justify-content-center gap-12-box" onclick="document.getElementById('receiptFile').click()">
+                <span data-translate="upload-receipt">Upload Receipt</span>
+                <img src="images/upload.svg" alt="Upload" class="upload-icon">
+              </button>
+              <p class="help-text" data-translate="max-upload-size">Max upload size: 5MB</p>
+            </div>
+            <p class="help-text" data-translate="supported-file-format">Supported File Format: .jpg, .JPEG, and .png</p>
+            <p class="help-text file-name-text d-none" id="fileName" style="margin-top: 0.5rem;"></p>
+            <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="attachmentError">
+              <span class="error-exclamation">!</span>
+              <span data-translate="please-add-attachment">Please add an attachment</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="button-wrapper w-100 submit-button-spacing">
+          <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="submitButton" onclick="handleSubmit()" disabled>
+            <span data-translate="submit">Submit</span>
+          </button>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+
+  <script src="script.js"></script>
+  <script>
+    // Set English as default language on page load and attach event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load saved language from sessionStorage or default to English
+      const savedLanguage = sessionStorage.getItem('selectedLanguage') || 'en';
+      if (typeof switchLanguage === 'function') {
+        switchLanguage(savedLanguage);
+      }
+      
+      // Attach event listeners to language pills
+      const languagePills = document.querySelectorAll('.language-pill');
+      languagePills.forEach(pill => {
+        pill.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const lang = this.getAttribute('data-lang');
+          if (lang && typeof switchLanguage === 'function') {
+            switchLanguage(lang);
+          } else {
+            console.error('Language switching failed. Lang:', lang, 'Function exists:', typeof switchLanguage === 'function');
+          }
+        });
+      });
+      
+      // Show payment completion modal automatically on page load
+      const paymentCompletionModalElement = document.getElementById('paymentCompletionModal');
+      if (paymentCompletionModalElement) {
+        const paymentCompletionModal = new bootstrap.Modal(paymentCompletionModalElement);
+        paymentCompletionModal.show();
+      }
+
+      // Sync selected wallet from previous page.
+      const savedWalletName = sessionStorage.getItem('selectedWalletName');
+      const walletNameDisplay = document.getElementById('walletNameDisplay');
+      if (savedWalletName && walletNameDisplay) {
+        walletNameDisplay.textContent = savedWalletName;
+      }
+    });
+
+    // Copy wallet number function
+    function copyWalletNumber(event) {
+      const walletNumber = document.getElementById('recipientWalletNumber').textContent;
+      navigator.clipboard.writeText(walletNumber).then(function() {
+        // Show feedback
+        const copyButton = event.target.closest('.copy-button-simple');
+        if (copyButton) {
+          // Get current language (prefer active pill)
+          const activePill = document.querySelector('.language-pill.active');
+          const pillLang = activePill ? activePill.getAttribute('data-lang') : null;
+          const currentLang = pillLang || document.documentElement.getAttribute('lang') || sessionStorage.getItem('selectedLanguage') || 'en';
+          const originalText = copyButton.querySelector('span').textContent;
+          
+          // Get translated "Copied!" text
+          let copiedText = 'Copied!';
+          if (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang]['copied']) {
+            copiedText = translations[currentLang]['copied'];
+          }
+          
+          copyButton.querySelector('span').textContent = copiedText;
+          setTimeout(() => {
+            // Restore original text using translation
+            if (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang]['copy']) {
+              copyButton.querySelector('span').textContent = translations[currentLang]['copy'];
+            } else {
+              copyButton.querySelector('span').textContent = originalText;
+            }
+          }, 2000);
+        }
+      }).catch(function(err) {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+
+    // Function to show/hide attachment error
+    function toggleAttachmentError(show) {
+      const errorElement = document.getElementById('attachmentError');
+      if (errorElement) {
+        if (show) {
+          errorElement.classList.remove('d-none');
+        } else {
+          errorElement.classList.add('d-none');
+        }
+      }
+    }
+
+    // Handle file select
+    function handleFileSelect(input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+        
+        if (file.size > maxSize) {
+          alert('File size exceeds 5MB. Please select a smaller file.');
+          input.value = '';
+          toggleAttachmentError(true);
+          checkFormValidity();
+          return;
+        }
+        
+        const fileName = document.getElementById('fileName');
+        fileName.textContent = file.name;
+        fileName.classList.remove('d-none');
+        toggleAttachmentError(false);
+        checkFormValidity();
+      } else {
+        toggleAttachmentError(true);
+        checkFormValidity();
+      }
+    }
+    
+    // Function to check if all fields are valid and enable/disable submit button
+    function checkFormValidity() {
+      const walletNumber = document.getElementById('userWalletNumber').value.trim();
+      const walletName = document.getElementById('walletName').value.trim();
+      const receiptFile = document.getElementById('receiptFile').files[0];
+      const submitButton = document.getElementById('submitButton');
+      
+      const isWalletNumberValid = walletNumber.length > 0 && validateWalletNumber(walletNumber);
+      const isWalletNameValid = walletName.length > 0 && validateWalletName(walletName);
+      const isAttachmentUploaded = receiptFile !== undefined && receiptFile !== null;
+      
+      if (submitButton) {
+        if (isWalletNumberValid && isWalletNameValid && isAttachmentUploaded) {
+          submitButton.disabled = false;
+        } else {
+          submitButton.disabled = true;
+        }
+      }
+    }
+
+    // Function to show/hide wallet number error
+    function toggleWalletNumberError(show) {
+      const errorElement = document.getElementById('walletNumberError');
+      const inputElement = document.getElementById('userWalletNumber');
+      
+      if (errorElement && inputElement) {
+        if (show) {
+          errorElement.classList.remove('d-none');
+          inputElement.classList.add('form-control-error');
+        } else {
+          errorElement.classList.add('d-none');
+          inputElement.classList.remove('form-control-error');
+        }
+      }
+    }
+
+    // Function to show/hide wallet name error
+    function toggleWalletNameError(show) {
+      const errorElement = document.getElementById('walletNameError');
+      const inputElement = document.getElementById('walletName');
+      
+      if (errorElement && inputElement) {
+        if (show) {
+          errorElement.classList.remove('d-none');
+          inputElement.classList.add('form-control-error');
+        } else {
+          errorElement.classList.add('d-none');
+          inputElement.classList.remove('form-control-error');
+        }
+      }
+    }
+
+    // Validate wallet number
+    function validateWalletNumber(walletNumber) {
+      const trimmed = walletNumber.trim();
+      // Must start with 06 or 07 and be exactly 10 digits
+      return /^(06|07)\d{8}$/.test(trimmed);
+    }
+
+    // Validate wallet name
+    function validateWalletName(walletName) {
+      const trimmed = walletName.trim();
+      // Basic validation - at least 2 characters
+      return trimmed.length >= 2;
+    }
+
+    // Initialize input validation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize form validation state
+      checkFormValidity();
+      
+      const walletNumberInput = document.getElementById('userWalletNumber');
+      const walletNameInput = document.getElementById('walletName');
+
+      // Wallet number validation
+      if (walletNumberInput) {
+        walletNumberInput.addEventListener('blur', function() {
+          const walletNumber = this.value.trim();
+          if (walletNumber.length > 0 && !validateWalletNumber(walletNumber)) {
+            toggleWalletNumberError(true);
+          } else {
+            toggleWalletNumberError(false);
+          }
+          checkFormValidity();
+        });
+
+        walletNumberInput.addEventListener('input', function() {
+          // Limit to 10 digits
+          if (this.value.length > 10) {
+            this.value = this.value.slice(0, 10);
+          }
+          const walletNumber = this.value.trim();
+          if (validateWalletNumber(walletNumber)) {
+            toggleWalletNumberError(false);
+          }
+          checkFormValidity();
+        });
+      }
+
+      // Wallet name validation
+      if (walletNameInput) {
+        walletNameInput.addEventListener('blur', function() {
+          const walletName = this.value.trim();
+          if (walletName.length > 0 && !validateWalletName(walletName)) {
+            toggleWalletNameError(true);
+          } else {
+            toggleWalletNameError(false);
+          }
+          checkFormValidity();
+        });
+
+        walletNameInput.addEventListener('input', function() {
+          const walletName = this.value.trim();
+          if (validateWalletName(walletName)) {
+            toggleWalletNameError(false);
+          }
+          checkFormValidity();
+        });
+      }
+    });
+
+    // Handle submit
+    function handleSubmit() {
+      const userWalletNumber = document.getElementById('userWalletNumber').value.trim();
+      const walletName = document.getElementById('walletName').value.trim();
+      const receiptFile = document.getElementById('receiptFile').files[0];
+
+      let hasError = false;
+
+      // Validate wallet number
+      if (!userWalletNumber || !validateWalletNumber(userWalletNumber)) {
+        toggleWalletNumberError(true);
+        hasError = true;
+      } else {
+        toggleWalletNumberError(false);
+      }
+
+      // Validate wallet name
+      if (!walletName || !validateWalletName(walletName)) {
+        toggleWalletNameError(true);
+        hasError = true;
+      } else {
+        toggleWalletNameError(false);
+      }
+
+      // Validate receipt file
+      if (!receiptFile) {
+        toggleAttachmentError(true);
+        hasError = true;
+      } else {
+        toggleAttachmentError(false);
+      }
+
+      if (hasError) {
+        return;
+      }
+
+      // Here you would typically submit the form data to your backend
+      console.log('Submitting payment details:', {
+        userWalletNumber,
+        walletName,
+        receiptFile: receiptFile.name
+      });
+
+      // Redirect to success page
+      window.location.href = 'success.html';
+    }
+
+  </script>
+
+  <!-- Payment Completion Modal -->
+  <div class="modal fade" id="paymentCompletionModal" tabindex="-1" aria-labelledby="paymentCompletionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentCompletionModalLabel" data-translate="payment-completion-title">⚠️ Complete the transfer in your wallet app using the displayed beneficiary details.</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="payment-completion-message" data-translate="payment-completion-message">
+            After making the payment in your wallet app, please provide the below details:
+          </p>
+          <ul class="payment-completion-list">
+            <li data-translate="payment-completion-detail-1">Wallet details (wallet number and wallet name) from which the transfer was made</li>
+            <li data-translate="payment-completion-detail-2">Proof of payment (receipt/screenshot)</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary payment-completion-got-it-btn" data-bs-dismiss="modal" data-translate="got-it">Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="feedbackModalLabel" data-translate="feedback">Feedback</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption1" value="explore">
+              <label class="form-check-label" for="feedbackOption1" data-translate="feedback-explore">
+                I would like to explore more before completing transaction.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption2" value="dont_understand">
+              <label class="form-check-label" for="feedbackOption2" data-translate="feedback-dont-understand">
+                I didn't understand what to do next.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption3" value="edit_details">
+              <label class="form-check-label" for="feedbackOption3" data-translate="feedback-edit-details">
+                I want to go back and edit my details.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption4" value="changed_mind">
+              <label class="form-check-label" for="feedbackOption4" data-translate="feedback-changed-mind">
+                I changed my mind.
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link skip-link" data-bs-dismiss="modal" data-translate="skip">Skip</button>
+          <button type="button" class="btn btn-primary feedback-submit-btn" id="submitFeedback" data-translate="submit-feedback">Submit Feedback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ---- Injected for the demo page: report this page's
+     real content height to the parent window via postMessage, so the
+     embedding iframe resizes correctly. ---- */
+  (function(){
+    function reportHeight(){
+      var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      if(h > 0 && window.parent){
+        window.parent.postMessage({ source: 'checkout-demo', height: h }, location.origin === 'null' ? '*' : location.origin);
+      }
+    }
+    window.addEventListener('load', function(){
+      reportHeight();
+      [60, 150, 400, 800, 1500].forEach(function(d){ setTimeout(reportHeight, d); });
+      if(window.ResizeObserver){
+        new ResizeObserver(reportHeight).observe(document.body);
+      }
+      document.querySelectorAll('img').forEach(function(img){
+        if(!img.complete){
+          img.addEventListener('load', reportHeight, { once: true });
+          img.addEventListener('error', reportHeight, { once: true });
+        }
+      });
+    });
+  })();
+</script>
+</body>
+
+
+</html>
+

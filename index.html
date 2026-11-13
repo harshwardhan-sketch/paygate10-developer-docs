@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paygate10 Developer Docs</title>
+<meta name="description" content="Guides, API reference and tools for integrating with the Paygate10 Gateway: pay-ins, payouts, signing and error codes.">
+<meta name="theme-color" content="#163a4d">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap">
+<link rel="icon" href="assets/icon.svg">
+<link rel="stylesheet" href="styles.css?v=7999a86f11">
+<link rel="stylesheet" href="redesign.css?v=25ed50393c">
+</head>
+<body>
+<header>
+  <button class="iconbtn" id="menuBtn" type="button" aria-label="Open menu">☰</button>
+  <a class="logo" href="#/" aria-label="Paygate10 Developer Docs home"><span class="wordmark"><img src="assets/icon.svg" alt="" width="26" height="26">Paygate10</span><small>Developers</small></a>
+  <div class="switch" id="switch">
+    <a href="#/legacy/start" data-tab="docs" class="legacy">Integration guide</a>
+    <a href="#/methods" data-tab="methods" class="legacy">Payment methods</a>
+    <a href="#/legacy/api-overview" data-tab="api" class="legacy">API reference</a>
+    <a href="#/playground" data-tab="playground" class="legacy">Hash playground</a>
+  </div>
+  <div class="spacer"></div>
+  <button class="searchbtn" id="searchBtn" type="button" aria-label="Search the docs" aria-keyshortcuts="Control+K Meta+K /">
+    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <span>Search docs</span><kbd>⌘K</kbd>
+  </button>
+  <button class="iconbtn" id="themeBtn" type="button" aria-label="Switch between light and dark theme" title="Light / dark theme"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button>
+</header>
+<div id="progress" aria-hidden="true"></div>
+<div id="app"></div>
+<button id="toTop" type="button" aria-label="Back to top" hidden><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 14l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<script src="data.js?v=d5149541d6"></script>
+<script src="app.js?v=bc8c36dd34"></script>
+<script src="error-fixes.js?v=6b0b160290"></script>
+<script src="assets/product-data.js?v=a966601fa3"></script>
+<script src="guide.js?v=c3f84a1e3f"></script>
+<script src="home.js?v=977ed646f5"></script>
+<script src="fieldrules.js?v=439ea6de47"></script>
+<script src="recipes.js?v=cee7a7250f"></script>
+<script src="apiref2.js?v=9e5fd57d76"></script>
+<script src="legacy.js?v=9c54765558"></script>
+<script src="playground.js?v=4f1bf31278"></script>
+<script src="methods.js?v=63c51c7f7f"></script>
+<script src="motion.js?v=0cf6b8577c"></script>
+<script src="search.js?v=c1f6cbfd12"></script>
+</body>
+</html>

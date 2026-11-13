@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>Transaction Successful</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0">
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="wallet-waiting-page">
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <div class="successful-container">
+      
+      <!-- Success Icon -->
+      <div class="d-flex justify-content-center">
+        <div class="successful-icon-wrapper">
+          <img class="successful-icon" src="images/success.png" alt="Transaction Successful">
+        </div>
+      </div>
+
+      <!-- Success Title -->
+      <div class="successful-title">Transaction Successful</div>
+
+      <!-- Transaction Details Box -->
+      <div class="successful-details-box">
+        <div class="successful-detail-item">
+          <div class="successful-detail-label">Amount</div>
+          <div class="successful-detail-value">PKR 500</div>
+        </div>
+        <div class="successful-detail-item">
+          <div class="successful-detail-label">Order ID</div>
+          <div class="successful-detail-value">10102320204</div>
+        </div>
+      </div>
+
+      <!-- Return Button -->
+      <button class="return-button" onclick="returnHome()">Return to Home</button>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+
+  <script>
+    function getOrderId() {
+      const orderIdEl = document.getElementById('orderIdDisplay');
+      if (orderIdEl && orderIdEl.textContent.trim()) {
+        return orderIdEl.textContent.trim();
+      }
+      return sessionStorage.getItem('trackedOrderId') || '';
+    }
+
+    if (typeof analytics !== 'undefined' && typeof analytics.track === 'function') {
+      analytics.track('Transaction Successful Page Loaded', { page: 'transaction-successful', order_id: getOrderId() });
+    }
+
+    // Return home function
+    function returnHome() {
+      if (typeof analytics !== 'undefined' && typeof analytics.track === 'function') {
+        analytics.track('Transaction Successful Return Home Click', { page: 'transaction-successful', order_id: getOrderId() });
+      }
+      sessionStorage.setItem('selectedLanguage', 'en');
+      window.location.href = 'index.html';
+    }
+  </script>
+
+<script>
+  /* ---- Injected for the demo page: report this page's
+     real content height to the parent window via postMessage, so the
+     embedding iframe resizes correctly on every page this flow can
+     navigate to (not just the initial accordion list). ---- */
+  (function(){
+    function reportHeight(){
+      var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      if(h > 0 && window.parent){
+        window.parent.postMessage({ source: 'checkout-demo', height: h }, location.origin === 'null' ? '*' : location.origin);
+      }
+    }
+    window.addEventListener('load', function(){
+      reportHeight();
+      [60, 150, 400, 800, 1500].forEach(function(d){ setTimeout(reportHeight, d); });
+      if(window.ResizeObserver){
+        new ResizeObserver(reportHeight).observe(document.body);
+      }
+      document.querySelectorAll('img').forEach(function(img){
+        if(!img.complete){
+          img.addEventListener('load', reportHeight, { once: true });
+          img.addEventListener('error', reportHeight, { once: true });
+        }
+      });
+    });
+  })();
+</script>
+</body>
+
+
+</html>
+

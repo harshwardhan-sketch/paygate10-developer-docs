@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting for Payment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" crossorigin="anonymous" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100" style="background-color: #f8f9fa;">
+        <div class="card shadow-sm waiting-page-card" style="max-width: 500px; width: 100%; border-radius: 12px; border: none;">
+            <div class="card-body p-4">
+                <div id="waitingDefaultView">
+                <!-- Language Pills -->
+                <div class="d-flex justify-content-end gap-08-box align-items-center mb-4">
+                    <button class="smallbtn language-pill active" type="button" data-lang="en" onclick="switchWaitingLanguage('en')">English</button>
+                    <button class="smallbtn language-pill" type="button" id="waitingSecondaryLanguagePill" data-lang="ar" onclick="switchWaitingLanguage('ar')">العربية</button>
+                </div>
+                
+                <!-- Hourglass Icon -->
+                <div class="text-center mb-4">
+                    <img src="images/hourglass.svg" alt="Hourglass" style="width: 80px; height: 80px;">
+                </div>
+                
+                <!-- Session Expiry -->
+                <div class="text-center mb-4">
+                    <p class="mb-2" style="color: #00386B; font-size: 14px; font-weight: 500;" data-translate="session-expire">Your Session will expire in</p>
+                    <h2 class="fw-bold timer-display" id="defaultTimerDisplay" style="color: #00386B; font-size: 32px; direction: ltr;">4 min 59 sec</h2>
+                </div>
+                
+                <!-- Amount and Account Details Box -->
+                <div class="p-4 mb-4" style="background-color: #FFF5CE; border-radius: 8px; border: 1px solid #F0E68C;">
+                    <div class="text-center mb-2">
+                        <p class="mb-1" style="color: #8B7355; font-size: 14px; font-weight: 500;" data-translate="amount">Amount</p>
+                        <h3 class="fw-bold" style="color: #2E2F2F; font-size: 18px;" id="paymentAmount">EGP 500</h3>
+                    </div>
+                    <div class="text-center">
+                        <p class="mb-1" style="color: #8B7355; font-size: 14px; font-weight: 500;" id="waitingPhoneLabel" data-translate="phone-number">Phone Number</p>
+                        <h4 class="fw-bold mb-0" style="color: #2E2F2F; font-size: 18px;" id="phoneNumber">-</h4>
+                    </div>
+                </div>
+                
+                <!-- Instructions -->
+                <div class="text-center mb-4">
+                    <p style="color: #000000; font-size: 14px; line-height: 1.6;" id="waitingInstructionText">
+                        <span data-translate="wallet-waiting-instruction">To complete your payment, open the SMS sent to your mobile number. Follow the link to pay using your wallet app or dial USSD code.</span>
+                    </p>
+                </div>
+                
+                <!-- Return to Home Button -->
+                <div class="d-grid">
+                    <button class="btn fw-semibold py-3" type="button" onclick="returnHome()" style="background-color: #28A745; border-color: #28A745; color: white; border-radius: 6px; font-size: 16px;" data-translate="return-to-home">
+                        Return to Home
+                    </button>
+                </div>
+                </div>
+
+                <!-- Egypt Wallet: mobile-only waiting layout -->
+                <div id="egyptWaitingMobileView" class="egypt-waiting-mobile-view d-none">
+                    <div class="egypt-waiting-session-row d-flex justify-content-between align-items-center mb-3">
+                        <p class="mb-0 egypt-waiting-session-label" data-translate="session-expiry-label">Session Expiry:</p>
+                        <div class="d-flex time-wrapper gap-08-box align-items-center">
+                            <img class="timer-icon" src="images/schedule-icon.png" alt="">
+                            <p class="time-text mb-0" id="egyptMobileTimerDisplay">4m 59s</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-08-box align-items-center mb-4 egypt-waiting-language-pills">
+                        <button class="smallbtn language-pill active" type="button" data-lang="en" onclick="switchWaitingLanguage('en')">English</button>
+                        <button class="smallbtn language-pill egypt-waiting-secondary-pill" type="button" data-lang="ar" onclick="switchWaitingLanguage('ar')">العربية</button>
+                    </div>
+
+                    <div class="egypt-waiting-details-box p-4 mb-4">
+                        <div class="text-center mb-2">
+                            <p class="mb-1 egypt-waiting-detail-label" data-translate="amount">Amount</p>
+                            <h3 class="fw-bold mb-0 egypt-waiting-detail-value" id="egyptMobilePaymentAmount">EGP 500</h3>
+                        </div>
+                        <div class="text-center">
+                            <p class="mb-1 egypt-waiting-detail-label" id="egyptMobilePhoneLabel" data-translate="phone-number">Phone Number</p>
+                            <h4 class="fw-bold mb-0 egypt-waiting-detail-value" id="egyptMobilePhoneNumber">-</h4>
+                        </div>
+                    </div>
+
+                    <div class="egypt-waiting-section text-center mb-4">
+                        <h3 class="egypt-waiting-section-title" data-translate="pay-through-ussd">Pay through USSD code</h3>
+                        <div class="egypt-waiting-action-stack">
+                            <a href="tel:%2A777%2A55%23" class="egypt-waiting-ussd-code" id="egyptUssdCodeLink" dir="ltr" onclick="dialEgyptUssdCode(event)">*777*55#</a>
+                            <button class="btn egypt-waiting-action-btn" type="button" onclick="dialEgyptUssdCode(event)" data-translate="dial-ussd-code">Dial USSD code</button>
+                        </div>
+                        <p class="egypt-waiting-section-instruction mb-0" id="egyptUssdInstructionText" data-translate="egypt-ussd-instruction">To complete the payment, click on the USSD code above, enter your wallet PIN, and follow the instructions to approve the transaction.</p>
+                    </div>
+
+                    <div class="egypt-waiting-or-separator d-flex align-items-center my-4">
+                        <div class="egypt-waiting-or-line"></div>
+                        <span data-translate="or-separator">or</span>
+                        <div class="egypt-waiting-or-line"></div>
+                    </div>
+
+                    <div class="egypt-waiting-section text-center mb-4">
+                        <h3 class="egypt-waiting-section-title" data-translate="pay-through-wallet-app">Pay through wallet app</h3>
+                        <div class="egypt-waiting-action-stack">
+                            <img src="images/et.png" alt="e& money - EG" class="egypt-waiting-wallet-logo" id="egyptWalletProviderLogo">
+                            <button class="btn egypt-waiting-action-btn" type="button" onclick="payInEgyptWalletApp(event)" data-translate="pay-in-app">Pay in App</button>
+                        </div>
+                        <p class="egypt-waiting-section-instruction mb-0" id="egyptAppInstructionText" data-translate="egypt-app-instruction">To complete the payment, click on 'Pay in App,' open your wallet app, accept the payment request, and enter your wallet PIN to authorize the transaction.</p>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-link egypt-waiting-return-link p-0" type="button" onclick="returnHome()" data-translate="return-to-home">Return to Home</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"></script>
+    <script src="script.js"></script>
+    <script>
+        // Easypaisa/JazzCash Simpesa -  note:
+        // Dynamic content by payment method starts here. Keep default waiting content for non-PKR Simpesa methods.
+        function getSimpesaWalletType() {
+            const checkoutWallet = (sessionStorage.getItem('checkoutWallet') || '').toLowerCase();
+            const paymentAmount = (sessionStorage.getItem('paymentAmount') || '').toUpperCase();
+            if (!paymentAmount.includes('PKR')) {
+                return '';
+            }
+            if (checkoutWallet === 'easypaisa' || checkoutWallet === 'jazzcash') {
+                return checkoutWallet;
+            }
+            return '';
+        }
+
+        function isSimpesaWaitingFlow() {
+            return getSimpesaWalletType() !== '';
+        }
+
+        function isEgyptWalletWaitingFlow() {
+            return (sessionStorage.getItem('checkoutWallet') || '') === 'wallet-egypt';
+        }
+
+        function isEgyptMobileWaitingViewActive() {
+            return isEgyptWalletWaitingFlow() && window.matchMedia('(max-width: 767px)').matches;
+        }
+
+        function configureWaitingLayout() {
+            const isEgypt = isEgyptWalletWaitingFlow();
+            document.body.classList.toggle('egypt-wallet-waiting', isEgypt);
+            const mobileView = document.getElementById('egyptWaitingMobileView');
+            const defaultView = document.getElementById('waitingDefaultView');
+            if (!mobileView || !defaultView) {
+                return;
+            }
+            if (isEgyptMobileWaitingViewActive()) {
+                mobileView.classList.remove('d-none');
+            } else {
+                mobileView.classList.add('d-none');
+            }
+        }
+
+        function getEgyptTelecomProviderConfig() {
+            if (typeof window.getEgyptTelecomProviderFromSession === 'function') {
+                return window.getEgyptTelecomProviderFromSession();
+            }
+            const phoneNumber = sessionStorage.getItem('walletPhoneNumber') || '';
+            if (typeof window.getEgyptTelecomProviderFromPhone === 'function') {
+                return window.getEgyptTelecomProviderFromPhone(phoneNumber);
+            }
+            return null;
+        }
+
+        function getEgyptUssdTelUri() {
+            if (typeof window.getEgyptUssdTelUri === 'function' && window.getEgyptUssdTelUri !== getEgyptUssdTelUri) {
+                return window.getEgyptUssdTelUri();
+            }
+            const provider = getEgyptTelecomProviderConfig();
+            const ussdCode = (provider && provider.ussdCode) || sessionStorage.getItem('egyptUssdCode') || '*777*55#';
+            if (typeof window.encodeUssdCodeForTelUri === 'function') {
+                return window.encodeUssdCodeForTelUri(ussdCode);
+            }
+            return 'tel:' + ussdCode.replace(/\*/g, '%2A').replace(/#/g, '%23');
+        }
+
+        function applyEgyptTelecomProviderUI() {
+            if (!isEgyptWalletWaitingFlow()) {
+                return;
+            }
+            if (typeof window.applyEgyptTelecomProviderUI === 'function' && window.applyEgyptTelecomProviderUI !== applyEgyptTelecomProviderUI) {
+                window.applyEgyptTelecomProviderUI();
+                return;
+            }
+            const provider = getEgyptTelecomProviderConfig();
+            if (!provider) {
+                return;
+            }
+            const ussdLink = document.getElementById('egyptUssdCodeLink');
+            const providerLogo = document.getElementById('egyptWalletProviderLogo');
+            if (ussdLink) {
+                ussdLink.textContent = provider.ussdCode;
+                ussdLink.setAttribute('href', getEgyptUssdTelUri());
+                ussdLink.setAttribute('dir', 'ltr');
+            }
+            if (providerLogo) {
+                providerLogo.src = provider.logo;
+                providerLogo.alt = provider.logoAlt;
+            }
+        }
+
+        function resetEgyptWaitingTrigger(event) {
+            const trigger = event && event.currentTarget;
+            if (trigger && typeof trigger.blur === 'function') {
+                trigger.blur();
+            }
+            const activeElement = document.activeElement;
+            if (activeElement && activeElement !== document.body && typeof activeElement.blur === 'function') {
+                activeElement.blur();
+            }
+            window.setTimeout(() => {
+                if (trigger && typeof trigger.blur === 'function') {
+                    trigger.blur();
+                }
+                const focusedElement = document.activeElement;
+                if (focusedElement && focusedElement !== document.body && typeof focusedElement.blur === 'function') {
+                    focusedElement.blur();
+                }
+            }, 0);
+        }
+
+        function dialEgyptUssdCode(event) {
+            if (event && typeof event.preventDefault === 'function') {
+                event.preventDefault();
+            }
+            // Intentionally no-op for this product demo — clicking
+            // "Dial USSD code" should not redirect/dial anything.
+        }
+
+        window.dialEgyptUssdCode = dialEgyptUssdCode;
+
+        function payInEgyptWalletApp(event) {
+            if (event && typeof event.preventDefault === 'function') {
+                event.preventDefault();
+            }
+            // Intentionally no-op for this product demo — clicking
+            // "Pay in App" should not attempt to open any app/deep link.
+        }
+
+        window.payInEgyptWalletApp = payInEgyptWalletApp;
+
+        function syncEgyptMobilePaymentDetails() {
+            const paymentAmount = document.getElementById('paymentAmount');
+            const phoneNumber = document.getElementById('phoneNumber');
+            const mobileAmount = document.getElementById('egyptMobilePaymentAmount');
+            const mobilePhone = document.getElementById('egyptMobilePhoneNumber');
+            if (paymentAmount && mobileAmount) {
+                mobileAmount.textContent = paymentAmount.textContent;
+            }
+            if (phoneNumber && mobilePhone) {
+                mobilePhone.textContent = phoneNumber.textContent;
+            }
+        }
+
+        function applyEgyptMobileWaitingContent(lang) {
+            if (!isEgyptWalletWaitingFlow() || typeof translations === 'undefined') {
+                return;
+            }
+            const copy = translations[lang] || translations.en;
+            const mobileRoot = document.getElementById('egyptWaitingMobileView');
+            if (!mobileRoot || !copy) {
+                return;
+            }
+            mobileRoot.querySelectorAll('[data-translate]').forEach((element) => {
+                const key = element.getAttribute('data-translate');
+                if (copy[key]) {
+                    element.textContent = copy[key];
+                }
+            });
+            const phoneLabel = document.getElementById('egyptMobilePhoneLabel');
+            if (phoneLabel && copy['phone-number']) {
+                phoneLabel.textContent = copy['phone-number'];
+            }
+            const ussdInstruction = document.getElementById('egyptUssdInstructionText');
+            const appInstruction = document.getElementById('egyptAppInstructionText');
+            if (ussdInstruction && copy['egypt-ussd-instruction']) {
+                ussdInstruction.textContent = copy['egypt-ussd-instruction'];
+            }
+            if (appInstruction && copy['egypt-app-instruction']) {
+                appInstruction.textContent = copy['egypt-app-instruction'];
+            }
+        }
+
+        function syncWaitingLanguagePills(lang) {
+            document.querySelectorAll('.language-pill').forEach((pill) => {
+                const pillLang = pill.getAttribute('data-lang');
+                pill.classList.toggle('active', pillLang === lang);
+            });
+        }
+
+        // Load payment details from sessionStorage
+        function loadPaymentDetails() {
+            const phoneNumber = sessionStorage.getItem('walletPhoneNumber');
+            const paymentAmount = sessionStorage.getItem('paymentAmount') || 'EGP 500';
+            const easypaisaNumber = sessionStorage.getItem('easypaisaNumber');
+            const jazzcashNumber = sessionStorage.getItem('jazzcashNumber');
+            const fallbackPhone = sessionStorage.getItem('phoneNumber');
+            const walletType = getSimpesaWalletType();
+            
+            if (walletType === 'easypaisa' && (easypaisaNumber || fallbackPhone)) {
+                document.getElementById('phoneNumber').textContent = easypaisaNumber || fallbackPhone;
+            } else if (walletType === 'jazzcash' && (jazzcashNumber || fallbackPhone)) {
+                document.getElementById('phoneNumber').textContent = jazzcashNumber || fallbackPhone;
+            } else if (phoneNumber) {
+                document.getElementById('phoneNumber').textContent = phoneNumber;
+            } else {
+                document.getElementById('phoneNumber').textContent = '01043456789';
+            }
+            
+            if (paymentAmount) {
+                const amountElement = document.getElementById('paymentAmount');
+                if (amountElement) {
+                    amountElement.textContent = paymentAmount;
+                }
+            }
+            syncEgyptMobilePaymentDetails();
+            applyEgyptTelecomProviderUI();
+        }
+
+        // Easypaisa/JazzCash Simpesa -  note:
+        // Keep default waiting language pill for non-Simpesa (English/Arabic),
+        // and switch to English/Urdu only for PKR Simpesa flows.
+        function configureWaitingLanguagePills() {
+            const secondaryPill = document.getElementById('waitingSecondaryLanguagePill');
+            const egyptSecondaryPill = document.querySelector('.egypt-waiting-secondary-pill');
+            if (!secondaryPill) {
+                return;
+            }
+            if (isSimpesaWaitingFlow()) {
+                secondaryPill.setAttribute('data-lang', 'ur');
+                secondaryPill.setAttribute('onclick', "switchWaitingLanguage('ur')");
+                secondaryPill.textContent = 'اردو';
+                if (egyptSecondaryPill) {
+                    egyptSecondaryPill.setAttribute('data-lang', 'ur');
+                    egyptSecondaryPill.setAttribute('onclick', "switchWaitingLanguage('ur')");
+                    egyptSecondaryPill.textContent = 'اردو';
+                }
+            } else {
+                secondaryPill.setAttribute('data-lang', 'ar');
+                secondaryPill.setAttribute('onclick', "switchWaitingLanguage('ar')");
+                secondaryPill.textContent = 'العربية';
+                if (egyptSecondaryPill) {
+                    egyptSecondaryPill.setAttribute('data-lang', 'ar');
+                    egyptSecondaryPill.setAttribute('onclick', "switchWaitingLanguage('ar')");
+                    egyptSecondaryPill.textContent = 'العربية';
+                }
+            }
+        }
+
+        // Easypaisa/JazzCash Simpesa -  note:
+        // Apply Pakistan wallet-specific waiting label/instruction dynamically by selected wallet and language.
+        function applyEasypaisaWaitingContent(lang) {
+            const walletType = getSimpesaWalletType();
+            const labelElement = document.getElementById('waitingPhoneLabel');
+            const instructionElement = document.getElementById('waitingInstructionText');
+            if (!walletType) {
+                // Restore default waiting content for other methods (e.g., Egypt).
+                if (labelElement) {
+                    labelElement.setAttribute('data-translate', 'phone-number');
+                    labelElement.textContent = (lang === 'ar') ? 'رقم الهاتف' : 'Phone Number';
+                }
+                if (instructionElement) {
+                    instructionElement.removeAttribute('data-translate');
+                    instructionElement.textContent = (lang === 'ar')
+                        ? 'لإكمال عملية الدفع، افتح الرسالة النصية المرسلة إلى رقم هاتفك المحمول. اتبع الرابط للدفع باستخدام تطبيق المحفظة أو اطلب رمز USSD.'
+                        : 'To complete your payment, open the SMS sent to your mobile number. Follow the link to pay using your wallet app or dial USSD code.';
+                }
+                return;
+            }
+
+            if (labelElement) {
+                if (walletType === 'jazzcash') {
+                    labelElement.setAttribute('data-translate', 'jazzcash-number');
+                    labelElement.textContent = (lang === 'ur') ? 'جاز کیش نمبر' : 'JazzCash Number';
+                } else {
+                    labelElement.setAttribute('data-translate', 'easypaisa-number');
+                    labelElement.textContent = (lang === 'ur') ? 'ایزی پیسہ نمبر' : 'Easypaisa Number';
+                }
+            }
+
+            if (instructionElement) {
+                instructionElement.removeAttribute('data-translate');
+                if (walletType === 'jazzcash') {
+                    if (lang === 'ur') {
+                        instructionElement.innerHTML = 'کیا آپ کو نوٹیفیکیشن موصول نہیں ہوا؟ اپنا JazzCash والیٹ ایپ کھولیں، اور ادائیگی کی درخواست منظور کرکے ادائیگی کی منظوری دیں۔';
+                    } else {
+                        instructionElement.innerHTML = "Haven't received a notification? Open your JazzCash wallet app, and authorize the payment by approving the payment request.";
+                    }
+                } else if (lang === 'ur') {
+                    instructionElement.innerHTML = 'کیا آپ کو نوٹیفیکیشن موصول نہیں ہوا؟ اپنا Easypaisa ایپ کھولیں، "My Account" میں جائیں اور پھر "My Approvals" سے ادائیگی منظور کریں۔ آپ کے پاس عمل مکمل کرنے کے لیے <span style="color: #00498c; font-weight: 700;">1 منٹ</span> ہے۔';
+                } else {
+                    instructionElement.innerHTML = "Haven't received a notification? Open your Easypaisa App, go to \"My Account\" and then approve the payment from \"My Approvals\". You have <span style=\"color: #00498c; font-weight: 700;\">1 minute</span> to complete the process.";
+                }
+            }
+        }
+
+        // Easypaisa Simpesa -  note:
+        // Wrapper ensures Easypaisa dynamic overrides are re-applied after global language translation runs.
+        function switchWaitingLanguage(lang) {
+            if (typeof switchLanguage === 'function') {
+                switchLanguage(lang);
+            }
+            applyEasypaisaWaitingContent(lang);
+            applyEgyptMobileWaitingContent(lang);
+            applyEgyptTelecomProviderUI();
+            syncWaitingLanguagePills(lang);
+        }
+
+        function returnHome() {
+            sessionStorage.setItem('selectedLanguage', 'en');
+            window.location.href = 'index.html';
+        }
+
+        // Timer countdown
+        function startTimer() {
+            const walletType = getSimpesaWalletType();
+            let minutes = 4;
+            if (walletType === 'easypaisa') {
+                minutes = 1; // 2-minute style countdown starts at 1:59
+            } else if (walletType === 'jazzcash') {
+                minutes = 14; // 15-minute style countdown starts at 14:59
+            }
+            let seconds = 59;
+            
+            const timerElement = document.getElementById('defaultTimerDisplay') || document.querySelector('h2.fw-bold');
+            const egyptMobileTimerElement = document.getElementById('egyptMobileTimerDisplay');
+            if (!timerElement) return;
+
+            const renderTimer = function() {
+                const timerText = minutes + ' min ' + seconds + ' sec';
+                const compactTimerText = minutes + 'm ' + seconds + 's';
+                timerElement.textContent = timerText;
+                if (egyptMobileTimerElement) {
+                    egyptMobileTimerElement.textContent = compactTimerText;
+                }
+            };
+
+            // Easypaisa Simpesa -  note:
+            // Easypaisa waiting timer is 2 minutes (shown as 1:59 countdown start),
+            // other methods keep existing 5-minute timer behavior.
+            renderTimer();
+            
+            const interval = setInterval(function() {
+                renderTimer();
+                
+                seconds--;
+                if (seconds < 0) {
+                    minutes--;
+                    seconds = 59;
+                }
+                
+                if (minutes < 0) {
+                    clearInterval(interval);
+                    timerElement.textContent = '0 min 0 sec';
+                    if (egyptMobileTimerElement) {
+                        egyptMobileTimerElement.textContent = '0m 0s';
+                    }
+                }
+            }, 1000);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            configureWaitingLayout();
+            configureWaitingLanguagePills();
+            loadPaymentDetails();
+            startTimer();
+            // Get saved language from sessionStorage or default to English
+            const savedLanguage = sessionStorage.getItem('selectedLanguage') || 'en';
+            const effectiveLanguage = (!isSimpesaWaitingFlow() && savedLanguage === 'ur') ? 'ar' : savedLanguage;
+            if (typeof switchLanguage === 'function') {
+                switchLanguage(effectiveLanguage);
+            }
+            applyEasypaisaWaitingContent(effectiveLanguage);
+            applyEgyptMobileWaitingContent(effectiveLanguage);
+            applyEgyptTelecomProviderUI();
+            syncWaitingLanguagePills(effectiveLanguage);
+            window.addEventListener('resize', configureWaitingLayout);
+        });
+    </script>
+<script>
+  /* ---- Injected for the demo page: report this page's
+     real content height to the parent window via postMessage, so the
+     embedding iframe resizes correctly on every page this flow can
+     navigate to (not just the initial accordion list). ---- */
+  (function(){
+    function reportHeight(){
+      var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      if(h > 0 && window.parent){
+        window.parent.postMessage({ source: 'checkout-demo', height: h }, location.origin === 'null' ? '*' : location.origin);
+      }
+    }
+    window.addEventListener('load', function(){
+      reportHeight();
+      [60, 150, 400, 800, 1500].forEach(function(d){ setTimeout(reportHeight, d); });
+      if(window.ResizeObserver){
+        new ResizeObserver(reportHeight).observe(document.body);
+      }
+      document.querySelectorAll('img').forEach(function(img){
+        if(!img.complete){
+          img.addEventListener('load', reportHeight, { once: true });
+          img.addEventListener('error', reportHeight, { once: true });
+        }
+      });
+    });
+  })();
+</script>
+</body>
+
+</html>

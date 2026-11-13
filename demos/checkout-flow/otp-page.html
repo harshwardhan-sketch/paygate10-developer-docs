@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>Enter OTP - Payment</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0">
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .otp-page .otp-instruction-row {
+      justify-content: center !important;
+      text-align: center !important;
+    }
+
+    .otp-page .otp-instruction {
+      display: block !important;
+      width: 100% !important;
+      text-align: center !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    .otp-page .payment-instructions-container {
+      margin-top: -10px;
+    }
+
+    /* Easypaisa Simpesa -  note:
+       Keep OTP cursor on left for Urdu (RTL page) by forcing input direction to LTR. */
+    html[dir="rtl"] .otp-page .otp-digit-input {
+      direction: ltr !important;
+      text-align: center !important;
+      unicode-bidi: plaintext;
+    }
+
+    html[dir="rtl"] .otp-page .otp-blocks {
+      direction: ltr !important;
+    }
+  </style>
+</head>
+
+<body class="otp-page">
+
+  <!-- Wrapper Div -->
+  <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 ">
+
+    <!-- White Card -->
+    <div class="bg-card d-flex flex-column justify-content-center align-items-center">
+
+      <!-- Payment Options -->
+      <div class="d-flex flex-column payment-box w-100">
+        <div class="d-flex flex-column align-items-start justify-content-between heading-wrapper gap-24-box w-100">
+          <!-- Timer -->
+          <div class="d-flex time-chip-alt w-100 justify-content-between align-items-center w-100">
+
+            <p class="time-text" data-translate="otp-session-expires-in">OTP session expires in:</p>
+
+            <div class="d-flex time-wrapper gap-08-box align-items-center">
+              <img class="timer-icon" src="images/schedule-icon.png" alt="">
+              <div class="d-flex gap-04-box">
+                <p class="time-text" id="otpHeaderTimer">
+                  2m 00s
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <h2 class="payment-head" data-translate="otp-verification">OTP Verification</h2>
+            <!-- Language Pills -->
+            <div class="d-flex gap-08-box align-items-center">
+              <button class="smallbtn language-pill active" type="button" data-lang="en" onclick="switchLanguage('en')">English</button>
+              <button class="smallbtn language-pill" type="button" data-lang="ur" onclick="switchLanguage('ur')">اردو</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Details Summary -->
+        <div class="d-flex flex-column align-items-start form-wrapper gap-32-wrapper">
+          <div class="d-flex flex-column w-100">
+            <div class="d-flex flex-column form-and-label-wrapper">
+              <div class="d-flex w-100 justify-content-between align-items-center">
+                <label class="form-label" data-translate="transaction-details">Transaction Details</label>
+              </div>
+              <div class="card-details-summary">
+                <p class="payment-amount"><span id="otpAmountLabel" data-translate="amount">Amount</span>: PKR 500.00</p>
+
+                <p class="card-number-display"><span id="otpEasypaisaLabel" data-translate="easypaisa-number-label">Easypaisa number</span>: -</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- OTP Input -->
+          <div class="d-flex flex-column upi-input-wrapper w-100">
+            <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper w-100">
+              <div class="d-flex w-100 justify-content-between align-items-center otp-instruction-row">
+                <label for="otpInput" class="form-label otp-instruction" data-translate="otp-instruction">Enter the OTP sent to your Easypaisa number:</label>
+              </div>
+              <div class="otp-blocks" id="otpBlocks">
+                <input type="text" class="form-control otp-digit-input" maxlength="1" inputmode="numeric" autocomplete="one-time-code">
+                <input type="text" class="form-control otp-digit-input" maxlength="1" inputmode="numeric" autocomplete="one-time-code">
+                <input type="text" class="form-control otp-digit-input" maxlength="1" inputmode="numeric" autocomplete="one-time-code">
+                <input type="text" class="form-control otp-digit-input" maxlength="1" inputmode="numeric" autocomplete="one-time-code">
+              </div>
+              <p class="help-text help-red d-flex align-items-center gap-08-box" id="otpError">
+                <span class="error-exclamation">!</span>
+                <!--  note (EN): This inline error text is a placeholder to demonstrate UI appearance only.
+                     Please handle this dynamically in logic and update remaining attempts count.
+                     Total attempts are 3, so first error should show "2 attempts left". -->
+                <!-- ٹیک ٹیم نوٹ (UR): یہ اِن لائن ایرر ٹیکسٹ صرف UI میں دکھانے کے لیے ایک پلیس ہولڈر ہے۔
+                     اسے لاجک کے ذریعے ڈائنامک طریقے سے ہینڈل کریں اور باقی کوششوں کی تعداد اپڈیٹ کریں۔
+                     کل کوششیں 3 ہیں، اس لیے پہلی بار ایرر پر "2 attempts left" دکھایا جائے۔ -->
+                <span data-translate="otp-incorrect-error">Incorrect OTP. Please try again, you have 2 attempts left.</span>
+              </p>
+              <input type="hidden" id="otpInput" value="">
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="button-wrapper w-100">
+            <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" onclick="verifyOTP()" disabled data-translate="submit-otp">
+              Submit OTP
+            </button>
+          </div>
+
+          <!-- Payment Instructions Container (copied from Easypaisa Wallet) -->
+          <div class="d-flex flex-column gap-16-box w-100">
+            <div class="payment-instructions-container">
+              <div class="payment-instructions-header">
+                <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                <span data-translate="payment-instructions">Payment Instructions</span>
+              </div>
+              <div class="payment-instructions-text">1. Enter the OTP sent to your number and click Submit OTP.<br>2. If you are a <strong>Telenor</strong> user, approve the transaction via the push notification by entering your MPIN. For <strong>non-Telenor</strong> users, open the Easypaisa app, go to "My Account" and then approve the transaction from "My Approvals".<br><strong>Please note that recipient name in wallet app may vary.</strong></div>
+              <div class="payment-instructions-text-urdu" style="display: none;">1۔ اپنے نمبر پر موصول ہونے والا OTP درج کریں اور "Submit OTP" پر کلک کریں۔<br>2۔ اگر آپ <strong>ٹیلی نار</strong> صارف ہیں تو پش نوٹیفکیشن کے ذریعے اپنا MPIN درج کرکے ٹرانزیکشن منظور کریں۔ <strong>غیر ٹیلی نار</strong> صارفین ایزی پیسہ ایپ کھولیں، "My Account" میں جائیں اور پھر "My Approvals" سے ٹرانزیکشن منظور کریں۔<br><strong>براہ کرم نوٹ کریں کہ والیٹ ایپ میں وصول کنندہ کا نام مختلف ہو سکتا ہے۔</strong></div>
+            </div>
+          </div>
+
+          <!-- Back Button -->
+          <div class="button-wrapper w-100">
+            <button class="btn btn-link checkout-cancel w-100" onclick="goBack()" data-translate="return-home">
+              Return to Home
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+
+  <script src="script.js"></script>
+  <script>
+    (function() {
+      function getValueAfterColon(text) {
+        const raw = String(text || '');
+        const idx = raw.indexOf(':');
+        return idx >= 0 ? raw.slice(idx + 1).trim() : '';
+      }
+
+      function updateOtpTransactionDetailsLanguage(lang) {
+        const amountRow = document.querySelector('.payment-amount');
+        const easypaisaRow = document.querySelector('.card-number-display');
+        const amountLabel = document.getElementById('otpAmountLabel');
+        const easypaisaLabel = document.getElementById('otpEasypaisaLabel');
+        const amountValue = amountRow
+          ? (amountRow.dataset.amountValue || getValueAfterColon(amountRow.textContent) || 'PKR 500.00')
+          : 'PKR 500.00';
+        const easypaisaValue = easypaisaRow
+          ? (easypaisaRow.dataset.easypaisaValue || getValueAfterColon(easypaisaRow.textContent) || '-')
+          : '-';
+        if (amountRow) {
+          amountRow.dataset.amountValue = amountValue;
+        }
+        if (easypaisaRow) {
+          easypaisaRow.dataset.easypaisaValue = easypaisaValue;
+        }
+
+        if (lang === 'ur') {
+          if (amountRow) {
+            amountRow.textContent = `رقم: ${amountValue}`;
+          }
+          if (easypaisaRow) {
+            easypaisaRow.textContent = `ایزی پیسہ نمبر: ${easypaisaValue}`;
+          }
+        } else {
+          if (amountRow) {
+            amountRow.textContent = `Amount: ${amountValue}`;
+          }
+          if (easypaisaRow) {
+            easypaisaRow.textContent = `Easypaisa number: ${easypaisaValue}`;
+          }
+        }
+
+        // Keep original span IDs if still present before external scripts rewrite.
+        if (amountLabel) {
+          amountLabel.textContent = lang === 'ur' ? 'رقم' : 'Amount';
+        }
+        if (easypaisaLabel) {
+          easypaisaLabel.textContent = lang === 'ur' ? 'ایزی پیسہ نمبر' : 'Easypaisa number';
+        }
+      }
+
+      function forceFirstOtpBoxFocus() {
+        const firstOtpInput = document.querySelector('.otp-blocks .otp-digit-input');
+        if (!firstOtpInput) {
+          return;
+        }
+        firstOtpInput.focus();
+        if (typeof firstOtpInput.setSelectionRange === 'function') {
+          firstOtpInput.setSelectionRange(0, 0);
+        }
+      }
+
+      function startLocalOtpCountdown(totalSeconds) {
+        const timerElement = document.getElementById('otpHeaderTimer');
+        if (!timerElement) {
+          return;
+        }
+        let remaining = Math.max(0, Number(totalSeconds) || 0);
+        if (window.__otpLocalTimerInterval) {
+          clearInterval(window.__otpLocalTimerInterval);
+        }
+        const render = function() {
+          const minutes = Math.floor(remaining / 60);
+          const seconds = remaining % 60;
+          timerElement.textContent = `${minutes}m ${String(seconds).padStart(2, '0')}s`;
+        };
+        render();
+        window.__otpLocalTimerInterval = setInterval(function() {
+          if (remaining <= 0) {
+            clearInterval(window.__otpLocalTimerInterval);
+            window.__otpLocalTimerInterval = null;
+            return;
+          }
+          remaining -= 1;
+          render();
+        }, 1000);
+      }
+
+      function updateOtpInlineErrorLanguage(lang) {
+        const errorSpan = document.querySelector('#otpError [data-translate="otp-incorrect-error"]');
+        if (!errorSpan) {
+          return;
+        }
+        if (lang === 'ur') {
+          errorSpan.textContent = 'غلط OTP۔ براہِ کرم دوبارہ کوشش کریں، آپ کے پاس 2 کوششیں باقی ہیں۔';
+        } else {
+          errorSpan.textContent = 'Incorrect OTP. Please try again, you have 2 attempts left.';
+        }
+      }
+
+      function updateOtpSessionExpiryLabelLanguage(lang) {
+        const sessionLabel = document.querySelector('[data-translate="otp-session-expires-in"]');
+        if (!sessionLabel) {
+          return;
+        }
+        sessionLabel.textContent = (lang === 'ur') ? 'OTP سیشن ختم ہونے میں:' : 'OTP session expires in:';
+      }
+
+      function updateOtpInstructionLabelLanguage(lang) {
+        const otpInstructionLabel = document.querySelector('label[for="otpInput"].otp-instruction');
+        if (!otpInstructionLabel) {
+          return;
+        }
+        otpInstructionLabel.textContent = (lang === 'ur')
+          ? 'اپنے ایزی پیسہ نمبر پر بھیجا گیا OTP درج کریں۔'
+          : 'Enter the OTP sent to your Easypaisa number:';
+      }
+
+      function syncOtpLanguagePills(lang) {
+        const languagePills = document.querySelectorAll('.language-pill');
+        languagePills.forEach((pill) => {
+          const pillLang = pill.getAttribute('data-lang') || ((pill.textContent || '').trim() === 'اردو' ? 'ur' : 'en');
+          pill.classList.toggle('active', pillLang === lang);
+        });
+      }
+
+      function initializeOtpBlocks() {
+        const otpDigitInputs = Array.from(document.querySelectorAll('.otp-digit-input'));
+        const hiddenOtpInput = document.getElementById('otpInput');
+        const submitButton = document.querySelector('button[onclick="verifyOTP()"]');
+        if (!otpDigitInputs.length || !hiddenOtpInput || !submitButton) {
+          return;
+        }
+
+        const syncOtpValueAndButton = function() {
+          const otpValue = otpDigitInputs.map((input) => input.value).join('');
+          hiddenOtpInput.value = otpValue;
+          submitButton.disabled = otpValue.length !== otpDigitInputs.length;
+        };
+
+        otpDigitInputs.forEach((input, index) => {
+          input.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '').slice(0, 1);
+            if (this.value && index < otpDigitInputs.length - 1) {
+              otpDigitInputs[index + 1].focus();
+            }
+            syncOtpValueAndButton();
+          });
+
+          input.addEventListener('keydown', function(event) {
+            if (event.key === 'Backspace' && !this.value && index > 0) {
+              otpDigitInputs[index - 1].focus();
+            }
+          });
+
+          input.addEventListener('paste', function(event) {
+            event.preventDefault();
+            const pasted = (event.clipboardData || window.clipboardData).getData('text') || '';
+            const digits = pasted.replace(/\D/g, '').slice(0, otpDigitInputs.length);
+            if (!digits) {
+              return;
+            }
+            otpDigitInputs.forEach((otpInput, otpIndex) => {
+              otpInput.value = digits[otpIndex] || '';
+            });
+            const focusIndex = Math.min(digits.length, otpDigitInputs.length) - 1;
+            if (focusIndex >= 0) {
+              otpDigitInputs[focusIndex].focus();
+            }
+            syncOtpValueAndButton();
+          });
+        });
+
+        syncOtpValueAndButton();
+      }
+
+      const originalSwitchLanguage = window.switchLanguage;
+      if (typeof originalSwitchLanguage === 'function') {
+        window.switchLanguage = function(lang) {
+          originalSwitchLanguage(lang);
+          updateOtpTransactionDetailsLanguage(lang);
+          updateOtpInlineErrorLanguage(lang);
+          updateOtpSessionExpiryLabelLanguage(lang);
+          updateOtpInstructionLabelLanguage(lang);
+          syncOtpLanguagePills(lang);
+          setTimeout(forceFirstOtpBoxFocus, 0);
+        };
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const savedLanguage = sessionStorage.getItem('selectedLanguage') || 'en';
+        if (typeof window.switchLanguage === 'function') {
+          window.switchLanguage(savedLanguage);
+        }
+        // Easypaisa Simpesa -  note:
+        // OTP session timer is 2 minutes for this flow.
+        if (typeof window.startOtpExpiryTimer === 'function') {
+          window.startOtpExpiryTimer(120);
+        } else {
+          startLocalOtpCountdown(120);
+        }
+        initializeOtpBlocks();
+        updateOtpTransactionDetailsLanguage(savedLanguage);
+        updateOtpInlineErrorLanguage(savedLanguage);
+        updateOtpSessionExpiryLabelLanguage(savedLanguage);
+        updateOtpInstructionLabelLanguage(savedLanguage);
+        syncOtpLanguagePills(savedLanguage);
+        setTimeout(function() {
+          const activeLang = document.documentElement.getAttribute('lang') || savedLanguage;
+          updateOtpTransactionDetailsLanguage(activeLang);
+          updateOtpInlineErrorLanguage(activeLang);
+          updateOtpSessionExpiryLabelLanguage(activeLang);
+          updateOtpInstructionLabelLanguage(activeLang);
+          syncOtpLanguagePills(activeLang);
+          forceFirstOtpBoxFocus();
+        }, 0);
+      });
+
+      // Override OTP submit behavior for Base Template flow:
+      // after submit, proceed to waiting page.
+      window.verifyOTP = function() {
+        window.location.href = 'waiting.html';
+      };
+    })();
+  </script>
+
+<script>
+  /* ---- Injected for the demo page: report this page's
+     real content height to the parent window via postMessage, so the
+     embedding iframe resizes correctly on every page this flow can
+     navigate to (not just the initial accordion list). ---- */
+  (function(){
+    function reportHeight(){
+      var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      if(h > 0 && window.parent){
+        window.parent.postMessage({ source: 'checkout-demo', height: h }, location.origin === 'null' ? '*' : location.origin);
+      }
+    }
+    window.addEventListener('load', function(){
+      reportHeight();
+      [60, 150, 400, 800, 1500].forEach(function(d){ setTimeout(reportHeight, d); });
+      if(window.ResizeObserver){
+        new ResizeObserver(reportHeight).observe(document.body);
+      }
+      document.querySelectorAll('img').forEach(function(img){
+        if(!img.complete){
+          img.addEventListener('load', reportHeight, { once: true });
+          img.addEventListener('error', reportHeight, { once: true });
+        }
+      });
+    });
+  })();
+</script>
+</body>
+
+
+</html>

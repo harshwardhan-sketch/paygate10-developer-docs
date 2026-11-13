@@ -1,0 +1,1124 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Wallet Details - Checkout Page</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+  <!-- Wrapper Div -->
+  <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 ">
+
+    <!-- White Card -->
+    <div class="bg-card d-flex flex-column justify-content-center align-items-center">
+
+      <!-- Payment Options -->
+      <div class="d-flex flex-column payment-box w-100">
+        <div class="d-flex flex-column align-items-start justify-content-between heading-wrapper gap-24-box w-100">
+          <!-- Timer -->
+          <div class="d-flex time-chip-alt w-100 justify-content-between align-items-center w-100" id="detailsExpiresInHeader">
+            <p class="time-text" data-translate="expires-in">Expires in</p>
+            <div class="d-flex time-wrapper gap-08-box align-items-center">
+              <img class="timer-icon" src="images/schedule-icon.png" alt="">
+              <p class="time-text">
+                13m 36s
+              </p>
+            </div>
+          </div>
+          <div class="w-100" id="headingTitleRow">
+            <div id="headingTitleInlineLayout" class="d-flex w-100 align-items-center justify-content-between heading-title-row gap-08-box">
+              <h2 class="payment-head" data-translate="complete-payment">Complete your payment</h2>
+              <div class="heading-language-pills d-flex gap-08-box align-items-center flex-wrap" id="headingLanguagePills">
+                <button class="smallbtn language-pill active" type="button" data-lang="en">English</button>
+                <button class="smallbtn language-pill" type="button" data-lang="ar">العربية</button>
+                <button class="smallbtn language-pill language-pill-french d-none" type="button" data-lang="fr">French</button>
+              </div>
+            </div>
+            <!-- BANK DEPOSIT - NIGERIA: pills under heading -->
+            <div id="headingTitleNigeriaLayout" class="d-none d-flex flex-column w-100 gap-16-box">
+              <h2 class="payment-head" data-translate="complete-payment">Complete your payment</h2>
+              <div class="d-flex gap-08-box align-items-center flex-wrap language-pills-container" id="headingLanguagePillsNigeria">
+                <button class="smallbtn language-pill active" type="button" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="smallbtn language-pill" type="button" data-lang="yo" onclick="switchLanguage('yo')">Yoruba</button>
+                <button class="smallbtn language-pill" type="button" data-lang="ig" onclick="switchLanguage('ig')">Igbo</button>
+                <button class="smallbtn language-pill" type="button" data-lang="ha" onclick="switchLanguage('ha')">Hausa</button>
+              </div>
+            </div>
+            <!-- VCA BANK TRANSFER - PHILIPPINES: pills on same row as heading (desktop) -->
+            <div id="headingTitlePhilippinesVcaLayout" class="d-none d-flex w-100 align-items-center justify-content-between heading-title-row gap-08-box">
+              <h2 class="payment-head" data-translate="complete-payment">Complete your payment</h2>
+              <div class="heading-language-pills d-flex gap-08-box align-items-center flex-wrap" id="headingLanguagePillsPhilippinesVca">
+                <button class="smallbtn language-pill active" type="button" data-lang="en" onclick="switchLanguage('en')">English</button>
+                <button class="smallbtn language-pill" type="button" data-lang="tl" onclick="switchLanguage('tl')">Tagalog</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cash Details Section (Fawry) -->
+        <div class="d-none" id="cashDetailsContent">
+          <h3 class="fawry-section-title" data-translate="payment-details">Payment Details</h3>
+          <div class="fawry-payment-details">
+            <div class="fawry-detail-item">
+              <span class="fawry-detail-label" data-translate="payment-amount">Payment Amount:</span>
+              <span class="fawry-detail-value">3245.00 EGP</span>
+            </div>
+            <div class="fawry-detail-item">
+              <span class="fawry-detail-label" data-translate="reference-number">Reference Number:</span>
+              <span class="fawry-detail-value" id="referenceNumberDisplay">39855976</span>
+            </div>
+            <div class="fawry-detail-item">
+              <span class="fawry-detail-label" data-translate="expiry-date">Expiry Date:</span>
+              <span class="fawry-detail-value">27-01-2024 09:07:05</span>
+            </div>
+          </div>
+
+          <h3 class="fawry-section-title" data-translate="how-to-pay">How to pay</h3>
+          <div class="fawry-instructions">
+            <p class="fawry-instruction-text">
+              <span data-translate="fawry-instruction">Download the receipt to save the reference number:</span>
+              <strong>39855976</strong>
+              <span data-translate="fawry-instruction-end">and show it at a Fawry store to make the payment before order expires.</span>
+            </p>
+            <div class="button-wrapper w-100">
+              <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" data-translate="download-receipt">
+                Download Receipt
+              </button>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-center w-100">
+            <a href="index.html" class="fawry-return-link" data-translate="return-to-home">Return to Home</a>
+          </div>
+        </div>
+
+
+        <!-- BANK DEPOSIT - NIGERIA -->
+        <div class="d-none" id="nigeriaBankDepositDetailsContent">
+          <div class="section-spacing-top">
+            <h3 class="fawry-section-title" data-translate="bank-details">Bank Details</h3>
+            <div class="fawry-payment-details">
+              <div class="fawry-detail-item">
+                <span class="fawry-detail-label" data-translate="account-name">Account Name:</span>
+                <span class="fawry-detail-value">OCTA-NGN</span>
+              </div>
+              <div class="fawry-detail-item">
+                <div class="d-flex align-items-center justify-content-between w-100">
+                  <div class="d-flex flex-column align-items-start">
+                    <span class="fawry-detail-label" data-translate="account-number">Account Number:</span>
+                    <span class="fawry-detail-value" id="nigeriaAccountNumber">398559</span>
+                  </div>
+                  <button class="copy-button-simple" type="button" onclick="copyNigeriaAccountNumber(event)">
+                    <span data-translate="copy">Copy</span>
+                    <img src="images/copy.svg" alt="Copy" class="copy-icon">
+                  </button>
+                </div>
+              </div>
+              <div class="fawry-detail-item">
+                <span class="fawry-detail-label" data-translate="bank-name">Bank Name:</span>
+                <span class="fawry-detail-value">Vfd</span>
+              </div>
+              <div class="fawry-detail-item">
+                <span class="fawry-detail-label" data-translate="bank-code">Bank Code:</span>
+                <span class="fawry-detail-value">566</span>
+              </div>
+              <div class="fawry-detail-item">
+                <span class="fawry-detail-label" data-translate="amount">Amount:</span>
+                <span class="fawry-detail-value">33000</span>
+              </div>
+              <div class="fawry-detail-item">
+                <span class="fawry-detail-label" data-translate="expiry-date">Expiry Date:</span>
+                <span class="fawry-detail-value">27-01-2024 09:07:05</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="fawry-section-title" data-translate="how-to-pay">How to pay</h3>
+            <div class="payment-instructions-container">
+              <ol class="payment-instructions-list">
+                <li>
+                  <div class="payment-instructions-text" data-translate="how-to-pay-instruction-1">Click on Copy button and copy the account number.</div>
+                </li>
+                <li>
+                  <div class="payment-instructions-text" data-translate="how-to-pay-instruction-2">Deposit the exact amount shown above within 30 minutes to the copied account number.</div>
+                </li>
+                <li>
+                  <div class="payment-instructions-text" data-translate="how-to-pay-instruction-3">Use your bank's mobile app or internet banking to make the transfer.</div>
+                </li>
+                <li>
+                  <div class="payment-instructions-text" data-translate="how-to-pay-instruction-4">Transfers after the time limit or with a different amount will not be successful.</div>
+                </li>
+                <li>
+                  <div class="payment-instructions-text" data-translate="how-to-pay-instruction-5">Your order will be confirmed automatically once payment is received.</div>
+                </li>
+                <li>
+                  <div class="payment-instructions-text" data-translate="how-to-pay-instruction-6">Do not close or refresh this page.</div>
+                </li>
+              </ol>
+              <div class="button-wrapper w-100" style="margin-top: 1.5rem;">
+                <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" onclick="downloadNigeriaBankDepositPDF()" data-translate="download-pdf">Download PDF</button>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center w-100">
+              <a href="index.html" class="fawry-return-link" data-translate="return-home">Return to Home</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- VCA BANK TRANSFER - PHILIPPINES -->
+        <div class="d-none" id="philippinesVcaBankTransferDetailsContent">
+          <div class="section-spacing-top">
+            <h3 class="philippines-vca-section-title" data-translate="philippines-vca-send-payment-title">Send payment to this VCA number using banking app or portal</h3>
+            <div class="philippines-vca-payment-details">
+              <div class="philippines-vca-detail-item">
+                <span class="philippines-vca-detail-label" data-translate="amount">Amount</span>
+                <span class="philippines-vca-detail-value" id="philippinesVcaAmount">PHP 1,500.00</span>
+              </div>
+              <div class="philippines-vca-detail-item">
+                <div class="d-flex align-items-center justify-content-between w-100">
+                  <div class="d-flex flex-column align-items-start">
+                    <span class="philippines-vca-detail-label" data-translate="philippines-vca-label">Virtual Collection Account Number (VCA):</span>
+                    <span class="philippines-vca-detail-value" id="philippinesVcaNumber">1234567890</span>
+                  </div>
+                  <button class="copy-button-simple" type="button" onclick="copyPhilippinesVcaNumber(event)">
+                    <span data-translate="copy">Copy</span>
+                    <img src="images/copy.svg" alt="Copy" class="copy-icon">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="philippines-vca-instructions-container">
+            <div class="philippines-vca-instructions-header">
+              <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+              <span data-translate="payment-instructions">Payment Instructions</span>
+            </div>
+            <ol class="philippines-vca-instructions-list">
+              <li>
+                <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-2">Open your preferred banking app or portal.</div>
+              </li>
+              <li>
+                <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-3">Select "Send Money" via InstaPay and choose "Other Banks or Wallets".</div>
+              </li>
+              <li>
+                <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-4">Enter the account details (Virtual Account Number) and exact amount shown at checkout.</div>
+              </li>
+              <li>
+                <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-5">Review the details and confirm the payment.</div>
+              </li>
+              <li>
+                <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-6">Once the payment is successful, your transaction status will be updated automatically.</div>
+              </li>
+            </ol>
+            <p class="philippines-vca-instructions-text" style="margin-top: 1rem;">
+              <strong data-translate="philippines-vca-important-label">Important:</strong>
+              <span data-translate="philippines-vca-important-text"> The VCA number is unique to this transaction and should be used only for this payment.</span>
+            </p>
+          </div>
+
+          <div class="d-flex justify-content-center w-100">
+            <a href="index.html" class="fawry-return-link" data-translate="return-home">Return to Home</a>
+          </div>
+        </div>
+
+        <div id="standardDetailsContent">
+        <!-- Beneficiary details -->
+        <div class="d-flex flex-column gap-16-box w-100 section-spacing-top">
+          <div class="d-flex align-items-center flex-wrap beneficiary-heading-row">
+            <h3 class="form-label-as-heading mb-0" id="beneficiaryHeading" data-translate="bank-account-details-for-payment">Beneficiary details</h3>
+            <button type="button" class="mobile-how-to-pay-link" data-bs-toggle="modal" data-bs-target="#detailsHowToPayModal">
+              <img src="images/bulb2.svg" alt="" class="how-to-pay-link-icon">
+              <span data-translate="how-to-pay-link">How to pay</span>
+            </button>
+          </div>
+          <div class="details-boxx">
+            <div class="d-flex flex-column gap-16-box">
+              <div class="d-flex flex-column gap-04-box wallet-number-row">
+                <p class="head-bank-details beneficiary-label-wrapper">
+                  <span class="english-only-label" id="beneficiaryPrimaryLabel" data-translate="bank-account-number">Account Number</span>
+                  <span class="arabic-only-label" id="beneficiaryPrimaryLabelAr" data-translate="bank-account-number">رقم الحساب</span>
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="tag-bank-details" id="recipientPrimaryNumber">12345678911234567</p>
+                  <button class="copy-button-simple" type="button" onclick="copyPrimaryNumber(event)">
+                    <span data-translate="copy">Copy</span>
+                    <img src="images/copy.svg" alt="Copy" class="copy-icon">
+                  </button>
+                </div>
+              </div>
+              <div class="info-row" id="ibanRow">
+                <div class="d-flex flex-column gap-04-box">
+                  <p class="head-bank-details beneficiary-label-wrapper">
+                    <span class="english-only-label">IBAN</span>
+                    <span class="arabic-only-label">رقم الايبان</span>
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="tag-bank-details" id="recipientIban">EG1200050000000001234567890123</p>
+                    <button class="copy-button-simple" type="button" onclick="copyIban(event)">
+                      <span data-translate="copy">Copy</span>
+                      <img src="images/copy.svg" alt="Copy" class="copy-icon">
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="info-row" id="accountNameRow">
+                <div class="d-flex flex-column gap-04-box">
+                  <p class="head-bank-details beneficiary-label-wrapper">
+                    <span class="english-only-label">Account Name</span>
+                    <span class="arabic-only-label">اسم الحساب</span>
+                  </p>
+                  <p class="tag-bank-details">Testing Transaction</p>
+                </div>
+              </div>
+              <div class="info-row" id="bankNameRow">
+                <div class="d-flex flex-column gap-04-box">
+                  <p class="head-bank-details beneficiary-label-wrapper">
+                    <span class="english-only-label" id="secondaryBeneficiaryLabel" data-translate="bank-account-name">Bank Name</span>
+                    <span class="arabic-only-label" id="secondaryBeneficiaryLabelAr" data-translate="bank-account-name">اسم البنك</span>
+                  </p>
+                  <p class="tag-bank-details" id="secondaryBeneficiaryValue">Bank AL Egypt</p>
+                </div>
+              </div>
+              <div class="info-row" id="bankBranchRow">
+                <div class="d-flex flex-column gap-04-box">
+                  <p class="head-bank-details beneficiary-label-wrapper">
+                    <span class="english-only-label">Bank Branch</span>
+                    <span class="arabic-only-label">فرع البنك</span>
+                  </p>
+                  <p class="tag-bank-details">CAIRO</p>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="d-flex flex-column gap-04-box">
+                  <p class="head-bank-details beneficiary-label-wrapper">
+                    <span class="english-only-label" data-translate="amount">Amount</span>
+                    <span class="arabic-only-label" data-translate="amount">المبلغ</span>
+                  </p>
+                  <p class="tag-bank-details" id="beneficiaryAmountValue">EGP 250.00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Your Account Details Section -->
+        <div class="d-flex flex-column gap-16-box w-100 section-spacing-top">
+          <h3 class="form-label-as-heading" id="detailsSectionTitle" data-translate="transfer-details">Your Account Details</h3>
+          <div class="d-flex flex-column form-wrapper gap-32-wrapper transfer-details-form-spacing">
+            <div class="d-flex flex-column upi-input-wrapper w-100">
+              <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+                <label for="accountIdentifierInput" class="form-label" id="accountIdentifierLabel" data-translate="bank-account-number">Bank Account Number</label>
+                <input type="text" class="form-control upi-input" id="accountIdentifierInput" placeholder="Enter your account number" data-translate-placeholder="enter-account-number" maxlength="34">
+                <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="accountIdentifierError">
+                  <span class="error-exclamation">!</span>
+                  <span id="accountIdentifierErrorText" data-translate="valid-account-number">Enter a valid account number</span>
+                </p>
+              </div>
+            </div>
+            <div class="egypt-p2p-wallet-app-section d-none" id="egyptP2pWalletAppSection">
+              <h3 class="egypt-p2p-wallet-app-title" data-translate="pay-through-wallet-app">Pay through wallet app</h3>
+              <div class="egypt-p2p-wallet-app-stack">
+                <div class="egypt-p2p-wallet-logo-frame">
+                  <img src="images/et.png" alt="e& money - EG" class="egypt-p2p-wallet-logo" id="egyptP2pWalletProviderLogo">
+                </div>
+                <p class="egypt-p2p-wallet-receipt-reminder mb-0" data-translate="egypt-p2p-receipt-reminder">Don't forget to take a screenshot of your payment receipt</p>
+                <button class="btn egypt-p2p-wallet-pay-btn" type="button" id="egyptP2pPayInAppButton" onclick="payInEgyptP2pWalletApp(event)" data-translate="pay-in-app">Pay in App</button>
+              </div>
+            </div>
+            <div class="d-flex flex-column upi-input-wrapper w-100" id="accountNameFieldWrapper">
+              <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+                <label for="bankAccountName" class="form-label" id="accountNameLabel" data-translate="bank-account-name">Bank Account Name</label>
+                <input type="text" class="form-control upi-input" id="bankAccountName" placeholder="Enter your account name" data-translate-placeholder="enter-account-name">
+                <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="bankAccountNameError">
+                  <span class="error-exclamation">!</span>
+                  <span id="accountNameErrorText" data-translate="valid-account-name">Enter a valid account name</span>
+                </p>
+              </div>
+            </div>
+            <div class="d-flex flex-column upi-input-wrapper w-100" id="transactionReferenceFieldWrapper">
+              <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+                <label for="transactionReferenceNumber" class="form-label" data-translate="transaction-reference-id">Transaction Reference ID</label>
+                <input type="text" class="form-control upi-input" id="transactionReferenceNumber" placeholder="Enter your Transaction Ref ID" data-translate-placeholder="enter-transaction-ref-id">
+                <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="transactionReferenceNumberError">
+                  <span class="error-exclamation">!</span>
+                  <span data-translate="valid-transaction-ref-id">Enter a valid transaction reference ID</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Receipt Section -->
+        <div class="d-flex flex-column gap-16-box w-100 upload-section-spacing">
+          <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+            <div class="d-flex align-items-center w-100 gap-12-box">
+              <input type="file" id="receiptFile" accept="image/*,.pdf" style="display: none;" onchange="handleFileSelect(this)">
+              <button type="button" class="smallbtn d-flex align-items-center justify-content-center gap-12-box" onclick="document.getElementById('receiptFile').click()">
+                <span data-translate="upload-receipt">Upload Receipt</span>
+                <img src="images/upload.svg" alt="Upload" class="upload-icon">
+              </button>
+              <p class="help-text" data-translate="max-upload-size">Max upload size: 5MB</p>
+            </div>
+            <p class="help-text" data-translate="supported-file-format">Supported File Format: .jpg, .JPEG, and .png</p>
+            <p class="help-text file-name-text d-none" id="fileName" style="margin-top: 0.5rem;"></p>
+            <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="attachmentError">
+              <span class="error-exclamation">!</span>
+              <span data-translate="please-add-attachment">Please add an attachment</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="button-wrapper w-100 submit-button-spacing">
+          <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="submitButton" onclick="handleSubmit()" disabled>
+            <span data-translate="submit">Submit</span>
+          </button>
+        </div>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+
+  <script src="script.js"></script>
+  <script>
+    let currentPaymentMethod = 'bank';
+
+    function copyNigeriaAccountNumber(event) {
+      const valueElement = document.getElementById('nigeriaAccountNumber');
+      if (!valueElement) {
+        return;
+      }
+      const value = valueElement.textContent;
+      navigator.clipboard.writeText(value).then(function() {
+        const copyButton = event.target.closest('.copy-button-simple');
+        if (!copyButton) {
+          return;
+        }
+        const spanElement = copyButton.querySelector('span');
+        if (!spanElement) {
+          return;
+        }
+        const currentLang = document.documentElement.getAttribute('lang') || 'en';
+        const copiedText = (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang]['copied'])
+          ? translations[currentLang]['copied']
+          : 'Copied!';
+        spanElement.textContent = copiedText;
+        setTimeout(() => {
+          spanElement.textContent = (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang]['copy'])
+            ? translations[currentLang]['copy']
+            : 'Copy';
+        }, 2000);
+      }).catch(function(err) {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+
+    function downloadNigeriaBankDepositPDF() {
+      console.log('Download PDF for Nigeria bank deposit');
+    }
+
+    function copyPrimaryNumber(event) {
+      const valueElement = document.getElementById('recipientPrimaryNumber');
+      if (!valueElement) {
+        return;
+      }
+      const value = valueElement.textContent;
+      navigator.clipboard.writeText(value).then(function() {
+        const copyButton = event.target.closest('.copy-button-simple');
+        if (!copyButton) {
+          return;
+        }
+        const spanElement = copyButton.querySelector('span');
+        if (!spanElement) {
+          return;
+        }
+        const currentLang = document.documentElement.getAttribute('lang') || 'en';
+        const copiedText = (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang]['copied'])
+          ? translations[currentLang]['copied']
+          : 'Copied!';
+        spanElement.textContent = copiedText;
+        setTimeout(() => {
+          spanElement.textContent = (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang]['copy'])
+            ? translations[currentLang]['copy']
+            : 'Copy';
+        }, 2000);
+      }).catch(function(err) {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+
+    function toggleAttachmentError(show) {
+      const errorElement = document.getElementById('attachmentError');
+      if (errorElement) {
+        errorElement.classList.toggle('d-none', !show);
+      }
+    }
+
+    function toggleFieldError(errorId, inputId, show) {
+      const errorElement = document.getElementById(errorId);
+      const inputElement = document.getElementById(inputId);
+      if (errorElement) {
+        errorElement.classList.toggle('d-none', !show);
+      }
+      if (inputElement) {
+        inputElement.classList.toggle('form-control-error', show);
+      }
+    }
+
+    function validatePrimaryIdentifier(value) {
+      const trimmed = value.trim();
+      if (currentPaymentMethod === 'mobile-wallet') {
+        return /^(06|07)\d{8}$/.test(trimmed);
+      }
+      if (currentPaymentMethod === 'bank-transfer') {
+        return /^\d{24}$/.test(trimmed);
+      }
+      if (currentPaymentMethod === 'wallet') {
+        return /^(010|011|012|015)\d{8}$/.test(trimmed);
+      }
+      return /^\d{12,34}$/.test(trimmed);
+    }
+
+    function validateTransactionReference(reference) {
+      return reference.trim().length >= 3;
+    }
+
+    function updateEgyptP2pWalletAppSection() {
+      const section = document.getElementById('egyptP2pWalletAppSection');
+      const logo = document.getElementById('egyptP2pWalletProviderLogo');
+      if (!section) {
+        return;
+      }
+
+      const identifierInput = document.getElementById('accountIdentifierInput');
+      const identifierValue = identifierInput ? identifierInput.value.trim() : '';
+      const shouldShow = currentPaymentMethod === 'wallet'
+        && identifierValue.length > 0
+        && validatePrimaryIdentifier(identifierValue);
+
+      section.classList.toggle('d-none', !shouldShow);
+
+      if (!shouldShow) {
+        return;
+      }
+
+      const provider = typeof window.getEgyptTelecomProviderFromPhone === 'function'
+        ? window.getEgyptTelecomProviderFromPhone(identifierValue)
+        : null;
+
+      if (provider) {
+        sessionStorage.setItem('walletPhoneNumber', identifierValue);
+        sessionStorage.setItem('egyptTelecomProvider', provider.id);
+        sessionStorage.setItem('egyptUssdCode', provider.ussdCode);
+        if (logo) {
+          logo.src = provider.logo;
+          logo.alt = provider.logoAlt;
+        }
+      }
+    }
+
+    function payInEgyptP2pWalletApp(event) {
+      if (event && typeof event.preventDefault === 'function') {
+        event.preventDefault();
+      }
+
+      const identifierInput = document.getElementById('accountIdentifierInput');
+      const identifierValue = identifierInput ? identifierInput.value.trim() : '';
+      if (!identifierValue || !validatePrimaryIdentifier(identifierValue)) {
+        return;
+      }
+
+      updateEgyptP2pWalletAppSection();
+
+      if (typeof window.attemptOpenEgyptWalletApp === 'function') {
+        window.attemptOpenEgyptWalletApp();
+      }
+    }
+
+    window.payInEgyptP2pWalletApp = payInEgyptP2pWalletApp;
+
+    function checkFormValidity() {
+      const identifierValue = document.getElementById('accountIdentifierInput').value.trim();
+      const bankAccountNameInput = document.getElementById('bankAccountName');
+      const bankAccountNameValue = bankAccountNameInput ? bankAccountNameInput.value.trim() : '';
+      const transactionReferenceInput = document.getElementById('transactionReferenceNumber');
+      const transactionReferenceValue = transactionReferenceInput ? transactionReferenceInput.value.trim() : '';
+      const receiptFile = document.getElementById('receiptFile').files[0];
+      const submitButton = document.getElementById('submitButton');
+
+      const isIdentifierValid = identifierValue.length > 0 && validatePrimaryIdentifier(identifierValue);
+      const isAccountNameOptional = currentPaymentMethod === 'wallet';
+      const isAccountNameValid = isAccountNameOptional || (bankAccountNameValue.length >= 2);
+      const isTransactionReferenceRequired = currentPaymentMethod !== 'mobile-wallet' && currentPaymentMethod !== 'bank-transfer' && currentPaymentMethod !== 'wallet';
+      const isTransactionReferenceValid = !isTransactionReferenceRequired || (transactionReferenceValue.length > 0 && validateTransactionReference(transactionReferenceValue));
+      const isAttachmentUploaded = !!receiptFile;
+
+      if (submitButton) {
+        submitButton.disabled = !(isIdentifierValid && isAccountNameValid && isTransactionReferenceValid && isAttachmentUploaded);
+      }
+
+      updateEgyptP2pWalletAppSection();
+    }
+
+    function handleFileSelect(input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const maxSize = 5 * 1024 * 1024;
+        if (file.size > maxSize) {
+          alert('File size exceeds 5MB. Please select a smaller file.');
+          input.value = '';
+          toggleAttachmentError(true);
+          checkFormValidity();
+          return;
+        }
+        const fileName = document.getElementById('fileName');
+        fileName.textContent = file.name;
+        fileName.classList.remove('d-none');
+        toggleAttachmentError(false);
+      } else {
+        toggleAttachmentError(true);
+      }
+      checkFormValidity();
+    }
+
+    function applyPaymentMethodLayout() {
+      currentPaymentMethod = sessionStorage.getItem('paymentMethod') || 'bank';
+      const isWallet = currentPaymentMethod === 'wallet';
+      const isMobileWallet = currentPaymentMethod === 'mobile-wallet';
+      const isBankTransfer = currentPaymentMethod === 'bank-transfer';
+      const isNigeriaBankDeposit = currentPaymentMethod === 'nigeria-bank-deposit';
+      const isPhilippinesVcaBankTransfer = currentPaymentMethod === 'philippines-vca-bank-transfer';
+      const isCash = currentPaymentMethod === 'cash';
+      const isWalletFlow = isWallet || isMobileWallet;
+
+      const beneficiaryHeading = document.getElementById('beneficiaryHeading');
+      const beneficiaryPrimaryLabel = document.getElementById('beneficiaryPrimaryLabel');
+      const beneficiaryPrimaryLabelAr = document.getElementById('beneficiaryPrimaryLabelAr');
+      const recipientPrimaryNumber = document.getElementById('recipientPrimaryNumber');
+      const secondaryBeneficiaryLabel = document.getElementById('secondaryBeneficiaryLabel');
+      const secondaryBeneficiaryLabelAr = document.getElementById('secondaryBeneficiaryLabelAr');
+      const secondaryBeneficiaryValue = document.getElementById('secondaryBeneficiaryValue');
+      const detailsSectionTitle = document.getElementById('detailsSectionTitle');
+      const accountIdentifierLabel = document.getElementById('accountIdentifierLabel');
+      const accountIdentifierInput = document.getElementById('accountIdentifierInput');
+      const accountIdentifierErrorText = document.getElementById('accountIdentifierErrorText');
+      const accountNameLabel = document.getElementById('accountNameLabel');
+      const accountNameErrorText = document.getElementById('accountNameErrorText');
+      const accountNameFieldWrapper = document.getElementById('accountNameFieldWrapper');
+      const ibanRow = document.getElementById('ibanRow');
+      const accountNameRow = document.getElementById('accountNameRow');
+      const bankNameRow = document.getElementById('bankNameRow');
+      const bankBranchRow = document.getElementById('bankBranchRow');
+      const beneficiaryAmountValue = document.getElementById('beneficiaryAmountValue');
+      const transactionReferenceFieldWrapper = document.getElementById('transactionReferenceFieldWrapper');
+      const frenchPill = document.querySelector('.language-pill-french');
+      const headingTitleRow = document.getElementById('headingTitleRow');
+      const paymentHeadings = document.querySelectorAll('.heading-wrapper .payment-head');
+      const cashDetailsContent = document.getElementById('cashDetailsContent');
+      const nigeriaBankDepositDetailsContent = document.getElementById('nigeriaBankDepositDetailsContent');
+      const philippinesVcaBankTransferDetailsContent = document.getElementById('philippinesVcaBankTransferDetailsContent');
+      const standardDetailsContent = document.getElementById('standardDetailsContent');
+      const headingTitleInlineLayout = document.getElementById('headingTitleInlineLayout');
+      const headingTitleNigeriaLayout = document.getElementById('headingTitleNigeriaLayout');
+      const headingTitlePhilippinesVcaLayout = document.getElementById('headingTitlePhilippinesVcaLayout');
+      const headingLanguagePills = document.getElementById('headingLanguagePills');
+      const headingLanguagePillsNigeria = document.getElementById('headingLanguagePillsNigeria');
+      const selectedWalletName = sessionStorage.getItem('selectedWalletName') || 'CashPlus';
+      const selectedWalletValue = sessionStorage.getItem('selectedWalletValue') || '';
+      const walletNumbers = {
+        cashplus: '066123456789',
+        'orange-money': '067123456789',
+        'mt-cash': '065123456789'
+      };
+      const mobileWalletRecipientNumber = walletNumbers[selectedWalletValue] || '066123456789';
+
+      if (cashDetailsContent && standardDetailsContent) {
+        cashDetailsContent.classList.toggle('d-none', !isCash);
+        if (nigeriaBankDepositDetailsContent) {
+          nigeriaBankDepositDetailsContent.classList.toggle('d-none', !isNigeriaBankDeposit);
+        }
+        if (philippinesVcaBankTransferDetailsContent) {
+          philippinesVcaBankTransferDetailsContent.classList.toggle('d-none', !isPhilippinesVcaBankTransfer);
+        }
+        standardDetailsContent.classList.toggle('d-none', isCash || isNigeriaBankDeposit || isPhilippinesVcaBankTransfer);
+      }
+      if (headingTitleInlineLayout && headingTitleNigeriaLayout && headingTitlePhilippinesVcaLayout) {
+        headingTitleInlineLayout.classList.toggle('d-none', isNigeriaBankDeposit || isPhilippinesVcaBankTransfer);
+        headingTitleNigeriaLayout.classList.toggle('d-none', !isNigeriaBankDeposit);
+        headingTitlePhilippinesVcaLayout.classList.toggle('d-none', !isPhilippinesVcaBankTransfer);
+      }
+      const detailsExpiresInHeader = document.getElementById('detailsExpiresInHeader');
+      if (detailsExpiresInHeader) {
+        detailsExpiresInHeader.classList.toggle('d-none', isPhilippinesVcaBankTransfer);
+      }
+      paymentHeadings.forEach((paymentHeading) => {
+        if (isCash) {
+          paymentHeading.setAttribute('data-translate', 'pay-at-fawry');
+        } else {
+          paymentHeading.setAttribute('data-translate', 'complete-payment');
+        }
+      });
+      if (isNigeriaBankDeposit && typeof switchLanguage === 'function') {
+        const nigeriaLang = sessionStorage.getItem('selectedLanguage') || 'en';
+        const langToApply = ['en', 'yo', 'ig', 'ha'].includes(nigeriaLang) ? nigeriaLang : 'en';
+        switchLanguage(langToApply);
+      }
+      if (isPhilippinesVcaBankTransfer) {
+        const vcaAmount = document.getElementById('philippinesVcaAmount');
+        const vcaNumber = document.getElementById('philippinesVcaNumber');
+        if (vcaAmount) {
+          vcaAmount.textContent = sessionStorage.getItem('paymentAmount') || 'PHP 1,500.00';
+        }
+        if (vcaNumber) {
+          vcaNumber.textContent = sessionStorage.getItem('philippinesVcaNumber') || '1234567890';
+        }
+        if (typeof switchLanguage === 'function') {
+          const philippinesLang = sessionStorage.getItem('selectedLanguage') || 'en';
+          const langToApply = ['en', 'tl'].includes(philippinesLang) ? philippinesLang : 'en';
+          switchLanguage(langToApply);
+        }
+      }
+
+      if (beneficiaryHeading) {
+        beneficiaryHeading.setAttribute('data-translate', 'bank-account-details-for-payment');
+        beneficiaryHeading.textContent = 'Beneficiary details';
+      }
+      if (beneficiaryPrimaryLabel) {
+        beneficiaryPrimaryLabel.setAttribute('data-translate', isWalletFlow ? 'wallet-number' : 'bank-account-number');
+      }
+      if (beneficiaryPrimaryLabelAr) {
+        beneficiaryPrimaryLabelAr.setAttribute('data-translate', isWalletFlow ? 'wallet-number' : 'bank-account-number');
+      }
+      if (recipientPrimaryNumber) {
+        recipientPrimaryNumber.textContent = isMobileWallet
+          ? mobileWalletRecipientNumber
+          : (sessionStorage.getItem('recipientBankAccountNumber') || '12345678911234567');
+      }
+      if (secondaryBeneficiaryLabel) {
+        secondaryBeneficiaryLabel.setAttribute('data-translate', isMobileWallet ? 'wallet-name' : 'bank-account-name');
+      }
+      if (secondaryBeneficiaryLabelAr) {
+        secondaryBeneficiaryLabelAr.setAttribute('data-translate', isMobileWallet ? 'wallet-name' : 'bank-account-name');
+      }
+      if (secondaryBeneficiaryValue) {
+        secondaryBeneficiaryValue.textContent = isMobileWallet
+          ? selectedWalletName
+          : (sessionStorage.getItem('selectedBankName') || 'Bank AL Egypt');
+      }
+
+      if (detailsSectionTitle) {
+        detailsSectionTitle.setAttribute('data-translate', isWalletFlow ? 'transfer-details-wallet' : 'transfer-details');
+        detailsSectionTitle.textContent = isWalletFlow ? 'Your Wallet Details' : 'Your Account Details';
+      }
+      if (accountIdentifierLabel) {
+        accountIdentifierLabel.setAttribute('data-translate', isWalletFlow ? 'wallet-number' : 'bank-account-number');
+      }
+      if (accountIdentifierInput) {
+        accountIdentifierInput.setAttribute('data-translate-placeholder', isWalletFlow ? 'enter-wallet-number' : 'enter-account-number');
+        accountIdentifierInput.placeholder = isWalletFlow ? 'Enter your wallet number' : 'Enter your account number';
+        accountIdentifierInput.maxLength = isMobileWallet ? 10 : (isWallet ? 11 : (isBankTransfer ? 24 : 34));
+      }
+      if (accountIdentifierErrorText) {
+        if (isMobileWallet) {
+          accountIdentifierErrorText.setAttribute('data-translate', 'valid-wallet-number-mobile');
+          accountIdentifierErrorText.textContent = 'Enter a valid wallet number (Length must be 10 digits, starting with 06 or 07).';
+        } else if (isBankTransfer) {
+          accountIdentifierErrorText.setAttribute('data-translate', 'valid-account-number-bank-transfer');
+        } else if (isWallet) {
+          accountIdentifierErrorText.setAttribute('data-translate', 'valid-wallet-number');
+          accountIdentifierErrorText.textContent = 'Enter a valid wallet number (Length must be 11 digits, starting with 010 | 011 | 012 | 015).';
+        } else {
+          accountIdentifierErrorText.setAttribute('data-translate', 'valid-account-number');
+        }
+      }
+      if (accountNameLabel) {
+        accountNameLabel.setAttribute('data-translate', isMobileWallet ? 'wallet-name' : 'bank-account-name');
+        accountNameLabel.textContent = isMobileWallet ? 'Wallet Name' : 'Bank Account Name';
+      }
+      if (accountNameErrorText) {
+        accountNameErrorText.setAttribute('data-translate', isMobileWallet ? 'valid-wallet-name' : 'valid-account-name');
+      }
+
+      if (accountNameFieldWrapper) {
+        accountNameFieldWrapper.classList.toggle('d-none', isWallet);
+      }
+      if (transactionReferenceFieldWrapper) {
+        transactionReferenceFieldWrapper.classList.toggle('d-none', isMobileWallet || isBankTransfer || isWallet);
+      }
+      updateEgyptP2pWalletAppSection();
+      const bankAccountNameInput = document.getElementById('bankAccountName');
+      if (bankAccountNameInput) {
+        bankAccountNameInput.setAttribute('data-translate-placeholder', isMobileWallet ? 'enter-wallet-name' : 'enter-account-name');
+        bankAccountNameInput.placeholder = isMobileWallet ? 'Enter your wallet name' : 'Enter your account name';
+      }
+      [ibanRow, accountNameRow, bankNameRow, bankBranchRow].forEach(row => {
+        if (row) {
+          row.classList.toggle('d-none', isWalletFlow);
+        }
+      });
+      if (isBankTransfer) {
+        if (ibanRow) {
+          ibanRow.classList.add('d-none');
+        }
+        if (accountNameRow) {
+          accountNameRow.classList.add('d-none');
+        }
+        if (bankBranchRow) {
+          bankBranchRow.classList.add('d-none');
+        }
+        if (bankNameRow) {
+          bankNameRow.classList.remove('d-none');
+        }
+      }
+      if (bankNameRow) {
+        bankNameRow.classList.toggle('d-none', isWallet);
+        if (isMobileWallet || currentPaymentMethod === 'bank') {
+          bankNameRow.classList.remove('d-none');
+        }
+      }
+      if (beneficiaryAmountValue) {
+        beneficiaryAmountValue.textContent = (isMobileWallet || isBankTransfer) ? 'MAD 250.00' : 'EGP 250.00';
+      }
+      if (frenchPill) {
+        frenchPill.classList.toggle('d-none', !(isMobileWallet || isBankTransfer));
+      }
+      if (headingTitleRow) {
+        headingTitleRow.classList.toggle('heading-title-row--multilang', isMobileWallet || isBankTransfer);
+      }
+
+      const paymentCompletionTitle = document.getElementById('paymentCompletionModalLabel');
+      const paymentCompletionMessage = document.getElementById('paymentCompletionMessage');
+      const paymentCompletionDetail1 = document.getElementById('paymentCompletionDetail1');
+      const paymentCompletionDetail2 = document.getElementById('paymentCompletionDetail2');
+      if (paymentCompletionTitle) {
+        paymentCompletionTitle.setAttribute('data-translate', isMobileWallet ? 'payment-completion-title-wallet' : 'payment-completion-title');
+      }
+      if (paymentCompletionMessage) {
+        paymentCompletionMessage.setAttribute('data-translate', isMobileWallet ? 'payment-completion-message-wallet' : 'payment-completion-message');
+      }
+      if (paymentCompletionDetail1) {
+        paymentCompletionDetail1.setAttribute('data-translate', isMobileWallet ? 'payment-completion-detail-1-wallet' : 'payment-completion-detail-1');
+      }
+      if (paymentCompletionDetail2) {
+        paymentCompletionDetail2.setAttribute('data-translate', isMobileWallet ? 'payment-completion-detail-2-wallet' : 'payment-completion-detail-2');
+      }
+    }
+
+    function handleSubmit() {
+      const identifierValue = document.getElementById('accountIdentifierInput').value.trim();
+      const bankAccountName = document.getElementById('bankAccountName').value.trim();
+      const transactionReferenceNumberInput = document.getElementById('transactionReferenceNumber');
+      const transactionReferenceNumber = transactionReferenceNumberInput ? transactionReferenceNumberInput.value.trim() : '';
+      const receiptFile = document.getElementById('receiptFile').files[0];
+
+      let hasError = false;
+
+      if (!identifierValue || !validatePrimaryIdentifier(identifierValue)) {
+        toggleFieldError('accountIdentifierError', 'accountIdentifierInput', true);
+        hasError = true;
+      } else {
+        toggleFieldError('accountIdentifierError', 'accountIdentifierInput', false);
+      }
+
+      if (currentPaymentMethod === 'bank' || currentPaymentMethod === 'bank-transfer') {
+        if (!bankAccountName || bankAccountName.length < 2) {
+          toggleFieldError('bankAccountNameError', 'bankAccountName', true);
+          hasError = true;
+        } else {
+          toggleFieldError('bankAccountNameError', 'bankAccountName', false);
+        }
+      } else {
+        toggleFieldError('bankAccountNameError', 'bankAccountName', false);
+      }
+
+      if (currentPaymentMethod !== 'mobile-wallet' && currentPaymentMethod !== 'bank-transfer' && currentPaymentMethod !== 'wallet') {
+        if (!transactionReferenceNumber || !validateTransactionReference(transactionReferenceNumber)) {
+          toggleFieldError('transactionReferenceNumberError', 'transactionReferenceNumber', true);
+          hasError = true;
+        } else {
+          toggleFieldError('transactionReferenceNumberError', 'transactionReferenceNumber', false);
+        }
+      } else {
+        toggleFieldError('transactionReferenceNumberError', 'transactionReferenceNumber', false);
+      }
+
+      if (!receiptFile) {
+        toggleAttachmentError(true);
+        hasError = true;
+      } else {
+        toggleAttachmentError(false);
+      }
+
+      if (hasError) {
+        return;
+      }
+
+      console.log('Submitting payment details:', {
+        paymentMethod: currentPaymentMethod,
+        accountIdentifier: identifierValue,
+        bankAccountName: currentPaymentMethod === 'wallet' ? null : bankAccountName,
+        transactionReferenceNumber: (currentPaymentMethod === 'mobile-wallet' || currentPaymentMethod === 'bank-transfer' || currentPaymentMethod === 'wallet') ? null : transactionReferenceNumber,
+        receiptFile: receiptFile.name
+      });
+
+      sessionStorage.setItem('paymentMethod', currentPaymentMethod);
+      window.location.href = 'success.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      applyPaymentMethodLayout();
+      let savedLanguage = sessionStorage.getItem('selectedLanguage') || 'en';
+      const isFrenchAllowed = currentPaymentMethod === 'mobile-wallet' || currentPaymentMethod === 'bank-transfer';
+      const nigeriaLangs = ['en', 'yo', 'ig', 'ha'];
+      if (currentPaymentMethod === 'nigeria-bank-deposit' && !nigeriaLangs.includes(savedLanguage)) {
+        savedLanguage = 'en';
+      }
+      if (currentPaymentMethod === 'philippines-vca-bank-transfer' && savedLanguage !== 'en' && savedLanguage !== 'tl') {
+        savedLanguage = 'en';
+      }
+      if (savedLanguage === 'fr' && !isFrenchAllowed) {
+        savedLanguage = 'en';
+      }
+
+      if (typeof switchLanguage === 'function') {
+        switchLanguage(savedLanguage);
+      }
+      if (typeof bindLanguagePillTracking === 'function') {
+        bindLanguagePillTracking();
+      }
+
+      if (currentPaymentMethod === 'mobile-wallet' || currentPaymentMethod === 'bank-transfer') {
+        const paymentCompletionModalElement = document.getElementById('paymentCompletionModal');
+        if (paymentCompletionModalElement) {
+          const paymentCompletionModal = new bootstrap.Modal(paymentCompletionModalElement);
+          paymentCompletionModal.show();
+        }
+      }
+
+      const languagePills = document.querySelectorAll('.language-pill');
+      languagePills.forEach(pill => {
+        if (pill.dataset.detailsLangBound === '1') {
+          return;
+        }
+        pill.dataset.detailsLangBound = '1';
+        pill.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const lang = this.getAttribute('data-lang');
+          if (lang && typeof switchLanguage === 'function') {
+            switchLanguage(lang);
+          }
+        });
+      });
+
+      const accountIdentifierInput = document.getElementById('accountIdentifierInput');
+      const bankAccountNameInput = document.getElementById('bankAccountName');
+      const transactionReferenceInput = document.getElementById('transactionReferenceNumber');
+
+      if (accountIdentifierInput) {
+        accountIdentifierInput.addEventListener('input', function() {
+          const maxLength = currentPaymentMethod === 'mobile-wallet' ? 10 : (currentPaymentMethod === 'wallet' ? 11 : (currentPaymentMethod === 'bank-transfer' ? 24 : 34));
+          this.value = this.value.replace(/\D/g, '').slice(0, maxLength);
+          toggleFieldError('accountIdentifierError', 'accountIdentifierInput', false);
+          checkFormValidity();
+        });
+        accountIdentifierInput.addEventListener('blur', function() {
+          const trimmedValue = this.value.trim();
+          let showError = trimmedValue.length > 0 && !validatePrimaryIdentifier(trimmedValue);
+          if (currentPaymentMethod === 'bank-transfer') {
+            showError = trimmedValue.length > 0 && trimmedValue.length < 24;
+          }
+          toggleFieldError('accountIdentifierError', 'accountIdentifierInput', showError);
+          checkFormValidity();
+        });
+      }
+
+      if (bankAccountNameInput) {
+        bankAccountNameInput.addEventListener('input', function() {
+          toggleFieldError('bankAccountNameError', 'bankAccountName', false);
+          checkFormValidity();
+        });
+        bankAccountNameInput.addEventListener('blur', function() {
+          if (currentPaymentMethod === 'wallet') {
+            toggleFieldError('bankAccountNameError', 'bankAccountName', false);
+            return;
+          }
+          const showError = this.value.trim().length > 0 && this.value.trim().length < 2;
+          toggleFieldError('bankAccountNameError', 'bankAccountName', showError);
+          checkFormValidity();
+        });
+      }
+
+      if (transactionReferenceInput) {
+        transactionReferenceInput.addEventListener('input', function() {
+          toggleFieldError('transactionReferenceNumberError', 'transactionReferenceNumber', false);
+          checkFormValidity();
+        });
+        transactionReferenceInput.addEventListener('blur', function() {
+          if (currentPaymentMethod === 'mobile-wallet' || currentPaymentMethod === 'bank-transfer') {
+            toggleFieldError('transactionReferenceNumberError', 'transactionReferenceNumber', false);
+            return;
+          }
+          const showError = this.value.trim().length > 0 && !validateTransactionReference(this.value);
+          toggleFieldError('transactionReferenceNumberError', 'transactionReferenceNumber', showError);
+          checkFormValidity();
+        });
+      }
+
+      checkFormValidity();
+    });
+  </script>
+
+  <!-- Payment Completion Modal -->
+  <div class="modal fade" id="paymentCompletionModal" tabindex="-1" aria-labelledby="paymentCompletionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentCompletionModalLabel" data-translate="payment-completion-title">⚠️ Complete the transfer in your wallet app using the displayed beneficiary details.</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="payment-completion-message" id="paymentCompletionMessage" data-translate="payment-completion-message">
+            After making the payment in your wallet app, please provide the below details:
+          </p>
+          <ul class="payment-completion-list">
+            <li id="paymentCompletionDetail1" data-translate="payment-completion-detail-1">Wallet details (wallet number and wallet name) from which the transfer was made</li>
+            <li id="paymentCompletionDetail2" data-translate="payment-completion-detail-2">Proof of payment (receipt/screenshot)</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary payment-completion-got-it-btn" data-bs-dismiss="modal" data-translate="got-it">Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to Pay Modal -->
+  <div class="modal fade" id="detailsHowToPayModal" tabindex="-1" aria-labelledby="detailsHowToPayModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailsHowToPayModalLabel" data-translate="how-to-pay-modal-title">How to pay?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol class="how-to-pay-steps-list mb-0">
+            <li data-translate="details-how-to-pay-step-1">Copy the wallet number shown in the Beneficiary details section.</li>
+            <li data-translate="details-how-to-pay-step-2">Open your wallet app and transfer the exact amount to the copied wallet number.</li>
+            <li data-translate="details-how-to-pay-step-3">Enter your wallet number and upload a screenshot of the payment receipt.</li>
+            <li data-translate="details-how-to-pay-step-4">Click on Submit button</li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary feedback-submit-btn" data-bs-dismiss="modal" data-translate="how-to-pay-got-it">Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="feedbackModalLabel" data-translate="feedback">Feedback</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption1" value="explore">
+              <label class="form-check-label" for="feedbackOption1" data-translate="feedback-explore">
+                I would like to explore more before completing transaction.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption2" value="dont_understand">
+              <label class="form-check-label" for="feedbackOption2" data-translate="feedback-dont-understand">
+                I didn't understand what to do next.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption3" value="edit_details">
+              <label class="form-check-label" for="feedbackOption3" data-translate="feedback-edit-details">
+                I want to go back and edit my details.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption4" value="changed_mind">
+              <label class="form-check-label" for="feedbackOption4" data-translate="feedback-changed-mind">
+                I changed my mind.
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link skip-link" data-bs-dismiss="modal" data-translate="skip">Skip</button>
+          <button type="button" class="btn btn-primary feedback-submit-btn" id="submitFeedback" data-translate="submit-feedback">Submit Feedback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ---- Injected for the demo page: report this page's
+     real content height to the parent window via postMessage, so the
+     embedding iframe resizes correctly on every page this flow can
+     navigate to (not just the initial accordion list). ---- */
+  (function(){
+    function reportHeight(){
+      var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      if(h > 0 && window.parent){
+        window.parent.postMessage({ source: 'checkout-demo', height: h }, location.origin === 'null' ? '*' : location.origin);
+      }
+    }
+    window.addEventListener('load', function(){
+      reportHeight();
+      [60, 150, 400, 800, 1500].forEach(function(d){ setTimeout(reportHeight, d); });
+      if(window.ResizeObserver){
+        new ResizeObserver(reportHeight).observe(document.body);
+      }
+      document.querySelectorAll('img').forEach(function(img){
+        if(!img.complete){
+          img.addEventListener('load', reportHeight, { once: true });
+          img.addEventListener('error', reportHeight, { once: true });
+        }
+      });
+    });
+  })();
+</script>
+</body>
+
+
+</html>
+

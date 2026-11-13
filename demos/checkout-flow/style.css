@@ -1,0 +1,4540 @@
+:root {
+    /* Color Pallette */
+
+    /* blue COLORS */
+      /* Blue */
+    --blue-50:  #E6F3FF;
+    --blue-100: #B0D9FF;
+    --blue-200: #8AC7FF;
+    --blue-300: #54ADFF;
+    --blue-400: #339DFF;
+    --blue-500: #0085FF;
+    --blue-600: #0079E8;
+    --blue-700: #005EB5;
+    --blue-800: #00498C;
+    --blue-900: #00386B;
+
+      /* Dark Blue */
+    --dark-blue-50:  #EBF2F9;
+    --dark-blue-100: #C2D6EB;
+    --dark-blue-200: #A5C2E2;
+    --dark-blue-300: #7CA7D4;
+    --dark-blue-400: #6295CC;
+    --dark-blue-500: #3B7BBF;
+    --dark-blue-600: #3670AE;
+    --dark-blue-700: #2A5788;
+    --dark-blue-800: #204469;
+    --dark-blue-900: #193450;
+
+    /* Green */
+    --green-50:  #EAF6EC;
+    --green-100: #BCE4C5;
+    --green-200: #9CD7A9;
+    --green-300: #6FC482;
+    --green-400: #53B96A;
+    --green-500: #28A745;
+    --green-600: #24983F;
+    --green-700: #1C7731;
+    --green-800: #165C26;
+    --green-900: #11461D;
+
+      /* Black */
+    --black-sec-50:  #FDFEFC;
+    --black-sec-100: #FAFDF6;
+    --black-sec-200: #F8FCF2;
+    --black-sec-300: #F4FAEC;
+    --black-sec-400: #F2F9E8;
+    --black-sec-500: #EFF8E2;
+    --black-sec-600: #D9E2CE;
+    --black-sec-700: #AAB0A0;
+    --black-sec-800: #83887C;
+    --black-sec-900: #64685F;
+    --black-sec-950: #2C2C2C;
+
+    /* Indicative colors */
+    /* Red */
+    --red-50:  #FEECE8;
+    --red-100: #FBC4B6;
+    --red-200: #F9A793;
+    --red-300: #F67F62;
+    --red-400: #F46643;
+    --red-500: #F14014;
+    --red-600: #DB3A12;
+    --red-700: #AB2D0E;
+    --red-800: #85230B;
+    --red-900: #651B08;
+
+     /* Yellow */
+    --yellow-50:  #FFFCEF;
+    --yellow-100: #FFF5CE;
+    --yellow-200: #FFF1B6;
+    --yellow-300: #FFEA95;
+    --yellow-400: #FFE681;
+    --yellow-500: #FFE061;
+    --yellow-600: #E8CC58;
+    --yellow-700: #B59F45;
+    --yellow-800: #8C7B35;
+    --yellow-900: #6B5E29;
+
+     /* Yellow */
+    --green-ind-50:  #E6FDE6;
+    --green-ind-100: #B0F9B3;
+    --green-ind-200: #8AF68E;
+    --green-ind-300: #54F25A;
+    --green-ind-400: #33F03A;
+    --green-ind-500: #00EC09;
+    --green-ind-600: #00D708;
+    --green-ind-700: #00A806;
+    --green-ind-800: #008205;
+    --green-ind-900: #006304;
+
+
+
+    /* Spacing */
+    --spacing-04: 0.25rem;
+    --spacing-06: 0.375rem;
+    --spacing-08: 0.5rem;
+    --spacing-10: 0.625rem;
+    --spacing-12: 0.75rem;
+    --spacing-14: 0.875rem;
+    --spacing-16: 1rem;
+    --spacing-18: 1.125rem;
+    --spacing-20: 1.25rem;
+    --spacing-22: 1.375rem;
+    --spacing-24: 1.5rem;
+    --spacing-26: 1.625rem;
+    --spacing-28: 1.75rem;
+    --spacing-30: 1.875rem;
+    --spacing-32: 2rem;
+    --spacing-34: 2.125rem;
+    --spacing-36: 2.25rem;
+    --spacing-38: 2.375rem;
+    --spacing-40: 2.5rem;
+    --spacing-42: 2.625rem;
+    --spacing-44: 2.75rem;
+    --spacing-46: 2.875rem;
+    --spacing-48: 3rem;
+    --spacing-50: 3.125rem;
+    --spacing-52: 3.25rem;
+    --spacing-54: 3.375rem;
+    --spacing-56: 3.5rem;
+    --spacing-58: 3.625rem;
+    --spacing-60: 3.75rem;
+    --spacing-62: 3.875rem;
+    --spacing-64: 4rem;
+    --spacing-66: 4.125rem;
+    --spacing-68: 4.25rem;
+    --spacing-70: 4.375rem;
+    --spacing-72: 4.5rem;
+    --spacing-74: 4.625rem;
+    --spacing-76: 4.75rem;
+    --spacing-78: 4.875rem;
+    --spacing-80: 5rem;
+    --spacing-82: 5.125rem;
+    --spacing-84: 5.25rem;
+    --spacing-86: 5.375rem;
+    --spacing-88: 5.5rem;
+    --spacing-90: 5.625rem;
+    --spacing-92: 5.75rem;
+    --spacing-94: 5.875rem;
+    --spacing-96: 6rem;
+    --spacing-98: 6.125rem;
+    --spacing-100: 6.25rem;
+    --spacing-102: 6.375rem;
+    --spacing-104: 6.5rem;
+    --spacing-106: 6.625rem;
+    --spacing-108: 6.75rem;
+    --spacing-110: 6.875rem;
+    --spacing-112: 7rem;
+    --spacing-114: 7.125rem;
+    --spacing-116: 7.25rem;
+    --spacing-118: 7.375rem;
+    --spacing-120: 7.5rem;
+    --spacing-122: 7.625rem;
+    --spacing-124: 7.75rem;
+    --spacing-126: 7.875rem;
+    --spacing-128: 8rem;
+    --spacing-130: 8.125rem;
+    --spacing-132: 8.25rem;
+    --spacing-134: 8.375rem;
+    --spacing-136: 8.5rem;
+    --spacing-138: 8.625rem;
+    --spacing-140: 8.75rem;
+    --spacing-142: 8.875rem;
+    --spacing-144: 9rem;
+    --spacing-146: 9.125rem;
+    --spacing-148: 9.25rem;
+    --spacing-150: 9.375rem;
+    --spacing-152: 9.5rem;
+    --spacing-154: 9.625rem;
+    --spacing-156: 9.75rem;
+    --spacing-158: 9.875rem;
+    --spacing-160: 10rem;
+    --spacing-162: 10.125rem;
+    --spacing-164: 10.25rem;
+    --spacing-166: 10.375rem;
+    --spacing-168: 10.5rem;
+    --spacing-170: 10.625rem;
+    --spacing-172: 10.75rem;
+    --spacing-174: 10.875rem;
+    --spacing-176: 11rem;
+    --spacing-178: 11.125rem;
+    --spacing-180: 11.25rem;
+    --spacing-182: 11.375rem;
+    --spacing-184: 11.5rem;
+    --spacing-186: 11.625rem;
+    --spacing-188: 11.75rem;
+    --spacing-190: 11.875rem;
+    --spacing-192: 12rem;
+    --spacing-200: 12.125rem;
+
+    /* BACKGROUND COLOR */
+    --primary-background: #F4F4F4;
+    --accordion-background: #EFF0F7;
+    --bg-white:#fff;
+  
+  
+   /* FONTS SIZE */
+    --font-10: 0.625rem;   
+    --font-12: 0.75rem;    
+    --font-14: 0.875rem;   
+    --font-16: 1rem;       
+    --font-18: 1.125rem;   
+    --font-20: 1.25rem;    
+    --font-22: 1.375rem;    
+    --font-24: 1.5rem;    
+    --font-26: 1.625rem;    
+    --font-28: 1.75rem;    
+    --font-30: 1.875rem;    
+    --font-32: 2rem;    
+    --font-34: 2.125rem;    
+    --font-36: 2.25rem;    
+  
+   /* BORDER WIDTH */
+    --border-1: 1px; 
+    --border-2: 2px; 
+    --border-3: 3px; 
+    --border-4: 4px; 
+    --border-5: 5px;
+    --border-10: 10px;
+  
+   /* BORDER RADIOUS */
+    --border-radius-0: 0px;
+    --border-radius-2: 2px;
+    --border-radius-4: 4px;
+    --border-radius-6: 6px;
+    --border-radius-10: 10px;
+    --border-radius-12: 12px;
+    --border-radius-14: 14px;
+    --border-radius-16: 16px;
+    --border-radius-18: 18px;
+    --border-radius-20: 20px;
+    --border-radius-22: 22px;
+    --border-radius-24: 24px;
+    --border-radius-26: 26px;
+    --border-radius-28: 28px;
+    --border-radius-30: 30px;
+    --border-radius-32: 32px;
+
+  }
+  
+  /*----------------COMPONENT----------------- */
+  /* FONT SIZE */
+  .font-10{font-size: var(--font-10) !important}
+  .font-12{font-size:var(--font-12) !important}    
+  .font-14{font-size:var(--font-14) !important}    
+  .font-16{font-size:var(--font-16) !important}    
+  .font-18{font-size:var(--font-18) !important}    
+  .font-20{font-size:var(--font-20) !important}
+  
+/* CSS */
+body {
+  background-color: var(--blue-50);
+  font-family: "Inter", sans-serif;
+}
+
+/* RTL Support */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="rtl"] .accordion-head,
+html[dir="rtl"] .accordion-subtext,
+html[dir="rtl"] .form-label,
+html[dir="rtl"] .payment-head,
+html[dir="rtl"] .payment-instructions-text,
+html[dir="rtl"] .payment-instructions-text-urdu,
+html[dir="rtl"] .payment-instructions-text-arabic,
+html[dir="rtl"] .help-text,
+html[dir="rtl"] .time-text {
+  text-align: right;
+}
+
+html[dir="ltr"] .accordion-head,
+html[dir="ltr"] .accordion-subtext,
+html[dir="ltr"] .form-label,
+html[dir="ltr"] .payment-head,
+html[dir="ltr"] .payment-instructions-text,
+html[dir="ltr"] .payment-instructions-text-urdu,
+html[dir="ltr"] .payment-instructions-text-arabic,
+html[dir="ltr"] .help-text,
+html[dir="ltr"] .time-text {
+  text-align: left;
+}
+
+/* Egypt wallet phone input alignment by language direction */
+html[dir="rtl"] #walletPhoneNumberEgypt,
+html[dir="rtl"] #walletPhoneNumberEgypt::placeholder {
+  text-align: right;
+}
+
+html[dir="ltr"] #walletPhoneNumberEgypt,
+html[dir="ltr"] #walletPhoneNumberEgypt::placeholder {
+  text-align: left;
+}
+
+/* RTL flex direction adjustments */
+/* In LTR: text (first) goes left, timer (second) goes right - correct */
+/* In RTL: text (first) goes right, timer (second) goes left - correct (no reverse needed) */
+
+/* Prevent iOS zoom on input focus */
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+select,
+textarea {
+  font-size: 16px !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Ensure proper input sizing on iOS without affecting design */
+input:focus,
+select:focus,
+textarea:focus {
+  font-size: 16px !important;
+  transform: none !important;
+  zoom: 1 !important;
+}
+
+.bg-card {
+  background-color: var(--bg-white);
+  min-width: 60%;
+  max-width: 60%;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  border-radius: var(--border-radius-32);
+  box-shadow: 12px 12px 42px #0d0d0e06;
+}
+
+h1 {
+  font-size: var(--font-28);
+  font-weight: 700;
+  margin: 0;
+}
+
+.logo {
+  width: 5.625rem;
+  object-fit: contain;
+}
+
+h2 {
+  font-size: var(--font-22);
+  font-weight: 700;
+}
+
+.transaction-head {
+  color: var(--dark-blue-100);
+}
+
+.summary-box {
+  background-color: var(--dark-blue-500);
+  padding: 2rem;
+  border-radius: var(--border-radius-22) var(--border-radius-22) var(--border-radius-0) var(--border-radius-0);
+  gap: var(--spacing-32);
+}
+
+h3 {
+  font-size: var(--font-18);
+  font-weight: 600;
+  margin: 0;
+}
+
+h5 {
+  font-size: var(--font-16);
+  font-weight: 600;
+  color: var(--dark-blue-500);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+.summary-details {
+  gap: var(--spacing-16);
+}
+.summary-row {
+  padding-bottom: var(--spacing-08);
+  border-bottom: 1px solid var(--dark-blue-300);
+}
+
+
+.chip-summary {
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--dark-blue-700);
+  border-radius: var(--border-radius-6);
+  height: fit-content;
+}
+
+.chip-text {
+  line-height: 120%;
+  font-size: var(--font-14);
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+}
+
+.chip-text {
+  color: var(--blue-50);
+}
+.chip-text-tag {
+  color: var(--blue-100);
+}
+
+.chip-wrapper {
+  gap: 0.5rem;
+}
+
+.heading-wrapper {
+  gap: var(--spacing-08);
+}
+
+.heading-wrapper > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  width: 100%;
+}
+
+.heading-title-row {
+  flex-wrap: wrap;
+}
+
+/* Three language pills: title on first row, languages on the next */
+.heading-title-row--multilang {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--spacing-12);
+}
+
+.heading-title-row--multilang .payment-head {
+  width: 100%;
+}
+
+.heading-title-row--multilang .heading-language-pills {
+  width: 100%;
+}
+
+.time-chip-alt {
+  padding-bottom: var(--spacing-08);
+  border-bottom: 1px solid var(--black-sec-600);
+}
+
+.upi-qr-header-only {
+  display: none;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing-12);
+  padding-bottom: var(--spacing-08);
+  border-bottom: 1px solid var(--black-sec-600);
+}
+
+.upi-qr-header-only .checkout-logo {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+}
+
+.upi-qr-page .checkout-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-bottom: var(--spacing-08);
+  border-bottom: 1px solid var(--black-sec-600);
+}
+
+.upi-qr-page .checkout-header .checkout-logo {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* UPI (India) flow: hide merchant logo and divider on upi-qr-page.html */
+.upi-qr-page.upi-qr-page--alt .checkout-header {
+  display: none !important;
+}
+
+.upi-qr-page .qr-instruction-text {
+  text-align: center;
+  color: #83887c;
+}
+
+body.upi-qr-expanded-mode .upi-qr-header-only {
+  display: flex;
+}
+
+body.upi-qr-expanded-mode .time-chip-alt {
+  display: none !important;
+}
+
+.summary-info {
+  color: var(--black-sec-50);
+}
+
+.payment-head {
+  color: var(--blue-900);
+  margin: 0;
+}
+
+.payment-box {
+  padding: 0;
+  gap: 1rem;
+  border-radius: var(--border-radius-12);
+  overflow: hidden;
+  padding: var(--spacing-32);
+}
+
+.nav {
+  background-color: var(--blue-100);
+  padding: var(--spacing-04);
+}
+.nav-link {
+  color: var(--dark-blue-900) !important;
+  padding: var(--spacing-12);
+}
+.nav-link.active {
+  background-color: var(--dark-blue-800) !important;
+  border-radius: var(--border-radius-10);
+  color: var(--black-sec-100) !important;
+}
+.nav-link:active {
+  background-color: var(--dark-blue-900) !important;
+  border-radius: var(--border-radius-10);
+  color: var(--black-sec-100) !important;
+}
+
+.tab-pane {
+  padding: 0 1rem 1rem 1rem;
+}
+
+.logos-and-heading {
+  gap: var(--spacing-16);
+}
+
+.hr {
+  color: var(--blue-200);
+  width: 100%;
+  height: 1px;
+  margin: 0;
+}
+
+.upi-methods-disabled {
+  width: 60%;
+  object-fit: contain;
+}
+
+.accordion-item {
+  border-radius: 6px !important;
+  border: none;
+}
+.accordion {
+  border-radius: var(--spacing-12) !important;
+  overflow: hidden;
+  border: 1px solid var(--blue-300);
+}
+
+.accordion-head-wrapper {
+  gap: 0.625rem;
+  font-weight: 700;
+}
+
+.accordion-head {
+  margin: 0;
+  padding: 0;
+  font-size: var(--font-18);
+  text-align: left;
+
+}
+.accordion-head.active {
+  margin: 0;
+  padding: 0;
+  font-size: var(--font-18);
+  border-bottom: 1px solid var(--blue-500) !important;
+}
+
+.accordion-subtext {
+  margin: 0;
+  padding: 0;
+  font-size: var(--font-14);
+  font-weight: 400;
+  color: #101010;
+  text-align: left;
+}
+
+.accordion-button {
+  background-color: var(--blue-50);
+  border-bottom: 1px solid var(--blue-300);
+  color: var(--blue-900);
+}
+
+.accordion-button:not(.collapsed)  {
+  background-color: var(--blue-100);
+  border-bottom: 1px solid var(--blue-500); 
+}
+
+/* Avoid double-thick bottom border on the last collapsed accordion item */
+.accordion-item:last-child .accordion-button.collapsed {
+  border-bottom: none;
+}
+
+.accordion-button.collapsed::after {
+  background: url("images/expand_circle.svg");
+  width: 24px;
+  height: 24px;
+}
+.accordion-button:not(.collapsed)::after {
+  background: url("images/expand_circle.svg");
+  width: 24px;
+  height: 24px;
+}
+
+/* RTL: Move accordion chevron to left side */
+html[dir="rtl"] .accordion-button {
+  padding-right: 1rem;
+  padding-left: 3rem;
+  justify-content: flex-start;
+}
+
+html[dir="rtl"] .accordion-button::after {
+  margin-right: auto;
+  margin-left: 0;
+  position: absolute;
+  left: 1rem;
+  right: auto;
+  order: -1;
+}
+
+html[dir="ltr"] .accordion-button::after {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+
+.accordion-body {
+  border-radius: 0px 0px 6px 6px !important;
+}
+
+
+.form-label,.form-label-as-heading  {
+  font-size: var(--font-16);
+  font-weight: 600;
+  margin: 0;
+}
+
+.form-label {
+  color: var(--black-sec-950);
+}
+
+.form-label-as-heading {
+  color: var(--black-sec-950);
+  font-size: var(--font-18);
+}
+
+.form-control, .form-select {
+  padding: 1rem 0.75rem;
+  font-size: var(--font-16);
+  line-height: 120%;
+  font-weight: 500;
+  border-radius: var(--border-radius-12);
+  border: solid 2px var(--green-700);
+  color: var(--black-sec-950);
+  font-weight: 500;
+}
+
+.form-control::placeholder,
+.form-select option:first-child {
+  color: var(--black-sec-800);
+  opacity: 1;
+}
+/*🔴 Input error state CSS 🔴*/
+.form-control-error {
+  border: solid 2px var(--red-500) !important;
+}
+
+.form-select.form-control-error {
+  border: solid 2px var(--red-500) !important;
+}
+/*🔴 Input error state CSS 🔴*/
+
+.form-wrapper {
+  gap: 1rem;
+}
+
+.checkout-button {
+  font-size: var(--font-16) !important;
+  font-weight: 500;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  background-color: var(--green-500) !important;
+  border: transparent;
+  color: var(--bg-white);
+  gap: 0.75rem;
+  transition: ease-in-out .15s;
+}
+
+
+.checkout-button:hover {
+  background-color: var(--green-600) !important;
+  color: var(--bg-white) !important;
+  transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.checkout-button:active {
+  background-color: var(--green-700) !important;
+  color: var(--bg-white) !important;
+}
+
+.checkout-button:focus,
+.checkout-button:focus-visible {
+  color: var(--bg-white) !important;
+}
+
+.checkout-button:disabled {
+  background-color: rgba(34, 197, 94, 0.5) !important; /* 50% opacity of green-500 */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.checkout-button-non-clickable {
+  pointer-events: none;
+  cursor: default !important;
+}
+
+.checkout-button-secondary {
+  background-color: var(--green-100) !important;
+  color: var(--green-900);
+}
+.checkout-button-secondary:hover {
+  background-color: var(--green-200) !important;
+  color: var(--green-900);
+}
+.checkout-button-secondary:active {
+  background-color: var(--green-300) !important;
+  color: var(--green-900) !important;
+}
+
+.spinner-border {
+  width: var(--spacing-18);
+  height: var(--spacing-18);
+  border: none;
+  animation: 1.25s linear infinite var(--bs-spinner-animation-name);
+}
+.custom-spinner {
+  width: var(--spacing-18) !important;
+  height: var(--spacing-18) !important;
+}
+
+
+.upi-input-wrapper {
+  gap: 0.5rem;
+}
+
+.checkout-button-sm {
+  padding: 0.375rem 1rem;
+  font-weight: 700;
+  font-size: var(--font-14);
+  color: var(--green-900);
+  border-radius: 6px;
+  background-color: var(--green-100);
+  border: none;
+  max-height: fit-content !important;
+}
+
+.checkout-button-sm:hover {
+  color: var(--green-900);
+  background-color: var(--green-100);
+}
+.checkout-button-sm:active {
+  color: var(--green-900) !important;
+  background-color: var(--green-200) !important;
+}
+
+.p-method-icon {
+  height: var(--spacing-38);
+  width: var(--spacing-38);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.pix-input-wrapper {
+  gap: 1rem;
+}
+
+.invalid-chip, .valid-chip   {
+  padding: var(--spacing-04);
+  width: fit-content;
+  height: fit-content;
+  gap: var(--spacing-04);
+  border-radius: var(--border-4);
+}
+
+.valid-chip {
+  background: var(--green-ind-200);
+  color: var(--green-ind-900);
+}
+.invalid-chip {
+  background: var(--red-100);
+  color: var(--red-900);
+}
+
+.valid-text {
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+}
+
+.badge-ico {
+  width: var(--spacing-18);
+  height: var(--spacing-18);
+}
+.form-and-label-wrapper {
+  gap: 0.25rem !important;
+}
+
+.small-button-wrapper {
+  gap: var(--spacing-08);
+}
+
+
+.form-help-wrapper {
+  gap: 0;
+}
+
+.qr-tray {
+  padding: 0.75rem;
+  background-color: var(--bg-white);
+  border-radius: var(--border-radius-12);
+}
+
+.qr-code-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qr-code-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  pointer-events: auto;
+}
+
+.qr-code-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: var(--border-radius-12);
+  filter: blur(8px);
+  transition: filter 0.3s ease;
+}
+
+.qr-code-image.show {
+  filter: none;
+}
+
+.qr-code-visible {
+  filter: none !important;
+  max-width: 350px;
+}
+
+.show-qr-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--green-500);
+  color: var(--bg-white);
+  border: none;
+  border-radius: var(--border-radius-10);
+  padding: var(--spacing-12) var(--spacing-20);
+  font-size: var(--font-16);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-08);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 100;
+  pointer-events: auto;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+
+.show-qr-button:hover {
+  background-color: var(--green-600);
+}
+
+.show-qr-button:active {
+  background-color: var(--green-700);
+}
+
+.show-qr-button.hidden {
+  display: none;
+}
+
+.show-qr-button img {
+  width: 1.125rem;
+  height: 1.125rem;
+  filter: brightness(0) invert(1);
+}
+
+.pay-with-qr-text {
+  font-size: var(--font-16);
+  font-weight: 500;
+  color: var(--black-sec-950);
+  margin: 0;
+  text-align: center;
+}
+
+.support-text {
+  font-size: var(--font-14);
+  font-weight: 400;
+  color: var(--black-sec-800);
+  margin: 0;
+  text-align: center;
+}
+
+.upi-handles-logos {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--spacing-12);
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.upi-handles-logos .upi-handle-logo {
+  margin-left: 0 !important;
+}
+
+.upi-handles-logos .upi-handle-logo[data-open-app] {
+  cursor: pointer;
+}
+
+.upi-handles-logos .upi-handle-logo:nth-child(-n+3) {
+  grid-column: span 4;
+}
+
+.upi-handles-logos .upi-handle-logo:nth-child(n+4) {
+  grid-column: span 3;
+}
+
+/* UPI (India) flow: four-handle logo row (UPI, GPay, PhonePe, Paytm) */
+.upi-handles-logos--four {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-16);
+  max-width: 100%;
+}
+
+.upi-handles-logos--four .upi-handle-logo {
+  flex: 0 1 auto;
+  grid-column: auto;
+  max-width: 5.5rem;
+  margin: 0;
+}
+
+.upi-handles-logos--four .upi-handle-logo:nth-child(-n+3),
+.upi-handles-logos--four .upi-handle-logo:nth-child(n+4) {
+  grid-column: auto;
+}
+
+.upi-handle-logo {
+  height: 1.5rem;
+  width: auto;
+  object-fit: contain;
+  max-width: 100%;
+}
+
+.mobile-upi-methods-card {
+  display: none;
+}
+
+.upi-qr-desktop-flow {
+  display: flex;
+}
+
+.upi-first-accordion-title-mobile {
+  display: none;
+}
+
+.upi-first-accordion-icon-mobile {
+  display: none;
+}
+
+.beneficiary-heading-row {
+  gap: 0;
+}
+
+.beneficiary-heading-row .mobile-how-to-pay-link {
+  margin-inline-start: var(--spacing-08);
+}
+
+.mobile-upi-methods-title {
+  margin: 0;
+  font-size: var(--font-16);
+  font-weight: 700;
+  color: var(--black-sec-950);
+  line-height: 1.4;
+}
+
+.mobile-how-to-pay-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-04);
+  vertical-align: baseline;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  margin-inline-start: calc(var(--spacing-08) - 4px);
+  color: #00498c;
+  font-size: var(--font-14);
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
+  line-height: 1.3;
+}
+
+.mobile-how-to-pay-link:hover {
+  color: #00498c;
+  text-decoration: underline;
+  background: transparent;
+}
+
+.mobile-upi-security-ticker {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--spacing-08);
+  width: 100%;
+  background-color: #c6e6c6;
+  border-radius: var(--spacing-06);
+  padding: var(--spacing-08) var(--spacing-10);
+}
+
+.mobile-upi-security-ticker-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+.mobile-upi-security-ticker-icon img {
+  width: 1.125rem;
+  height: 1.125rem;
+  object-fit: contain;
+  display: block;
+}
+
+.mobile-upi-security-ticker-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-upi-security-ticker-line1 {
+  margin: 0;
+  font-size: var(--font-12);
+  font-weight: 400;
+  color: var(--black-sec-950);
+  line-height: 1.35;
+}
+
+.mobile-upi-security-ticker-line1 strong {
+  font-weight: 700;
+}
+
+.mobile-upi-method-row {
+  width: 100%;
+  border: 1px solid var(--blue-600);
+  border-radius: var(--spacing-06);
+  padding: var(--spacing-12);
+  background-color: #F6FBFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.mobile-upi-method-row::after {
+  content: "\f054";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: var(--font-12);
+  color: var(--blue-700);
+  line-height: 1;
+}
+
+.mobile-upi-method-row:hover {
+  background-color: var(--blue-50);
+  border-color: var(--blue-700);
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .mobile-upi-method-row:hover {
+    background-color: #F6FBFF;
+    border-color: var(--blue-600);
+  }
+}
+
+.mobile-upi-method-row:focus,
+.mobile-upi-method-row:focus-visible,
+.mobile-upi-method-row:active {
+  background-color: #F6FBFF;
+  border-color: var(--blue-600);
+  outline: none;
+  box-shadow: none;
+}
+
+.mobile-upi-method-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.mobile-upi-method-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+}
+
+.mobile-upi-other-apps-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  opacity: 0.6;
+}
+
+.mobile-upi-method-name {
+  font-size: var(--font-14);
+  font-weight: 700;
+  color: var(--blue-700);
+}
+
+.scroll-down-hint {
+  display: none;
+}
+
+.copy-icon {
+  width: 1.25rem;
+}
+
+.custom-tooltip {
+  background-color: #1D9000;
+  color: #0d0e0d;
+}
+
+.form-check .form-check-input {
+  margin: 0;
+}
+
+.bank-check .form-check-input {
+  margin: 0;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.bank-check {
+  padding: 0.75rem;
+  background-color: var(--green-100);
+  border-radius: var(--border-radius-12);
+  width: 100%;
+  height: auto;
+  transition: ease-in-out .15s;
+  border: none;
+  gap: 1rem;
+  max-width: 25%;
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+.form-check-label {
+  gap: 1rem;
+}
+
+.bank-check .form-check-label {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  flex: 1;
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+.bank-label {
+  font-size: var(--font-14);
+  color: var(--green-900);
+  font-weight: 600;
+  line-height: 120%;
+  text-align: left;
+}
+
+.netbanking-wrapper {
+  gap: 1rem;
+}
+
+.or-separator {
+  margin: 1rem 0;
+}
+
+.separator-line {
+  flex: 1;
+  height: 1px;
+  background-color: #E5E5E5;
+}
+
+.separator-text {
+  padding: 0 1rem;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.fawry-logo {
+  height: 3rem;
+  width: 6rem;
+  object-fit: contain;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+/* The Fawry "Cash" accordion has a single standalone card, not a grid
+   of multiple logos — .bank-check's max-width: 25% (sized for the
+   multi-item NetBanking-style grids) was squeezing this one card
+   narrower than the fixed-size Fawry logo inside it, pushing the logo
+   past the card's edge. */
+#collapseCashMethod .bank-check {
+  max-width: 100%;
+}
+
+/* Fawry Payment Page Styles */
+.fawry-payment-details {
+  background-color: var(--blue-50);
+  border-radius: var(--border-radius-12);
+  border: 1px solid var(--blue-300);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.fawry-section-title {
+  font-size: var(--font-18);
+  font-weight: 700;
+  color: var(--black-sec-950);
+  margin: 0 0 0.75rem 0;
+}
+
+.fawry-detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--blue-200);
+  gap: 0.25rem;
+}
+
+.fawry-detail-item:last-child {
+  border-bottom: none;
+}
+
+.fawry-detail-label {
+  font-size: var(--font-14);
+  color: #1C7731;
+  font-weight: 500;
+}
+
+.fawry-detail-value {
+  font-size: var(--font-14);
+  color: var(--black-sec-950);
+  font-weight: 700;
+}
+
+/* VCA Bank Transfer Philippines */
+.philippines-vca-section-title {
+  font-size: var(--font-18);
+  font-weight: 700;
+  color: var(--black-sec-950);
+  margin: 0 0 0.75rem 0;
+}
+
+.philippines-vca-payment-details {
+  background-color: var(--blue-50);
+  border-radius: var(--border-radius-12);
+  border: 1px solid var(--blue-300);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.philippines-vca-detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--blue-200);
+  gap: 0.25rem;
+}
+
+.philippines-vca-detail-item:last-child {
+  border-bottom: none;
+}
+
+.philippines-vca-detail-label {
+  font-size: var(--font-14);
+  color: #1C7731;
+  font-weight: 500;
+}
+
+.philippines-vca-detail-value {
+  font-size: var(--font-14);
+  color: var(--black-sec-950);
+  font-weight: 700;
+}
+
+.philippines-vca-instructions-container {
+  background-color: #FFF5CE;
+  border: 1px solid #E8CC58;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: #8C7B35;
+  width: 100%;
+  max-width: 100%;
+}
+
+.philippines-vca-instructions-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: var(--font-16);
+}
+
+.philippines-vca-instructions-list {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #8C7B35;
+  line-height: 1.6;
+}
+
+.philippines-vca-instructions-list li {
+  margin-bottom: 0.5rem;
+}
+
+.philippines-vca-instructions-list li:last-child {
+  margin-bottom: 0;
+}
+
+.philippines-vca-instructions-text {
+  margin: 0;
+  color: #8C7B35;
+  line-height: 1.5;
+}
+
+/* DFNN Philippines QRPH */
+.philippines-qrph-qr-section {
+  width: 100%;
+}
+
+.philippines-qrph-qr-section .button-wrapper {
+  width: 100%;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.philippines-qrph-qr-section .checkout-button {
+  padding: 1rem 1.25rem;
+  width: 100%;
+  justify-content: center;
+}
+
+html[lang="tl"] .philippines-qrph-qr-section .show-qr-button {
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+
+.fawry-instructions {
+  background-color: #FFF5CE;
+  border: 1px solid #E8CC58;
+  border-radius: var(--border-radius-12);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.fawry-instruction-text {
+  font-size: var(--font-14);
+  color: #8C7B35;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.fawry-return-link {
+  background-color: transparent !important;
+  color: var(--blue-800);
+  font-weight: 800;
+  text-decoration: underline !important;
+  border: none;
+  font-size: var(--font-16);
+  margin-top: 1rem;
+  transition: color 0.2s ease;
+}
+
+.fawry-return-link:hover {
+  background-color: transparent !important;
+  color: var(--blue-800);
+  font-weight: 800;
+  text-decoration: underline !important;
+  border: none;
+}
+
+.gap-32-wrapper {
+  gap: 2rem;
+}
+
+.gap-16-wrapper {
+  gap: 1rem;
+  padding: var(--spacing-32);
+}
+
+.bank-details-heading {
+  padding-bottom: 0.75rem;
+}
+
+.copy-button-togg {
+  background-color: var(--green-100);
+  padding:var(--spacing-12) var(--spacing-16);
+  border: none;
+  border-radius: 8px;
+  gap: var(--spacing-08);
+  font-weight: 500;
+  color: var(--green-800);
+}
+.copy-button-togg:hover {
+  background-color: var(--green-200);
+}
+.copy-button-togg:active {
+  background-color: var(--green-300);
+}
+
+@keyframes walletNumberPulse {
+  0%   { background-color: transparent; }
+  30%  { background-color: var(--green-50); }
+  60%  { background-color: transparent; }
+  85%  { background-color: var(--green-50); }
+  100% { background-color: transparent; }
+}
+
+@keyframes copyBounce {
+  0%   { transform: scale(1); }
+  25%  { transform: scale(1.18); }
+  50%  { transform: scale(0.93); }
+  70%  { transform: scale(1.09); }
+  85%  { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+.wallet-number-row {
+  border-radius: 8px;
+  animation: walletNumberPulse 2.4s ease-in-out infinite;
+  padding: 0.25rem 0.5rem var(--spacing-16);
+  margin: -0.25rem -0.5rem 0;
+}
+
+.wallet-number-row .copy-button-simple {
+  animation: copyBounce 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.copy-button-simple {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-08);
+  font-weight: 500;
+  color: #0079E8;
+  cursor: pointer;
+  font-size: var(--font-14);
+}
+
+.copy-button-simple:hover {
+  color: #005EB5;
+}
+
+.copy-button-simple:active {
+  color: #00498C;
+}
+
+.copy-button-simple .copy-icon {
+  width: 1rem;
+  height: 1rem;
+  object-fit: contain;
+}
+
+.upload-icon {
+  width: 1rem;
+  height: 1rem;
+  object-fit: contain;
+}
+
+.help-text.file-name-text {
+  color: var(--green-500) !important;
+}
+
+#fileName {
+  color: var(--green-500) !important;
+}
+
+.head-n-tag {
+  gap: 0.375rem;
+}
+
+.head-bank-details {
+  font-size: var(--font-14);
+  color: var(--green-700);
+  font-weight: 600;
+  padding: 0px;
+  margin: 0px;
+  line-height: 120%;
+}
+
+.tag-bank-details {
+  font-size: var(--font-18);
+  color: var(--black-sec-950);
+  font-weight: 600;
+  padding: 0px;
+  margin: 0px;
+  line-height: 120%;
+}
+
+.beneficiary-label-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.arabic-only-label {
+  display: none;
+}
+
+.english-only-label {
+  display: inline;
+}
+
+
+.info-row {
+  padding-top: var(--spacing-16);
+  padding-bottom: 0.5rem;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  border-top: 1px solid #54adff;
+  margin-top: var(--spacing-16);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.instruction-div {
+  gap: var(--spacing-08);
+}
+
+.alert-chip-with-icon {
+  width: fit-content;
+}
+
+.contents-bank-transfer {
+  gap: 1.5rem;
+}
+
+.bank-depo-gap16 {
+  gap: 1rem;
+}
+
+.down-button {
+  width: 20px;
+}
+
+.arrow-nterbanking {
+  width: 2rem;
+  height: 2rem;
+}
+
+.banking-logo {
+  height: 2.5rem;
+  width: 2.5em;
+  object-fit: contain !important;
+  display: flex !important;
+  align-items: start !important;
+}
+
+#collapseBanWallets .banking-logo {
+  height: 3.25rem;
+  width: 3.25rem;
+}
+
+#collapseBanWallets .bank-check {
+  position: relative;
+  cursor: pointer;
+}
+
+#collapseBanWallets .bank-check .form-check-label {
+  cursor: pointer;
+  border-radius: var(--border-radius-12);
+  padding: var(--spacing-08);
+  min-height: 100%;
+}
+
+#collapseBanWallets .bank-check .form-check-input {
+  cursor: pointer;
+}
+
+#collapseBanWallets .bank-check * {
+  cursor: pointer;
+}
+
+.wallets-icon {
+  width: 4rem;
+  object-fit: contain;
+}
+
+.alipay-wrapper {
+  gap: .5rem;
+}
+
+.alipay-content-wrapper {
+gap: 1rem;
+}
+
+.alipay-info-tray {
+  background-color: var(--green-50);
+  border: 1px solid var(--green-100);
+  gap: 0.25rem;
+  padding: 1rem;
+  border-radius: var(--border-radius-10);
+}
+.head-alipay-details {
+  font-size: var(--font-14);
+  color: var(--green-500);
+  font-weight: 600;
+  margin: 0;
+}
+.tag-alipay-details {
+  font-size: var(--font-18);
+  color: var(--green-900);
+  margin: 0;
+  font-weight: 600;
+}
+.alipay-info-wrapper {
+  gap: 1rem;
+}
+
+.help-text {
+  font-size: var(--font-14);
+  font-weight: 500;
+  color: var(--black-sec-800);
+  margin: 0;
+}
+.help-red {
+  color: var(--red-600);
+} 
+
+
+.overlay-div {
+  display: none;
+}
+
+.copy-button-togg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upi-expiry-img {
+  width: 10%;
+}
+
+.upi-expiry-tag {
+  font-size: var(--font-16);
+  color: var(--black-sec-800);
+  font-weight: 600;
+  text-align: center;
+}
+
+.expiry-transaction-wrapper {
+  gap: .5rem;
+}
+
+.kyc-tag {
+  color: var(--black-sec-800);
+  margin: 0;
+  font-weight: 500;
+}
+
+.kyc-bg {
+  background-color: var(--bg-white);
+  min-width: 60% !important;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  border-radius: var(--border-radius-22);
+  box-shadow: 12px 12px 42px #0d0d0e06;
+  padding: 1.25rem;
+  gap: var(--spacing-32);
+
+}
+
+.alert-chip-with-icon {
+  padding: 0.375rem 0.5rem;
+  background-color: #FEFFC1;
+  border-radius: var(--border-radius-10);
+}
+
+.danger_icon {
+  width: 1.4rem;
+}
+
+.error-exclamation {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 50%;
+  background-color: var(--red-600);
+  color: var(--bg-white);
+  font-size: var(--font-12);
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.danger-text {
+  color: #484900;
+  font-weight: 400;
+}
+
+.aadhar_logo {
+  object-fit: contain;
+}
+
+.link-kyc {
+  color: var(--blue-600);
+  font-weight: 700;
+}
+
+.state-descrition {
+  color: var(--blue-900);
+  font-weight: 700;
+  font-size: var(--font-18);
+}
+
+.buttons-zero {
+  display: none !important;
+}
+
+.checkout-cancel {
+  background-color: transparent !important;
+  color: var(--blue-800);
+  font-weight: 800;
+  text-decoration: underline !important;
+  border: none;
+}
+.checkout-cancel:hover {
+  background-color: transparent !important;
+  color: var(--blue-800);
+  font-weight: 800;
+  text-decoration: underline !important;
+  border: none;
+}
+
+
+
+.payment-and-cancel {
+  padding: var(--spacing-32);
+  gap: 1rem;
+}
+
+.timer-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.fawry-icon {
+  width: 100%;
+  object-fit: contain;
+}
+.fawry-check {
+  width: fit-content;
+  min-width: 10rem !important;
+}
+
+.kyc-head-and-tag {
+  gap: 0.5rem;
+ }
+
+ .danger-heading {
+  font-size: var(--font-16);
+  font-weight: 600;
+  color: var(--yellow-800);
+ }
+ .danger-alert-text {
+  font-size: var(--font-14);
+  font-weight: 500;
+  color: var(--yellow-800);
+ }
+ .danger-content {
+  gap: var(--spacing-08);
+ }
+ .danger-box {
+  padding: 0.5rem  0.375rem;
+ }
+
+ .nude-form, .nude-form:focus {
+  border: none !important;
+  background-color: transparent;
+ }
+
+ .special-input {
+  gap: var(--spacing-04);
+ }
+
+ .special-form-control {
+  padding: var(--spacing-04);
+ }
+
+ .fawri-text-ins {
+  background-color: var(--green-50);
+  width: 100%;
+  padding: var(--spacing-16);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid var(--green-300);
+  color: var(--green-700);
+ }
+ .checkout-iframe {
+  min-height: 20rem;
+  background-color: var(--black-sec-300);
+  border-radius: var(--border-radius-10);
+ }
+
+ .instruction-box {
+  background-color: var(--yellow-100);
+  padding: var(--spacing-16);
+  border: 1px solid var(--yellow-600);
+  border-radius: var(--border-radius-14);
+ }
+ 
+ .instruction-head {
+  color: var(--yellow-800);
+  font-weight: 600;
+  font-size: var(--font-16);
+ }
+ .instruction-content {
+  color: var(--yellow-800);
+  font-weight: 500;
+  font-size: var(--font-14);
+ }
+
+ .fawry-download {
+  background-color: var(--green-500);
+  color: var(--black-sec-100);
+ }
+ .fawry-download:hover {
+  background-color: var(--green-600);
+  color: var(--black-sec-100);
+ }
+ .fawry-download:active {
+  background-color: var(--green-700) !important;
+  color: var(--black-sec-100) !important;
+ }
+.smallbtn {
+  padding: var(--spacing-08) var(--spacing-12);
+  height: fit-content;
+  background-color: #F6FBFF;
+  border: 1px solid var(--blue-600);
+  border-radius: var(--spacing-06);
+  color: var(--blue-700);
+  font-size: var(--spacing-16);
+  font-weight: 700;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.smallbtn:hover {
+  background-color: var(--blue-50);
+  border-color: var(--blue-700);
+  color: var(--blue-800);
+}
+
+.language-pill {
+  padding: var(--spacing-08) var(--spacing-12);
+  height: fit-content;
+  background-color: #F6FBFF;
+  border: 1px solid var(--blue-600);
+  border-radius: var(--spacing-06);
+  color: var(--blue-700);
+  font-size: var(--spacing-16);
+  font-weight: 700;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.language-pill:hover {
+  background-color: var(--blue-50);
+  border-color: var(--blue-700);
+  color: var(--blue-800);
+}
+
+.language-pill.active {
+  background-color: #B0D9FF;
+  border-color: var(--blue-600);
+  color: var(--blue-700);
+}
+
+.language-pill.active:hover {
+  background-color: #B0D9FF;
+  border-color: var(--blue-700);
+  color: var(--blue-800);
+}
+
+.question-icon {
+  width: var(--spacing-16);
+  height: var(--spacing-16);
+  object-fit: contain;
+}
+.time-wrapper {
+  background-color: var(--black-sec-600);
+  padding: var(--spacing-06);
+  border-radius: var(--spacing-08);
+  .time-text {
+    color: var(--black-sec-950);
+    font-weight: 700;
+  }
+}
+.scrollable-content {
+  max-height: 15rem; /* Set maximum height for the modal content */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds max height */
+}
+
+.long-text {
+  word-wrap: break-word; /* Ensures long words or strings wrap onto the next line */
+  word-break: break-word; /* Compatibility for older browsers */
+  overflow-wrap: break-word; /* Modern browsers handle word wrapping */
+  white-space: normal; /* Allows wrapping within the container */
+}
+.bigger-num {
+  font-size: var(--spacing-18);
+  color: var(--black-sec-950);
+}
+.details-boxx {
+  background-color: var(--blue-50);
+  padding: var(--spacing-16);
+  border-radius: var(--spacing-10);
+  border: 1px solid #54adff;
+}
+@media screen and (min-width: 520px) and (max-width: 990px) {
+
+  .bg-card {
+    min-width: 95% !important;
+    border-radius: var(--border-radius-22);
+  }
+
+  .kyc-bg {
+    width: 90%;
+  }
+
+  .time-chip-alt {
+    display: none;
+  }
+
+  .otp-page .time-chip-alt {
+    display: flex !important;
+  }
+
+
+  .heading-wrapper {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-start !important;
+  }
+
+  .upi-expiry-img {
+    width: 15%;
+  }
+
+}
+
+@media screen and (min-width: 0px) and (max-width: 520px) {
+
+  body {
+    background-color: #FFF;
+  }
+
+  .bg-card {
+    background-color: #FFF !important;
+    box-shadow: none !important;
+  }
+  h1 {
+    font-size: var(--font-20);
+  }
+
+  h2 {
+    font-size: var(--font-18) ;
+    padding: 0;
+    margin: 0;
+  }
+
+  h3 {
+    font-size: var(--font-16);
+  }
+
+  .chip-text {
+    font-size: var(--font-12);
+  }
+
+
+  .bg-card {
+    min-width: 100% !important;
+    border-radius: var(--border-radius-00);
+    margin: 0 0 3rem 0;
+    gap: var(--spacing-16);
+  }
+
+  .summary-box {
+    border-radius: var(--border-radius-0);
+    padding: var(--spacing-32) var(--spacing-16)var(--spacing-16)var(--spacing-16);
+    gap: var(--spacing-16);
+  }
+
+  .payment-and-cancel {
+    padding: 0 var(--spacing-08) var(--spacing-08) var(--spacing-08);
+    gap: 1rem;
+  }
+
+  .heading-wrapper {
+    flex-direction: column;
+    gap: .5rem;
+    align-items: flex-start !important;
+  }
+
+  .heading-wrapper > div:last-child {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: var(--spacing-08);
+  }
+
+  .heading-title-row {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between;
+  }
+
+  .heading-title-row.heading-title-row--multilang {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+
+  body.upi-qr-expanded-mode .heading-title-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: var(--spacing-12);
+  }
+
+  body.upi-qr-expanded-mode .heading-language-pills {
+    width: 100%;
+  }
+
+  /* UPI (India) flow: language pills below title on mobile checkout */
+  body.alt-upi-qr-expanded-mode .heading-title-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: var(--spacing-12);
+  }
+
+  body.alt-upi-qr-expanded-mode .heading-language-pills {
+    width: 100%;
+  }
+
+  .upi-qr-page.upi-qr-page--alt .heading-wrapper > .d-flex.justify-content-between.align-items-center {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: var(--spacing-12);
+  }
+
+  .upi-qr-page.upi-qr-page--alt .heading-wrapper > .d-flex.justify-content-between.align-items-center > .d-flex.gap-08-box {
+    width: 100%;
+  }
+
+  .language-pill {
+    font-size: var(--spacing-14);
+    padding: var(--spacing-06) var(--spacing-10);
+  }
+
+  .upi-first-accordion-title-desktop {
+    display: none !important;
+  }
+
+  .upi-first-accordion-title-mobile {
+    display: block !important;
+  }
+
+  .upi-first-accordion-icon-desktop {
+    display: none !important;
+  }
+
+  .upi-first-accordion-icon-mobile {
+    display: block !important;
+  }
+
+  .upi-qr-desktop-flow {
+    display: none !important;
+  }
+
+  .upi-handles-logos {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--spacing-10);
+  }
+
+  .mobile-upi-methods-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-12);
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .upi-qr-page .qr-help-wrapper,
+  .upi-qr-page .qr-code-container {
+    display: none !important;
+  }
+
+  .upi-qr-page .support-text,
+  .upi-qr-page .upi-handles-logos {
+    display: none !important;
+  }
+
+  .scroll-down-hint {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(0, 73, 140, 0.9);
+    color: #fff;
+    font-size: var(--font-12);
+    font-weight: 700;
+    z-index: 1050;
+    pointer-events: none;
+    animation: scrollHintBounce 1.4s ease-in-out infinite;
+  }
+
+  .scroll-down-hint.is-hidden {
+    display: none;
+    animation: none;
+  }
+
+  .scroll-down-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 6px;
+    display: inline-block;
+  }
+
+  .time-chip {
+    display: none !important;
+  }
+
+
+  .accordion-head-wrapper {
+    display: flex;
+  }
+  .accordion-head {
+    font-size: var(--font-14);
+    font-weight: 700;
+  }
+
+  .accordion-button {
+    padding: var(--spacing-10) var(--spacing-16)  ;
+  }
+  
+  .accordion-body {
+    padding: var(--spacing-16) !important;
+  }
+
+  .form-label {
+    font-size: var(--font-14);
+  }
+
+  .form-control, .form-select {
+    font-size: 16px !important;
+    padding: 1rem 1.25rem;
+    border-radius: var(--border-radius-10);
+  }
+
+  .checkout-button-sm {
+    padding: 0.25rem .5rem;
+    max-height: fit-content !important;
+  }
+
+  .checkout-button {
+    padding: 1rem 1.25rem;
+    font-size: var(--font-14) !important;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .small-button-wrapper {
+    gap: 1rem;
+  }
+
+  .button-wrapper {
+    width: 100%;
+  }
+
+  .qr-tray, .qr-image {
+    width: auto !important;
+    max-width: 100%;
+  }
+  .form-wrapper {
+    padding: 0 !important;
+  }
+  .pix-qr-holder {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .payment-box {
+    gap: 1rem;
+    padding: var(--spacing-16) var(--spacing-08) ;
+  }
+
+  .banking-logo {
+    width: 1.7rem;
+  }
+  
+  .bank-check {
+    padding: .5rem;
+    gap: .75rem;
+    align-items: center;
+    min-width:9.2rem !important;
+  }
+
+
+  .relative-div {
+    position: relative;
+  }
+  .netbanking-no-overflow {
+    max-width: 100%;
+    overflow: scroll;
+
+    z-index: 1;
+    padding-bottom: .5rem;
+  }
+  .overlay-div {
+    display: block;
+    background: linear-gradient(to right, #ffffff00, #ffffff) !important;
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    z-index: 2;
+    height: 100%;
+    width: 20%;
+  }
+
+  .special-form-control {
+    padding: var(--spacing-04);
+  }
+
+  .pix-qr-holder {
+    gap: var(--spacing-16) !important;
+  }
+
+  .nude-form {
+    padding: var(--spacing-04);
+    border-radius: 0;
+  }
+
+  .netbanking-logo-and-ico {
+    gap: 2rem;
+  }
+
+  .head-bank-details {
+    font-size: var(--font-12);
+  }
+
+  .tag-bank-details {
+    font-size: var(--font-16);
+  }
+
+  .alipay-info-tray {
+    padding: .5rem;
+  }
+
+  .head-alipay-details {
+    font-size: var(--font-12);
+  }
+
+  .tag-alipay-details {
+    font-size: var(--font-14);
+  }
+
+  .alipay-info-wrapper {
+    width: auto;
+  }
+
+  .upi-expiry-img {
+    width: 20%;
+  }
+  .time-text {
+    font-size: var(--spacing-14);
+  }
+
+  .kyc-tag {
+    font-size: var(--font-16); 
+   }
+
+   .kyc-head-and-tag {
+    gap: 0.5rem;
+   }
+
+   .kyc-head {
+    flex-direction: column-reverse;
+    gap: 1rem;
+
+   }
+
+   .state-descrition {
+    color: var(--blue-900);
+    font-weight: 700;
+    font-size: var(--font-16);
+    text-align: center;
+  }
+
+  .logo {
+    width: 4.7rem;
+  }
+
+  .relative-div {
+    position: relative;
+    height: fit-content !important;
+  }
+  .netbanking-no-overflow {
+    overflow: scroll;
+    z-index: 1;
+    padding-bottom: .5rem;
+  }
+  .overlay-div {
+    display: block;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    z-index: 2;
+    height: 100%;
+    width: 20%;
+  }
+  .bank-label {
+    font-size: var(--font-12);
+  }
+  .form-check-label {
+    gap: var(--spacing-08);
+    height: fit-content !important;
+  }
+
+
+  .buttons-zero {
+    display: flex !important;
+    opacity: 0;
+  }
+
+  .pix-input-wrapper {
+    width: 100% !important;
+  }
+  .gap-16-wrapper {
+    padding: var(--spacing-08);
+    gap: 0.5rem;
+  }
+  .upi-methods-disabled {
+    width: 100%;
+  }
+  .invalid-chip, .valid-chip   {
+    padding: 0.125rem 0.25rem 0.125rem 0.25rem;
+    width: fit-content;
+    height: fit-content;
+    gap: var(--spacing-04);
+    border-radius: var(--border-4);
+    font-size: var(--font-12) !important;
+  }
+
+  .help-text {
+    font-size: var(--font-12);
+  }
+  .nav-link {
+    padding: 0.75rem !important;
+  }
+  .upi-expiry-tag {
+    font-size: var(--font-14);
+  }
+  .danger-heading {
+    font-size: var(--font-14);
+
+   }
+   .danger-alert-text {
+    font-size: var(--font-12);
+
+   }
+   .qr-help-text {
+    font-size: var(--font-12);
+   }
+
+   .expiry-date-and-year {
+    /* flex-direction: column; */
+    gap: 4px !important;
+   }
+
+   .fawry-icon {
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .fawri-text-ins {
+    font-size: var(--font-14);
+  }
+
+  .instruction-head {
+    font-size: var(--font-14);
+   }
+   .instruction-content {
+    font-size: var(--font-12);
+   }
+
+   .kyc-bg {
+    max-width: 95%;
+  }
+
+  .kyc-illustration {
+    width: 100% !important;
+  }
+
+  .instruction-box {
+    align-items: flex-start !important;
+  }
+
+  .payment-head {
+    text-align: left;
+  }
+  .smallbtn {
+    padding: var(--spacing-06) var(--spacing-10);
+    font-size: var(--spacing-14);
+    font-weight: 500;
+  }
+  .long-text {
+    font-size: var(--spacing-14);
+  }
+  .modal-title {
+    font-size: var(--spacing-16) !important;
+  }
+
+}
+
+@media screen and (min-width: 0px) and (max-width: 1170px) {
+    .pix-qr-holder {
+      flex-direction: column;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .pix-label {
+      width: 100%;
+      text-align: center;
+    }
+
+  }
+@media screen and (min-width: 0px) and (max-width: 400px) {
+    .res-400-col {
+      flex-direction: column;
+    }
+    .fawry-download-btn-wrapper {
+      justify-content: flex-start !important;
+    }
+    
+  }
+@media screen and (min-width: 0px) and (max-width: 385px) {
+    .res-385-col {
+      flex-direction: column;
+    }
+    .res-0-385-align-center {
+      align-items: center !important;
+    }
+  }
+
+
+  .gap-04-box {
+    gap: var(--spacing-04);
+}
+
+.gap-08-box {
+    gap: var(--spacing-08);
+}
+
+.gap-08-box {
+    gap: var(--spacing-08);
+}
+
+.gap-10-box {
+    gap: var(--spacing-10);
+}
+
+.gap-12-box {
+    gap: var(--spacing-12);
+}
+
+.gap-14-box {
+    gap: var(--spacing-14);
+}
+
+.gap-16-box {
+    gap: var(--spacing-16);
+}
+
+.gap-18-box {
+    gap: var(--spacing-18);
+}
+
+.gap-20-box {
+    gap: var(--spacing-20);
+}
+
+.gap-22-box {
+    gap: var(--spacing-22);
+}
+
+.gap-24-box {
+    gap: var(--spacing-24);
+}
+
+.gap-26-box {
+    gap: var(--spacing-26);
+}
+
+.gap-28-box {
+    gap: var(--spacing-28);
+}
+
+.gap-30-box {
+    gap: var(--spacing-30);
+}
+
+.gap-32-box {
+    gap: var(--spacing-32);
+}
+.gap-34-box {
+    gap: var(--spacing-34);
+}
+.gap-36-box {
+    gap: var(--spacing-36);
+}
+.gap-38-box {
+    gap: var(--spacing-38);
+}
+.gap-40-box {
+    gap: var(--spacing-40);
+}
+
+.gap-64-box {
+    gap: var(--spacing-64);
+}
+.gap-01-box {
+    gap: 1%;
+}
+.no-border {
+  border-bottom: none !important;
+}
+
+/* Feedback modal submit button styling */
+.feedback-submit-btn {
+  background-color: var(--green-500) !important;
+  border-color: var(--green-500) !important;
+}
+
+.feedback-submit-btn:hover {
+  background-color: var(--green-600) !important;
+  border-color: var(--green-600) !important;
+}
+
+.feedback-submit-btn:active {
+  background-color: var(--green-700) !important;
+  border-color: var(--green-700) !important;
+}
+
+/* Feedback modal - align body content with title */
+#feedbackModal .modal-body {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Feedback modal radio button styling */
+#feedbackModal .form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+#feedbackModal .form-check-input {
+  margin-right: 0;
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+#feedbackModal .form-check-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+/* Indent conditional options to align with text */
+#feedbackModal #conditionalOptions {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Feedback error message styling */
+.feedback-error {
+  color: var(--red-500) !important;
+  font-size: var(--font-14);
+  font-weight: 500;
+  margin-top: 0.5rem;
+  margin-left: 1.5rem;
+}
+
+/* Payment Instructions Container */
+.payment-instructions-container {
+  background-color: #FFF5CE;
+  border: 1px solid #E8CC58;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: #8C7B35;
+  width: 100%;
+  max-width: 100%;
+}
+
+.payment-instructions-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: var(--font-16);
+}
+
+.bulb-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.payment-instructions-text {
+  margin: 0;
+  color: #8C7B35;
+  line-height: 1.5;
+}
+
+.payment-instructions-text-urdu {
+  margin: 0;
+  margin-top: 0.5rem;
+  color: #8C7B35;
+  line-height: 1.5;
+  display: none;
+}
+
+.payment-instructions-text-arabic {
+  margin: 0;
+  margin-top: 0.5rem;
+  color: #8C7B35;
+  line-height: 1.5;
+  display: none;
+}
+
+/* Mobile Wallet Sections */
+.mobile-wallet-section {
+  margin-bottom: 1rem;
+}
+
+.mobile-wallet-section:last-child {
+  margin-bottom: 0;
+}
+
+.wallet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--blue-50);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wallet-header.expanded {
+  background-color: var(--blue-100);
+  border-bottom: 1px solid var(--blue-200);
+  border-radius: 8px 8px 0 0;
+}
+
+.wallet-header.collapsed {
+  background-color: var(--blue-50);
+}
+
+.wallet-header:hover {
+  background-color: var(--blue-100);
+}
+
+.wallet-header .d-flex {
+  gap: 0.75rem;
+}
+
+.wallet-name {
+  font-weight: 600;
+  color: var(--dark-blue-700);
+  font-size: var(--font-16);
+}
+
+.wallet-toggle {
+  width: 24px;
+  height: 24px;
+  background: url("images/expand_circle.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.wallet-header.expanded .wallet-toggle {
+  transform: rotate(180deg);
+}
+
+.wallet-content {
+  background-color: #fff;
+  border: 1px solid var(--blue-200);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 1rem;
+}
+
+.active-wallet .wallet-content {
+  display: block;
+}
+
+.mobile-wallet-section:not(.active-wallet) .wallet-content {
+  display: none;
+}
+
+/* Payment Instructions List */
+.payment-instructions-list {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #8C7B35;
+  line-height: 1.6;
+}
+
+html[lang="bn"] .payment-instructions-list {
+  list-style-type: bengali;
+}
+
+.payment-instructions-list li {
+  margin-bottom: 0.5rem;
+}
+
+.payment-instructions-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Nested Accordion Styling */
+.nested-accordion {
+  margin-top: 1rem;
+  border: 1px solid var(--blue-200);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.nested-accordion .accordion-button {
+  background-color: var(--blue-50);
+  border: none;
+  padding: 0.75rem 1rem;
+}
+
+.nested-accordion .accordion-button:not(.collapsed) {
+  background-color: var(--blue-100);
+}
+
+.nested-accordion .accordion-body {
+  background-color: #fff;
+  border-top: 1px solid var(--blue-200);
+  padding: 1rem;
+}
+
+@media (max-width: 520px) {
+  .payment-instructions-text,
+  .payment-instructions-text-urdu {
+    font-size: 14px !important;
+  }
+}
+
+@keyframes scrollHintBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+.skip-link {
+  background: none !important;
+  border: none !important;
+  color: #6c757d !important;
+  text-decoration: underline !important;
+  padding: 0 !important;
+  font-size: var(--font-16);
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.skip-link:hover {
+  color: #495057 !important;
+  text-decoration: underline !important;
+}
+
+/* RTL support for feedback modal */
+html[dir="rtl"] #feedbackModal .modal-header {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+html[dir="rtl"] #feedbackModal .modal-header .btn-close {
+  margin-left: 0;
+  margin-right: auto;
+  order: -1;
+}
+
+html[dir="rtl"] #feedbackModal .modal-title {
+  text-align: right;
+  margin-left: auto;
+}
+
+html[dir="rtl"] #feedbackModal .modal-body {
+  text-align: right;
+}
+
+html[dir="rtl"] #feedbackModal .modal-content {
+  direction: rtl;
+}
+
+/* RTL support for feedback modal form-check - fix gap between radio and text */
+html[dir="rtl"] #feedbackModal .form-check {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+html[dir="rtl"] #feedbackModal .form-check-input {
+  margin-right: 0;
+  margin-left: 0.75rem;
+}
+
+html[dir="rtl"] #feedbackModal .form-check-label {
+  text-align: right;
+}
+
+/* RTL support for feedback modal footer - buttons to left end */
+html[dir="rtl"] #feedbackModal .modal-footer {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+html[dir="rtl"] #feedbackModal .modal-footer .feedback-submit-btn {
+  order: -1;
+}
+
+html[dir="rtl"] #feedbackModal .modal-footer .skip-link {
+  order: 1;
+}
+
+html[dir="rtl"] .modal-footer {
+  flex-direction: row-reverse;
+}
+
+/* RTL support for Order ID modal */
+html[dir="rtl"] #exampleModal .modal-header {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+html[dir="rtl"] #exampleModal .modal-header .btn-close {
+  margin-left: 0;
+  margin-right: auto;
+  order: -1;
+}
+
+html[dir="rtl"] #exampleModal .modal-title {
+  text-align: right;
+  margin-left: auto;
+}
+
+html[dir="rtl"] #exampleModal .modal-body {
+  text-align: right;
+}
+
+html[dir="rtl"] #exampleModal .modal-content {
+  direction: rtl;
+}
+
+/* M-Pesa specific styling - reduce space below pay button */
+.accordion-mpesa .button-wrapper {
+  margin-bottom: 0.5rem;
+}
+
+
+/* Remove spinner arrows from number input fields */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
+/* Resend OTP styling */
+.resend-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-08);
+}
+
+.resend-btn {
+  color: var(--blue-800);
+  font-weight: 800;
+  text-decoration: underline;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.resend-btn:hover {
+  color: var(--blue-800);
+  font-weight: 800;
+  text-decoration: underline;
+  background: transparent;
+}
+
+.resend-btn:disabled {
+  color: var(--black-sec-600);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.resend-timer {
+  color: var(--black-sec-700);
+  font-size: var(--font-14);
+  font-weight: 500;
+}
+
+
+/* How to Pay Popup styling */
+.how-to-pay-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Prevent background scrolling when popup is open */
+body.popup-open {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.popup-container {
+  position: relative;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1051;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-20);
+  padding-bottom: var(--spacing-16);
+  border-bottom: 1px solid #75BCFC;
+}
+
+.popup-main-title {
+  font-size: var(--font-24);
+  font-weight: 700;
+  color: #101010;
+  margin: 0;
+  text-align: left;
+}
+
+.popup-instructions-container {
+  background-color: #E5F3FF;
+  border: 1px solid #75BCFC;
+  border-radius: 12px;
+  padding: var(--spacing-20);
+  width: 100%;
+  position: relative;
+}
+
+/* Popup text colors */
+.popup-instructions-container .payment-instructions-header {
+  color: #101010;
+}
+
+.popup-instructions-container .payment-instructions-text {
+  color: #101010;
+}
+
+.popup-instructions-container .payment-instructions-text-urdu {
+  color: #101010;
+}
+
+/* Popup list numbers color */
+.popup-instructions-container .payment-instructions-list {
+  color: #101010;
+}
+
+.popup-instructions-container .payment-instructions-list li::marker {
+  color: #101010;
+}
+
+.popup-close-btn {
+  background: none;
+  border: none;
+  font-size: var(--font-18);
+  color: #75BCFC;
+  cursor: pointer;
+  padding: var(--spacing-08);
+  border-radius: var(--border-radius-8);
+  transition: all 0.2s ease;
+}
+
+.popup-close-btn:hover {
+  background-color: #75BCFC;
+  color: #E5F3FF;
+}
+
+.popup-body {
+  padding: var(--spacing-20);
+}
+
+/* Mobile responsive popup */
+@media screen and (max-width: 520px) {
+  .popup-container {
+    width: 95%;
+    max-height: 85vh;
+    margin: var(--spacing-16);
+  }
+  
+  .popup-instructions-container {
+    padding: var(--spacing-16);
+  }
+  
+  .popup-main-title {
+    font-size: var(--font-20);
+  }
+  
+  .popup-header-section {
+    margin-bottom: var(--spacing-16);
+    padding-bottom: var(--spacing-12);
+  }
+}
+
+/* Wallet Waiting Page Styling */
+body.wallet-waiting-page {
+  font-family: 'Inter', sans-serif !important;
+  background-color: #f8f9fa !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 20px !important;
+}
+
+body.wallet-waiting-page .waiting-container {
+  background-color: white !important;
+  border-radius: 12px !important;
+  padding: 40px 30px !important;
+  text-align: center !important;
+  max-width: 500px !important;
+  margin: 0 auto !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.wallet-waiting-page .hourglass-container {
+  margin-top: 2rem !important;
+}
+
+body.wallet-waiting-page .hourglass-icon {
+  width: 80px !important;
+  height: 80px !important;
+  margin-bottom: 30px !important;
+}
+
+body.wallet-waiting-page .session-title {
+  font-size: var(--font-22);
+  color: #00386B;
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-align: center !important;
+}
+
+body.wallet-waiting-page .timer-display {
+  font-size: 48px !important;
+  font-weight: 700 !important;
+  color: #00386B !important;
+  margin-bottom: 40px !important;
+  letter-spacing: -1px !important;
+  direction: ltr !important;
+  text-align: center !important;
+}
+
+body.wallet-waiting-page .transaction-details {
+  background-color: #fff3cd !important;
+  border: 1px solid #ffeaa7 !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  margin: 30px 0 !important;
+  text-align: center !important;
+}
+
+body.wallet-waiting-page .transaction-item {
+  margin-bottom: 15px;
+}
+
+body.wallet-waiting-page .transaction-item:last-child {
+  margin-bottom: 0;
+}
+
+body.wallet-waiting-page .transaction-label {
+  font-size: 14px;
+  color: #856404;
+  font-weight: 500;
+  margin-bottom: 5px;
+  text-align: center !important;
+}
+
+body.wallet-waiting-page .transaction-value {
+  font-size: 20px;
+  color: #000;
+  font-weight: 700;
+  text-align: center !important;
+}
+
+body.wallet-waiting-page .notification-text {
+  font-size: 16px;
+  color: #83887c;
+  margin-bottom: 30px;
+  line-height: 1.5;
+  text-align: center !important;
+}
+
+body.wallet-waiting-page .instruction-text {
+  font-weight: normal;
+  color: #101010;
+  text-align: center !important;
+}
+
+body.wallet-waiting-page .warning-text {
+  font-size: 16px;
+  color: #dc3545;
+  margin-bottom: 40px;
+  line-height: 1.5;
+}
+
+body.wallet-waiting-page .return-button {
+  background-color: #28a745 !important;
+  border: none !important;
+  color: white !important;
+  padding: 15px 0 !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+}
+
+body.wallet-waiting-page .return-button:hover {
+  background-color: #218838;
+}
+
+@media (max-width: 576px) {
+  body.wallet-waiting-page .waiting-container {
+    padding: 30px 20px;
+    margin: 10px;
+  }
+  
+  body.wallet-waiting-page .timer-display {
+    font-size: 36px;
+  }
+  
+  body.wallet-waiting-page .hourglass-icon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+
+/* PIN and OTP input fields - make them narrower */
+input[type="password"]#pinInput,
+input[type="text"]#otpInput {
+  max-width: 200px !important;
+  width: 200px !important;
+}
+
+/* Left align the narrower input fields like other form elements */
+pin-page .upi-input-wrapper {
+  align-items: flex-start;
+}
+
+.otp-page .upi-input-wrapper,
+.otp-page .form-help-wrapper {
+  align-items: center;
+}
+
+/* OTP page layout (parity with Pakistan OTP design) */
+.otp-card {
+  min-height: 40rem;
+}
+
+.otp-top-row {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--black-sec-600);
+}
+
+.otp-expiry-label {
+  font-size: var(--font-22);
+  font-weight: 600;
+  color: var(--black-sec-950);
+}
+
+.otp-timer-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--black-sec-500);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: var(--font-24);
+  font-weight: 700;
+  color: var(--black-sec-950);
+}
+
+.otp-main-heading {
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.otp-lang-row {
+  margin-bottom: 1rem;
+}
+
+.otp-subheading {
+  margin: 0;
+  color: var(--black-sec-950);
+}
+
+.otp-transaction-box {
+  border: 1px solid var(--blue-200);
+  background-color: #EDF8FF;
+  margin-bottom: 1.5rem;
+}
+
+.card-details-summary {
+  width: 100%;
+  background-color: #E5F3FF;
+  border: 1px solid #9ECFF7;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-details-summary p {
+  margin: 0;
+}
+
+.payment-amount {
+  color: var(--green-700);
+  font-size: var(--font-18);
+  font-weight: 700;
+}
+
+.card-number-display {
+  color: var(--black-sec-800);
+  font-size: var(--font-16);
+  font-weight: 700;
+}
+
+.otp-amount {
+  color: var(--green-700);
+  font-size: var(--font-18);
+  font-weight: 700;
+}
+
+.otp-wallet {
+  color: var(--black-sec-800);
+  font-size: var(--font-16);
+  font-weight: 700;
+}
+
+.otp-label {
+  margin-bottom: 0.5rem;
+}
+
+.otp-instruction {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.otp-blocks {
+  display: flex;
+  gap: 0.875rem;
+}
+
+.otp-page .otp-blocks {
+  width: 100%;
+  justify-content: center;
+}
+
+.otp-expiry-note {
+  width: 100%;
+  text-align: center;
+  margin-top: 0.875rem;
+  margin-bottom: 0;
+  color: var(--black-sec-800);
+  font-size: var(--font-14);
+  font-weight: 600;
+}
+
+.otp-page #otpError {
+  margin-top: 0.625rem;
+  justify-content: center;
+  text-align: center !important;
+}
+
+#otpExpiryTimer {
+  color: var(--blue-800);
+  font-weight: 700;
+  margin-left: 0.25rem;
+}
+
+.otp-digit-input {
+  width: 3.5rem !important;
+  min-width: 3.5rem;
+  max-width: 3.5rem;
+  height: 3.5rem;
+  text-align: center;
+  font-size: var(--font-20);
+  font-weight: 700;
+  padding: 0.75rem 0.25rem;
+  border-radius: var(--border-radius-12);
+  border: solid 2px var(--green-700);
+}
+
+.otp-blocks.form-control-error .otp-digit-input,
+#otpBlocks.form-control-error .otp-digit-input {
+  border: solid 2px var(--red-500) !important;
+}
+
+.otp-page .checkout-button {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.otp-page .time-chip-alt {
+  display: flex !important;
+}
+
+.otp-page .card-details-summary {
+  background-color: #E5F3FF;
+  border: 1px solid #9ECFF7;
+}
+
+/* Mobile responsive PIN/OTP inputs */
+@media screen and (max-width: 768px) {
+  input[type="password"]#pinInput,
+  input[type="text"]#otpInput {
+    max-width: 180px !important;
+    width: 180px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  input[type="password"]#pinInput,
+  input[type="text"]#otpInput {
+    max-width: 160px !important;
+    width: 160px !important;
+  }
+}
+
+
+/* How to Pay Button */
+.how-to-pay-button {
+  background-color: #F6FBFF;
+  border: 1px solid #0079e8;
+  border-radius: 0.375rem;
+  padding: 0.875rem 1rem;
+  height: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.how-to-pay-button:hover {
+  background-color: var(--blue-50);
+  border-color: var(--blue-600);
+}
+
+.how-to-pay-button:active {
+  background-color: var(--blue-100);
+}
+
+.question-mark-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.how-to-pay-text {
+  color: #005eb5;
+  font-size: var(--font-16);
+  font-weight: 700;
+}
+
+/* How to Pay Modal */
+.how-to-pay-modal-content {
+  background-color: #E5F3FF;
+  border-radius: var(--border-radius-16);
+  border: none;
+  max-width: 500px;
+}
+
+.how-to-pay-modal-header {
+  background-color: transparent;
+  border-bottom: none;
+  border-radius: var(--border-radius-16) var(--border-radius-16) 0 0;
+  padding: 1rem 1.25rem;
+}
+
+.how-to-pay-modal-header .btn-close {
+  filter: brightness(0) saturate(100%) invert(70%) sepia(85%) saturate(1200%) hue-rotate(180deg) brightness(108%) contrast(102%);
+  opacity: 1;
+}
+
+.how-to-pay-modal-header .btn-close:hover {
+  opacity: 0.7;
+}
+
+.how-to-pay-modal-divider {
+  margin: 0 1.25rem;
+  border: none;
+  border-top: 1px solid #75BCFC;
+  opacity: 1;
+}
+
+.how-to-pay-modal-title {
+  color: var(--blue-900);
+  font-size: var(--font-20);
+  font-weight: 700;
+  margin: 0;
+}
+
+.how-to-pay-modal-body {
+  background-color: transparent;
+  padding: 1.5rem 1.25rem;
+  border-radius: 0 0 var(--border-radius-16) var(--border-radius-16);
+}
+
+.how-to-pay-instruction-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.how-to-pay-instruction-item:last-child {
+  margin-bottom: 0;
+}
+
+.instruction-number {
+  color: var(--blue-900);
+  font-size: var(--font-18);
+  font-weight: 700;
+  flex-shrink: 0;
+  min-width: 24px;
+}
+
+.instruction-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.instruction-text-english {
+  color: var(--black-sec-950);
+  font-size: var(--font-16);
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.instruction-text-urdu {
+  color: var(--black-sec-950);
+  font-size: var(--font-16);
+  font-weight: 700;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.field-error {
+  display: none;
+}
+
+.field-error.show {
+  display: flex !important;
+  align-items: center;
+  gap: var(--spacing-08);
+}
+
+.field-error .error-text {
+  color: var(--red-600);
+  font-size: var(--font-14);
+}
+
+/* Egypt Wallet 7 parity: wallet accordion label/input spacing */
+#collapseWalletEgyptMethod .form-wrapper {
+  gap: 0.25rem;
+}
+
+#collapseWalletEgyptMethod .form-label-as-heading {
+  color: #000000;
+  font-size: var(--font-16);
+}
+
+/* Transaction Status Pages - Base Styling */
+body.wallet-waiting-page {
+  font-family: 'Inter', sans-serif !important;
+  background-color: #f8f9fa !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 20px !important;
+}
+
+/* Container Styling - All Status Pages */
+body.wallet-waiting-page .failed-container,
+body.wallet-waiting-page .pending-container,
+body.wallet-waiting-page .timedout-container,
+body.wallet-waiting-page .successful-container {
+  background-color: white !important;
+  border-radius: 12px !important;
+  padding: 40px 30px !important;
+  text-align: center !important;
+  max-width: 600px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Icon Wrappers */
+body.wallet-waiting-page .failed-icon-wrapper,
+body.wallet-waiting-page .pending-icon-wrapper,
+body.wallet-waiting-page .timedout-icon-wrapper,
+body.wallet-waiting-page .successful-icon-wrapper {
+  margin-bottom: 30px !important;
+}
+
+/* Icons */
+body.wallet-waiting-page .failed-icon,
+body.wallet-waiting-page .pending-icon,
+body.wallet-waiting-page .timedout-icon,
+body.wallet-waiting-page .successful-icon {
+  width: 80px !important;
+  height: 80px !important;
+  object-fit: contain !important;
+}
+
+/* Titles */
+body.wallet-waiting-page .failed-title,
+body.wallet-waiting-page .pending-title,
+body.wallet-waiting-page .timedout-title,
+body.wallet-waiting-page .successful-title {
+  font-size: var(--font-22) !important;
+  color: var(--blue-900) !important;
+  margin-bottom: 20px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+}
+
+body.wallet-waiting-page .successful-message {
+  font-size: var(--font-16) !important;
+  color: var(--black-sec-800) !important;
+  margin-bottom: 30px !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+}
+
+/* Messages */
+body.wallet-waiting-page .failed-message,
+body.wallet-waiting-page .pending-message,
+body.wallet-waiting-page .timedout-message {
+  font-size: var(--font-16) !important;
+  color: var(--black-sec-800) !important;
+  margin-bottom: 30px !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+}
+
+/* Transaction Successful - Details Box */
+body.wallet-waiting-page .successful-details-box {
+  background-color: #fff3cd !important;
+  border: 1px solid #ffeaa7 !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  margin: 30px 0 !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 15px !important;
+}
+
+body.wallet-waiting-page .successful-detail-item {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+}
+
+body.wallet-waiting-page .successful-detail-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+body.wallet-waiting-page .successful-detail-label {
+  font-size: var(--font-14) !important;
+  color: #856404 !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+body.wallet-waiting-page .successful-detail-value {
+  font-size: var(--font-20) !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+/* Return Button */
+body.wallet-waiting-page .return-button {
+  background-color: var(--green-500) !important;
+  border: none !important;
+  color: white !important;
+  padding: 15px 0 !important;
+  font-size: var(--font-18) !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+}
+
+body.wallet-waiting-page .return-button:hover {
+  background-color: var(--green-600) !important;
+}
+
+body.wallet-waiting-page .return-button:active {
+  background-color: var(--green-700) !important;
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 576px) {
+  body.wallet-waiting-page .failed-container,
+  body.wallet-waiting-page .pending-container,
+  body.wallet-waiting-page .timedout-container,
+  body.wallet-waiting-page .successful-container {
+    padding: 30px 20px !important;
+    margin: 10px !important;
+  }
+  
+  body.wallet-waiting-page .failed-icon,
+  body.wallet-waiting-page .pending-icon,
+  body.wallet-waiting-page .timedout-icon,
+  body.wallet-waiting-page .successful-icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  body.wallet-waiting-page .failed-title,
+  body.wallet-waiting-page .pending-title,
+  body.wallet-waiting-page .timedout-title,
+  body.wallet-waiting-page .successful-title {
+    font-size: var(--font-18) !important;
+  }
+  
+  body.wallet-waiting-page .failed-message,
+  body.wallet-waiting-page .pending-message,
+  body.wallet-waiting-page .timedout-message {
+    font-size: var(--font-14) !important;
+  }
+  
+  body.wallet-waiting-page .successful-details-box {
+    padding: 15px !important;
+    margin: 20px 0 !important;
+  }
+  
+  body.wallet-waiting-page .successful-detail-label {
+    font-size: var(--font-12) !important;
+  }
+  
+  body.wallet-waiting-page .successful-detail-value {
+    font-size: var(--font-18) !important;
+  }
+}
+
+.section-spacing-top {
+  margin-top: var(--spacing-32);
+}
+
+/* The Philippines VCA bank-transfer section already sits inside a flex
+   column with its own 24px gap between children — this class's own
+   32px margin-top was stacking on top of that gap, doubling the space
+   above "Send payment to this VCA number...". */
+#philippinesVcaBankTransferDetailsContent .section-spacing-top {
+  margin-top: 0;
+}
+
+/* Same double-spacing issue on Nigeria's "Bank Details" section. */
+#nigeriaBankDepositDetailsContent .section-spacing-top {
+  margin-top: 0;
+}
+
+.upload-section-spacing {
+  margin-top: var(--spacing-24);
+}
+
+.submit-button-spacing {
+  margin-top: var(--spacing-16);
+}
+
+.transfer-details-form-spacing {
+  margin-top: var(--spacing-24);
+}
+
+/* Custom Dropdown Wrapper */
+.custom-dropdown-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Selected Display */
+.custom-dropdown-selected {
+  padding: 1rem 0.75rem;
+  font-size: var(--font-16);
+  line-height: 120%;
+  font-weight: 500;
+  border-radius: var(--border-radius-12);
+  border: solid 2px var(--green-700);
+  color: var(--black-sec-800);
+  background-color: var(--bg-white);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.custom-dropdown-selected:hover {
+  border-color: var(--green-600);
+}
+
+.custom-dropdown-selected.active {
+  border-color: var(--green-600);
+  border-radius: var(--border-radius-12);
+}
+
+.custom-dropdown-selected.has-value {
+  color: var(--black-sec-950);
+}
+
+.custom-dropdown-selected .selected-text {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.custom-dropdown-selected .selected-text .bank-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Dropdown Arrow */
+.dropdown-arrow {
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23666' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 12px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.custom-dropdown-selected.active .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Options Container */
+.custom-dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-white);
+  border: none;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius-12);
+  margin-top: 0.25rem;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.custom-dropdown-options.show {
+  max-height: 240px;
+  opacity: 1;
+  overflow-y: auto;
+}
+
+/* Dropdown Option */
+.custom-dropdown-option {
+  padding: 0.875rem 0.75rem;
+  font-size: var(--font-16);
+  font-weight: 500;
+  color: var(--black-sec-950);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.custom-dropdown-option span {
+  display: flex;
+  align-items: center;
+}
+
+.custom-dropdown-option .bank-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.wallet-option-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.wallet-selected-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.custom-dropdown-option:first-child {
+  color: var(--black-sec-800);
+  display: none;                /* hide placeholder from list */
+}
+
+.custom-dropdown-option:hover {
+  background-color: var(--green-ind-50);
+}
+
+.custom-dropdown-option:active {
+  background-color: var(--green-ind-100);
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 520px) {
+  .custom-dropdown-selected {
+    padding: 1rem 1.25rem;
+    font-size: var(--font-14);
+  }
+
+  .custom-dropdown-option {
+    padding: 0.75rem 1.25rem;
+    font-size: var(--font-14);
+  }
+
+  .custom-dropdown-option .bank-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .wallet-option-icon,
+  .wallet-selected-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .custom-dropdown-options.show {
+    max-height: 220px;
+  }
+}
+
+/* Payment Completion Modal Styling */
+#paymentCompletionModal .modal-header {
+  align-items: flex-start;
+}
+
+#paymentCompletionModal .modal-header .btn-close {
+  margin-top: 0.125rem;
+}
+
+#paymentCompletionModal .modal-body {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.payment-completion-message {
+  color: var(--black-sec-950);
+  font-size: var(--font-16);
+  font-weight: 400;
+  margin: 0 0 var(--spacing-16) 0;
+  line-height: 1.5;
+}
+
+.payment-completion-list {
+  margin: 0;
+  padding-left: var(--spacing-24);
+  color: var(--black-sec-950);
+  font-size: var(--font-16);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.payment-completion-list li {
+  margin-bottom: var(--spacing-12);
+}
+
+.payment-completion-list li:last-child {
+  margin-bottom: 0;
+}
+
+.payment-completion-got-it-btn {
+  background-color: var(--green-500) !important;
+  border-color: var(--green-500) !important;
+  font-size: var(--font-16) !important;
+  font-weight: 500;
+  padding: 0.5rem 2rem;
+  border-radius: 6px;
+  border: transparent;
+  color: var(--bg-white);
+  transition: ease-in-out .15s;
+}
+
+.payment-completion-got-it-btn:hover {
+  background-color: var(--green-600) !important;
+  border-color: var(--green-600) !important;
+  transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.payment-completion-got-it-btn:active {
+  background-color: var(--green-700) !important;
+  border-color: var(--green-700) !important;
+}
+
+/* Mobile responsive for payment completion modal */
+@media screen and (max-width: 520px) {
+  .payment-completion-message {
+    font-size: var(--font-14);
+  }
+
+  .payment-completion-list {
+    font-size: var(--font-14);
+    padding-left: var(--spacing-20);
+  }
+
+  .payment-completion-got-it-btn {
+    font-size: var(--font-14) !important;
+    padding: 0.5rem 1.25rem;
+  }
+}
+
+/* RTL support for payment completion modal (Arabic/Urdu) */
+html[dir="rtl"] #paymentCompletionModal .modal-header {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+html[dir="rtl"] #paymentCompletionModal .modal-header .btn-close {
+  margin-left: 0;
+  margin-right: auto;
+  order: -1;
+}
+
+html[dir="rtl"] #paymentCompletionModal .modal-title {
+  text-align: right;
+  margin-left: auto;
+}
+
+html[dir="rtl"] #paymentCompletionModal .modal-body {
+  text-align: right;
+}
+
+html[dir="rtl"] #paymentCompletionModal .modal-content {
+  direction: rtl;
+}
+
+html[dir="rtl"] #paymentCompletionModal .payment-completion-list {
+  padding-right: var(--spacing-24);
+  padding-left: 0;
+}
+
+html[dir="rtl"] #paymentCompletionModal .modal-footer {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+/* UPI QR / Bank Deposit How to Pay modal */
+#howToPayUpiModal .modal-header,
+#bankDepositHowToPayModal .modal-header,
+#detailsHowToPayModal .modal-header {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+#howToPayUpiModal .modal-body,
+#bankDepositHowToPayModal .modal-body,
+#detailsHowToPayModal .modal-body {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+#howToPayUpiModal .modal-footer,
+#bankDepositHowToPayModal .modal-footer,
+#detailsHowToPayModal .modal-footer {
+  justify-content: center;
+}
+
+#howToPayUpiModal .modal-footer .feedback-submit-btn,
+#bankDepositHowToPayModal .modal-footer .feedback-submit-btn,
+#detailsHowToPayModal .modal-footer .feedback-submit-btn {
+  width: 100%;
+  max-width: 100%;
+}
+
+#howToPayUpiModal .how-to-pay-steps-list,
+#bankDepositHowToPayModal .how-to-pay-steps-list,
+#detailsHowToPayModal .how-to-pay-steps-list {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: var(--black-sec-950);
+  font-size: var(--font-14);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+#howToPayUpiModal .how-to-pay-steps-list li,
+#bankDepositHowToPayModal .how-to-pay-steps-list li,
+#detailsHowToPayModal .how-to-pay-steps-list li {
+  margin-bottom: 1rem;
+}
+
+#howToPayUpiModal .how-to-pay-steps-list li:last-child,
+#bankDepositHowToPayModal .how-to-pay-steps-list li:last-child,
+#detailsHowToPayModal .how-to-pay-steps-list li:last-child {
+  margin-bottom: 0;
+}
+
+html[dir="rtl"] #howToPayUpiModal .modal-header,
+html[dir="rtl"] #bankDepositHowToPayModal .modal-header,
+html[dir="rtl"] #detailsHowToPayModal .modal-header {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+html[dir="rtl"] #howToPayUpiModal .modal-header .btn-close,
+html[dir="rtl"] #bankDepositHowToPayModal .modal-header .btn-close,
+html[dir="rtl"] #detailsHowToPayModal .modal-header .btn-close {
+  margin-left: 0;
+  margin-right: auto;
+  order: -1;
+}
+
+html[dir="rtl"] #howToPayUpiModal .modal-title,
+html[dir="rtl"] #bankDepositHowToPayModal .modal-title,
+html[dir="rtl"] #detailsHowToPayModal .modal-title {
+  text-align: right;
+  margin-left: auto;
+}
+
+html[dir="rtl"] #howToPayUpiModal .modal-body,
+html[dir="rtl"] #bankDepositHowToPayModal .modal-body,
+html[dir="rtl"] #detailsHowToPayModal .modal-body {
+  text-align: right;
+}
+
+html[dir="rtl"] #howToPayUpiModal .modal-content,
+html[dir="rtl"] #bankDepositHowToPayModal .modal-content,
+html[dir="rtl"] #detailsHowToPayModal .modal-content {
+  direction: rtl;
+}
+
+html[dir="rtl"] #howToPayUpiModal .how-to-pay-steps-list,
+html[dir="rtl"] #bankDepositHowToPayModal .how-to-pay-steps-list,
+html[dir="rtl"] #detailsHowToPayModal .how-to-pay-steps-list {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+html[dir="rtl"] #howToPayUpiModal .modal-footer,
+html[dir="rtl"] #bankDepositHowToPayModal .modal-footer,
+html[dir="rtl"] #detailsHowToPayModal .modal-footer {
+  justify-content: center;
+}
+
+/* Egypt wallet waiting page: mobile-only layout */
+@media (max-width: 767px) {
+  body.egypt-wallet-waiting #waitingDefaultView {
+    display: none !important;
+  }
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-session-label {
+  color: #00386B;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-language-pills {
+  justify-content: flex-start;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-details-box {
+  background-color: #FFF5CE;
+  border-radius: 8px;
+  border: 1px solid #F0E68C;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-detail-label {
+  color: #8B7355;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-detail-value {
+  color: #2E2F2F;
+  font-size: 18px;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-section-title {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-action-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-ussd-code {
+  display: inline-block;
+  color: var(--blue-800);
+  font-size: 18px;
+  font-weight: 800;
+  text-decoration: underline;
+  margin-bottom: 0;
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+html[dir="rtl"] .egypt-waiting-mobile-view .egypt-waiting-ussd-code {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: center;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .egypt-waiting-mobile-view .egypt-waiting-ussd-code:hover {
+    color: var(--blue-800);
+  }
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-ussd-code:focus,
+.egypt-waiting-mobile-view .egypt-waiting-ussd-code:focus-visible {
+  color: var(--blue-800);
+  outline: none;
+  box-shadow: none;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-action-btn {
+  display: block;
+  width: auto;
+  min-width: 200px;
+  max-width: 240px;
+  background-color: #28A745;
+  border-color: #28A745;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.egypt-waiting-mobile-view .btn.egypt-waiting-action-btn:active {
+  background-color: #218838;
+  border-color: #1e7e34;
+  color: #ffffff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .egypt-waiting-mobile-view .btn.egypt-waiting-action-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    color: #ffffff;
+  }
+}
+
+.egypt-waiting-mobile-view .btn.egypt-waiting-action-btn:focus,
+.egypt-waiting-mobile-view .btn.egypt-waiting-action-btn:focus-visible,
+.egypt-waiting-mobile-view .btn.egypt-waiting-action-btn:focus:active {
+  background-color: #28A745;
+  border-color: #28A745;
+  color: #ffffff;
+  box-shadow: none;
+  outline: none;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-section-instruction {
+  color: #000000;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-or-separator {
+  gap: 0.75rem;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-or-line {
+  flex: 1;
+  height: 1px;
+  background-color: #D1D5DB;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-or-separator span {
+  color: #6B7280;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+html[dir="ltr"] .egypt-waiting-mobile-view .egypt-waiting-or-separator span {
+  text-transform: lowercase;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-wallet-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin-bottom: 0;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-return-link {
+  color: var(--blue-800);
+  font-size: 16px;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-return-link:hover {
+  color: var(--blue-800);
+}
+
+.egypt-waiting-mobile-view .egypt-waiting-return-link:focus {
+  color: var(--blue-800);
+  box-shadow: none;
+  outline: none;
+}
+
+html[dir="rtl"] .egypt-waiting-mobile-view .egypt-waiting-language-pills,
+html[dir="rtl"] .egypt-waiting-mobile-view .egypt-waiting-session-row {
+  direction: rtl;
+}
+
+.egypt-p2p-wallet-app-section {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding-top: 0.25rem;
+}
+
+@media (max-width: 767px) {
+  .egypt-p2p-wallet-app-section:not(.d-none) {
+    display: flex;
+  }
+}
+
+.egypt-p2p-wallet-app-title {
+  margin: 0;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.egypt-p2p-wallet-app-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.egypt-p2p-wallet-logo-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  padding: 0.75rem;
+  border: 1px solid #D0D5DD;
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+
+.egypt-p2p-wallet-logo {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.egypt-p2p-wallet-pay-btn {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  background-color: var(--green-500);
+  border-color: var(--green-500);
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0.875rem 1.25rem;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.egypt-p2p-wallet-pay-btn:hover,
+.egypt-p2p-wallet-pay-btn:focus,
+.egypt-p2p-wallet-pay-btn:focus-visible,
+.egypt-p2p-wallet-pay-btn:active {
+  background-color: var(--green-600);
+  border-color: var(--green-600);
+  color: #ffffff;
+}
+
+.egypt-p2p-wallet-receipt-reminder {
+  color: var(--red-500);
+  font-size: var(--font-14);
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+  max-width: 360px;
+}
+/* ---- Injected for the demo page: hide expiry timer and
+   the "Complete your payment" title + language pill row entirely (not
+   just their contents), so no empty gap is left in the flex layout. ---- */
+#checkoutExpiresInHeader,
+#headingTitleRow {
+  display: none !important;
+}
+
+/* Hide the merchant logo + its underline divider that appears above the
+   India UPI QR accordion when expanded (body.upi-qr-expanded-mode). */
+.upi-qr-header-only {
+  display: none !important;
+}
+
+/* This page's outer wrapper centers .bg-card vertically within its own
+   height (h-100 + justify-content-center). When embedded in an iframe
+   whose height gets set based on content from a *different*, taller
+   page (e.g. right after navigating here from the accordion list),
+   this centers a short card inside a tall box — leaving a large empty
+   gap below it before our height-reporter has a chance to correct the
+   iframe size. Removing the centering/stretching here guarantees the
+   card always sits flush at the top and sizes to its own content,
+   regardless of the iframe's current height. */
+.d-flex.flex-column.justify-content-center.align-items-center.w-100.h-100 {
+  height: auto !important;
+  min-height: 0 !important;
+  justify-content: flex-start !important;
+}
+.bg-card {
+  height: auto !important;
+}
+
+/* waiting.html uses a different centering pattern than the one fixed
+   above (min-vh-100 + align-items-center instead of h-100), causing
+   the same "card floating in the middle of a too-tall box" issue on
+   the Egypt USSD waiting screen. Same fix: stop forcing a 100vh-tall
+   box and stop vertically centering, so the card sits flush at the
+   top and the box sizes to its own content. */
+.container-fluid.d-flex.justify-content-center.align-items-center.min-vh-100 {
+  min-height: 0 !important;
+  align-items: flex-start !important;
+  padding-top: 24px;
+}
+
+/* Hide details.html's own expiry timer (Nigeria "Show bank details",
+   Egypt Fawry "Proceed" both land here) — it has a different id than
+   index.html's timer, so the earlier hide rule didn't cover it. */
+#detailsExpiresInHeader {
+  display: none !important;
+}
+
+/* Hide the Session Expiry row and language pills on the Egypt Wallet
+   "waiting for payment" screen (reached after clicking Pay). */
+.egypt-waiting-session-row,
+.egypt-waiting-language-pills {
+  display: none !important;
+}
+
+/* Broader, more durable fix than chasing individual pages: hide the
+   expiry/session timer and any language-pill row everywhere in this
+   flow, not just on the specific pages fixed so far (otp-page.html's
+   "OTP session expires in", waiting.html's default view language
+   pills, etc.) — these keep turning up on new pages/flows as they're
+   tested, so target the shared patterns directly instead. */
+.time-chip-alt {
+  display: none !important;
+}
+*:has(> .language-pill) {
+  display: none !important;
+}

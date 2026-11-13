@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout Page</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Wrapper Div -->
+  <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 ">
+
+    <!-- White Card -->
+    <div class="bg-card d-flex flex-column justify-content-center align-items-center">
+      <!-- Payment Options -->
+      <div class="d-flex flex-column payment-box w-100">
+        <div class="d-flex flex-column align-items-start justify-content-between heading-wrapper gap-24-box w-100">
+          <!-- Timer -->
+          <div class="d-flex time-chip-alt w-100 justify-content-between align-items-center w-100">
+            <p class="time-text" data-translate="expires-in">Expires in:</p>
+            <div class="d-flex time-wrapper gap-08-box align-items-center">
+              <img class="timer-icon" src="images/schedule-icon.png" alt="">
+              <div class="d-flex gap-04-box" id="timerDisplay" data-minutes="13" data-seconds="12">
+                <p class="time-text" id="timerMinutesDisplay">
+                  13m
+                </p>
+                <p class="time-text" id="timerSecondsDisplay">
+                  12s
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-column w-100 gap-08-box align-items-start">
+            <div class="d-flex align-items-center gap-08-box">
+              <h2 class="payment-head mb-0" data-translate="complete-payment">Complete your payment</h2>
+              <button type="button" class="btn btn-link p-0 mobile-how-to-pay-link d-none" id="bankDepositHowToPayLink"
+                data-bs-toggle="modal" data-bs-target="#bankDepositHowToPayModal">
+                <img src="images/bulb2.svg" alt="" class="how-to-pay-link-icon">
+                <span id="bankDepositHowToPayText">How to pay</span>
+              </button>
+            </div>
+            <div class="d-flex gap-08-box align-items-center" id="iframeLanguagePills">
+              <button class="smallbtn language-pill active" type="button" data-lang="en">English</button>
+              <button class="smallbtn language-pill" type="button" data-lang="bn">বাংলা</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Embedded payment page container -->
+        <div class="w-100 border rounded overflow-hidden d-flex flex-column" style="height: 860px;" id="iframeContentContainer">
+          <iframe
+            src="about:blank"
+            title="Payment Gateway"
+            id="paymentIframe"
+            class="w-100"
+            style="height: 100%; border: 0; overflow: hidden; flex: 1;"
+            scrolling="no"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <div class="d-flex justify-content-center p-3 border-top bg-white" id="iframeReturnRow">
+            <button class="btn checkout-button return-iframe-button" type="button" onclick="window.location.href='index.html'" data-translate="return-home">Return to Home</button>
+          </div>
+          <div class="w-100 d-flex align-items-center justify-content-center p-4 bg-white" id="iframePlaceholderContent" style="min-height: 280px;">
+            <p class="m-0" id="iframePlaceholderText" style="font-weight: 600; font-size: 18px;">The wallet's payment page opens here.</p>
+          </div>
+        </div>
+
+        <div class="button-wrapper w-100 d-none justify-content-between align-items-center mt-3" id="iframeOrderCancelRow">
+          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            class="smallbtn d-flex align-items-center justify-content-center gap-12-box">
+            <span data-translate="order-id">Order ID</span>
+            <img src="images/visibility.png" alt="">
+          </button>
+          <button type="button" class="btn btn-primary checkout-cancel" onclick="handleCancelClick()" data-translate="cancel">Cancel</button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" data-translate="order-id">Order ID</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body scrollable-content">
+                <p class="long-text" id="orderIdDisplay">
+                  9238650934876509347685095876093487609487654598067540968730591287918355873498573098763457897670287870485120145846769502437985436579862583472654897632976452183756386392386509348765093476850958760934876094876545980675409687305912879183558734985730987634578976702878704851201458467695024379854365798625834726548976329764521837563863
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      const isBankDepositMode = params.get('mode') === 'bank-deposit';
+      const paymentMethod = sessionStorage.getItem('paymentMethod') || '';
+      const isDfnnWalletFlow = paymentMethod === 'dfnn-wallet';
+      const isBanWalletFlow = paymentMethod === 'ban-wallet';
+      const paymentIframe = document.getElementById('paymentIframe');
+      const iframeReturnRow = document.getElementById('iframeReturnRow');
+      const iframePlaceholderContent = document.getElementById('iframePlaceholderContent');
+      const iframePlaceholderText = document.getElementById('iframePlaceholderText');
+      const iframeOrderCancelRow = document.getElementById('iframeOrderCancelRow');
+      const iframeContentContainer = document.getElementById('iframeContentContainer');
+      const iframeLanguagePills = document.getElementById('iframeLanguagePills');
+      const bankDepositHowToPayLink = document.getElementById('bankDepositHowToPayLink');
+      const bankDepositHowToPayText = document.getElementById('bankDepositHowToPayText');
+      const feedbackModalTitle = document.getElementById('feedbackModalLabel');
+      const feedbackOption1 = document.querySelector('label[for="feedbackOption1"]');
+      const feedbackOption2 = document.querySelector('label[for="feedbackOption2"]');
+      const feedbackOption3 = document.querySelector('label[for="feedbackOption3"]');
+      const feedbackOption4 = document.querySelector('label[for="feedbackOption4"]');
+      const feedbackSkipBtn = document.querySelector('#feedbackModal [data-translate="skip"]');
+      const feedbackSubmitBtn = document.querySelector('#feedbackModal #submitFeedback');
+      const howToPayModalTitle = document.getElementById('bankDepositHowToPayModalLabel');
+      const howToPaySteps = document.querySelectorAll('#bankDepositHowToPayModal .how-to-pay-steps-list li');
+      const howToPayGotItBtn = document.querySelector('#bankDepositHowToPayModal .modal-footer button');
+      const bankDepositTranslations = {
+        en: {
+          completePayment: 'Complete your payment',
+          expiresIn: 'Expires in',
+          orderId: 'Order ID',
+          cancel: 'Cancel',
+          iframeContent: 'iframe content',
+          howToPay: 'How to pay',
+          feedbackTitle: 'Feedback',
+          feedbackOption1: 'I would like to explore more before completing transaction.',
+          feedbackOption2: "I didn't understand what to do next.",
+          feedbackOption3: 'I want to go back and edit my details.',
+          feedbackOption4: 'I changed my mind.',
+          feedbackSkip: 'Skip',
+          feedbackSubmit: 'Submit Feedback',
+          howToPayTitle: 'How to pay',
+          howToPayStep1: 'Choose your bank and log in with your banking credentials.',
+          howToPayStep2: 'Select the account you wish to pay from.',
+          howToPayStep3: 'Approve the payment via your bank app notification, USSD pop-up, or SMS.',
+          howToPayGotIt: 'Got it'
+        },
+        zu: {
+          completePayment: 'Qedela inkokhelo yakho',
+          expiresIn: 'Kuphela emizuzwini',
+          orderId: 'I-ID ye-oda',
+          cancel: 'Khansela',
+          iframeContent: 'okuqukethwe kwe-iframe',
+          howToPay: 'Ukukhokha kanjani',
+          feedbackTitle: 'Impendulo',
+          feedbackOption1: 'Ngifuna ukuhlola okwengeziwe ngaphambi kokuqedela inkokhelo.',
+          feedbackOption2: 'Angiqondanga ukuthi ngenzeni okulandelayo.',
+          feedbackOption3: 'Ngifuna ukubuyela emuva ngihlele imininingwane yami.',
+          feedbackOption4: 'Ngishintshe umqondo.',
+          feedbackSkip: 'Yeqa',
+          feedbackSubmit: 'Thumela Impendulo',
+          howToPayTitle: 'Ukukhokha kanjani',
+          howToPayStep1: 'Khetha ibhange lakho bese ungena ngemininingwane yakho yasebhange.',
+          howToPayStep2: 'Khetha i-akhawunti ofuna ukukhokha kuyo.',
+          howToPayStep3: 'Vuma inkokhelo ngesaziso sohlelo lokusebenza lwebhange, i-USSD pop-up, noma i-SMS.',
+          howToPayGotIt: 'Kulungile'
+        },
+        xh: {
+          completePayment: 'Gqibezela intlawulo yakho',
+          expiresIn: 'Iphela ngo',
+          orderId: 'I-ID ye-odolo',
+          cancel: 'Rhoxisa',
+          iframeContent: 'umxholo we-iframe',
+          howToPay: 'Uhlawula njani',
+          feedbackTitle: 'Impendulo',
+          feedbackOption1: 'Ndingathanda ukuhlola ngakumbi phambi kokugqiba intlawulo.',
+          feedbackOption2: 'Andiqondanga ukuba kufuneka ndenze ntoni elandelayo.',
+          feedbackOption3: 'Ndifuna ukubuyela emva ndilungise iinkcukacha zam.',
+          feedbackOption4: 'Nditshintshe ingqondo.',
+          feedbackSkip: 'Tsiba',
+          feedbackSubmit: 'Ngenisa Impendulo',
+          howToPayTitle: 'Uhlawula njani',
+          howToPayStep1: 'Khetha ibhanki yakho uze ungene ngeenkcukacha zakho zebhanki.',
+          howToPayStep2: 'Khetha i-akhawunti ofuna ukuhlawula kuyo.',
+          howToPayStep3: 'Qinisekisa intlawulo ngesaziso se-app yebhanki, i-USSD pop-up, okanye i-SMS.',
+          howToPayGotIt: 'Ndiyifumene'
+        },
+        af: {
+          completePayment: 'Voltooi jou betaling',
+          expiresIn: 'Verval oor',
+          orderId: 'Bestel-ID',
+          cancel: 'Kanselleer',
+          iframeContent: 'iframe-inhoud',
+          howToPay: 'Hoe om te betaal',
+          feedbackTitle: 'Terugvoer',
+          feedbackOption1: 'Ek wil meer verken voordat ek die transaksie voltooi.',
+          feedbackOption2: 'Ek het nie verstaan wat om volgende te doen nie.',
+          feedbackOption3: 'Ek wil teruggaan en my besonderhede wysig.',
+          feedbackOption4: 'Ek het van plan verander.',
+          feedbackSkip: 'Slaan oor',
+          feedbackSubmit: 'Stuur Terugvoer',
+          howToPayTitle: 'Hoe om te betaal',
+          howToPayStep1: 'Kies jou bank en meld aan met jou bankbesonderhede.',
+          howToPayStep2: 'Kies die rekening waaruit jy wil betaal.',
+          howToPayStep3: "Bevestig die betaling via jou bank-app kennisgewing, USSD pop-up, of SMS.",
+          howToPayGotIt: 'Reg so'
+        }
+      };
+
+      function applyBankDepositLanguage(lang) {
+        const copy = bankDepositTranslations[lang] || bankDepositTranslations.en;
+        const completePaymentEl = document.querySelector('[data-translate="complete-payment"]');
+        const expiresInEl = document.querySelector('[data-translate="expires-in"]');
+        const orderIdEls = document.querySelectorAll('[data-translate="order-id"]');
+        const cancelEl = document.querySelector('#iframeOrderCancelRow [data-translate="cancel"]');
+        if (completePaymentEl) completePaymentEl.textContent = copy.completePayment;
+        if (expiresInEl) expiresInEl.textContent = copy.expiresIn;
+        orderIdEls.forEach((el) => {
+          el.textContent = copy.orderId;
+        });
+        if (cancelEl) cancelEl.textContent = copy.cancel;
+        if (iframePlaceholderText) iframePlaceholderText.textContent = copy.iframeContent;
+        if (bankDepositHowToPayText) bankDepositHowToPayText.textContent = copy.howToPay;
+        if (feedbackModalTitle) feedbackModalTitle.textContent = copy.feedbackTitle;
+        if (feedbackOption1) feedbackOption1.textContent = copy.feedbackOption1;
+        if (feedbackOption2) feedbackOption2.textContent = copy.feedbackOption2;
+        if (feedbackOption3) feedbackOption3.textContent = copy.feedbackOption3;
+        if (feedbackOption4) feedbackOption4.textContent = copy.feedbackOption4;
+        if (feedbackSkipBtn) feedbackSkipBtn.textContent = copy.feedbackSkip;
+        if (feedbackSubmitBtn) feedbackSubmitBtn.textContent = copy.feedbackSubmit;
+        if (howToPayModalTitle) howToPayModalTitle.textContent = copy.howToPayTitle;
+        if (howToPaySteps[0]) howToPaySteps[0].textContent = copy.howToPayStep1;
+        if (howToPaySteps[1]) howToPaySteps[1].textContent = copy.howToPayStep2;
+        if (howToPaySteps[2]) howToPaySteps[2].textContent = copy.howToPayStep3;
+        if (howToPayGotItBtn) howToPayGotItBtn.textContent = copy.howToPayGotIt;
+      }
+
+      if (isBankDepositMode) {
+        if (iframeLanguagePills) {
+          iframeLanguagePills.innerHTML = ''
+            + '<button class="smallbtn language-pill active" type="button" data-lang="en">English</button>'
+            + '<button class="smallbtn language-pill" type="button" data-lang="zu">Zulu</button>'
+            + '<button class="smallbtn language-pill" type="button" data-lang="xh">Xhosa</button>'
+            + '<button class="smallbtn language-pill" type="button" data-lang="af">Afrikaans</button>';
+        }
+        if (paymentIframe) {
+          paymentIframe.classList.add('d-none');
+        }
+        if (iframeReturnRow) {
+          iframeReturnRow.classList.add('d-none');
+        }
+        if (iframePlaceholderContent) {
+          iframePlaceholderContent.classList.remove('d-none');
+          iframePlaceholderContent.classList.add('d-flex');
+        }
+        if (iframeOrderCancelRow) {
+          iframeOrderCancelRow.classList.remove('d-none');
+          iframeOrderCancelRow.classList.add('d-flex');
+        }
+        if (iframeContentContainer) {
+          iframeContentContainer.style.height = '420px';
+        }
+        if (bankDepositHowToPayLink) {
+          bankDepositHowToPayLink.classList.remove('d-none');
+        }
+      } else if (isDfnnWalletFlow && iframeLanguagePills) {
+        iframeLanguagePills.innerHTML = ''
+          + '<button class="smallbtn language-pill active" type="button" data-lang="en">English</button>'
+          + '<button class="smallbtn language-pill" type="button" data-lang="tl">Tagalog</button>';
+      } else if (isBanWalletFlow && iframeLanguagePills) {
+        iframeLanguagePills.innerHTML = ''
+          + '<button class="smallbtn language-pill active" type="button" data-lang="en">English</button>'
+          + '<button class="smallbtn language-pill" type="button" data-lang="bn">বাংলা</button>';
+      }
+
+      let selectedLanguage = sessionStorage.getItem('selectedLanguage') || 'en';
+      if (isDfnnWalletFlow && selectedLanguage !== 'tl') {
+        selectedLanguage = 'en';
+      } else if (isBanWalletFlow && selectedLanguage !== 'bn') {
+        selectedLanguage = 'en';
+      } else if (!isDfnnWalletFlow && !isBanWalletFlow && !isBankDepositMode && selectedLanguage === 'tl') {
+        selectedLanguage = 'en';
+      }
+      if (isBankDepositMode) {
+        applyBankDepositLanguage(selectedLanguage);
+      } else if (typeof switchLanguage === 'function') {
+        switchLanguage(selectedLanguage);
+      }
+
+      const languagePills = document.querySelectorAll('.language-pill');
+      languagePills.forEach((pill) => {
+        pill.addEventListener('click', function(e) {
+          e.preventDefault();
+          const lang = pill.getAttribute('data-lang');
+          languagePills.forEach((item) => item.classList.remove('active'));
+          pill.classList.add('active');
+          sessionStorage.setItem('selectedLanguage', lang);
+          if (isBankDepositMode && lang) {
+            applyBankDepositLanguage(lang);
+          } else if (lang && typeof switchLanguage === 'function') {
+            switchLanguage(lang);
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- South Africa Bank Deposit: How to Pay Modal -->
+  <div class="modal fade" id="bankDepositHowToPayModal" tabindex="-1" aria-labelledby="bankDepositHowToPayModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bankDepositHowToPayModalLabel">How to pay</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol class="how-to-pay-steps-list mb-0">
+            <li>Choose your bank and log in with your banking credentials.</li>
+            <li>Select the account you wish to pay from.</li>
+            <li>Approve the payment via your bank app notification, USSD pop-up, or SMS.</li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary feedback-submit-btn" data-bs-dismiss="modal">Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="feedbackModalLabel" data-translate="feedback">Feedback</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption1" value="explore">
+              <label class="form-check-label" for="feedbackOption1" data-translate="feedback-explore">
+                I would like to explore more before completing transaction.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption2" value="dont_understand">
+              <label class="form-check-label" for="feedbackOption2" data-translate="feedback-dont-understand">
+                I didn't understand what to do next.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption3" value="edit_details">
+              <label class="form-check-label" for="feedbackOption3" data-translate="feedback-edit-details">
+                I want to go back and edit my details.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption4" value="changed_mind">
+              <label class="form-check-label" for="feedbackOption4" data-translate="feedback-changed-mind">
+                I changed my mind.
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link skip-link" data-bs-dismiss="modal" data-translate="skip">Skip</button>
+          <button type="button" class="btn btn-primary feedback-submit-btn" id="submitFeedback" data-translate="submit-feedback">Submit Feedback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

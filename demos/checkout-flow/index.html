@@ -1,0 +1,1865 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Checkout Page</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0">
+
+  <link rel="stylesheet" href="style.css">
+  <!-- Injected for the demo page: hide every accordion
+       item by default, render-blocking, before any content paints.
+       Without this, the page briefly shows its normal unfiltered
+       state (or the wrong method) for a moment before our filter
+       script runs and hides everything except the requested method —
+       that's the flash of the wrong screen. Hiding first and only
+       revealing the correct one (see applyCountry() below) means
+       there's nothing wrong to ever flash on screen. -->
+  <style>.accordion-item{display:none;}</style>
+</head>
+
+
+<body>
+
+  <!-- Wrapper Div -->
+  <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100 ">
+
+    <!-- White Card -->
+    <div class="bg-card d-flex flex-column justify-content-center align-items-center">
+
+
+
+      <!-- Payment Options -->
+      <div class="d-flex flex-column payment-box w-100">
+        <div class="d-flex flex-column align-items-start justify-content-between heading-wrapper gap-24-box w-100">
+          <div class="checkout-header upi-qr-header-only w-100">
+            <img src="images/your-logo.svg" alt="Your logo" class="checkout-logo">
+          </div>
+          <!-- Timer -->
+          <!-- Pakistan Simpesa wallets tech note:
+               This "Expires in" header is hidden only when Easypaisa accordion is selected. -->
+          <div class="d-flex time-chip-alt w-100 justify-content-between align-items-center w-100" id="checkoutExpiresInHeader">
+            <p class="time-text" data-translate="expires-in">Expires in</p>
+            <div class="d-flex time-wrapper gap-08-box align-items-center">
+              <img class="timer-icon" src="images/schedule-icon.png" alt="">
+              <p class="time-text">
+                13m 12s
+              </p>
+            </div>
+          </div>
+          <div class="d-flex w-100 align-items-center justify-content-between heading-title-row gap-08-box" id="headingTitleRow">
+            <h2 class="payment-head" data-translate="complete-payment">Complete your payment</h2>
+            <div class="heading-language-pills d-flex gap-08-box align-items-center flex-wrap" id="headingLanguagePills">
+              <button class="smallbtn language-pill active" type="button" data-lang="en">English</button>
+              <button class="smallbtn language-pill" type="button" data-lang="ar">العربية</button>
+              <button class="smallbtn language-pill language-pill-french d-none" type="button" data-lang="fr">French</button>
+            </div>
+            <!-- BANK DEPOSIT - NIGERIA: language pills (shown when Nigeria bank deposit accordion is open) -->
+            <div class="heading-language-pills d-none d-flex gap-08-box align-items-center flex-wrap" id="headingLanguagePillsNigeria">
+              <button class="smallbtn language-pill active" type="button" data-lang="en">English</button>
+              <button class="smallbtn language-pill" type="button" data-lang="yo">Yoruba</button>
+              <button class="smallbtn language-pill" type="button" data-lang="ig">Igbo</button>
+              <button class="smallbtn language-pill" type="button" data-lang="ha">Hausa</button>
+            </div>
+          </div>
+        </div>
+        <!-- Accordions -->
+        <div class="accordion d-flex flex-column" id="accordionExample">
+          <!-- P2P iGaming Egypt flow: Bank Deposit Accordion -->
+          <div class="accordion-item accordion-mpesa">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBankTransfer"
+                aria-expanded="true" aria-controls="collapseBankTransfer">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/bank-deposit-icon.png" alt="">
+                  <p class="accordion-head" data-translate="bank-transfer">Bank Deposit</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseBankTransfer" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper w-100">
+                  <!-- Payment Instructions Container -->
+                  <div class="payment-instructions-container">
+                    <div class="payment-instructions-header">
+                      <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                      <span data-translate="payment-instructions">Payment Instructions</span>
+                    </div>
+                    <ol class="payment-instructions-list">
+                      <li>
+                        <div class="payment-instructions-text">
+                          Pay the exact amount shown.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          درست دکھائی گئی رقم ادا کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          أدّ المبلغ المعروض بالكامل.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Payez le montant exact indiqué.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Enter your payment details.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          اپنی ادائیگی کی تفصیلات درج کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          أدخل تفاصيل الدفع الخاصة بك.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Saisissez vos informations de paiement.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Upload proof of payment for verification.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          تصدیق کے لیے ادائیگی کا ثبوت اپ لوڈ کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          حمّل إثبات الدفع للتحقق.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Téléchargez une preuve de paiement pour vérification.
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+
+                  <!-- Continue Button -->
+                  <div class="button-wrapper w-100">
+                    <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="continueButton" onclick="goToWalletDetails('bank')">
+                      <span data-translate="continue">Proceed</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- P2P iGaming Egypt flow: Wallets Accordion -->
+          <div class="accordion-item accordion-mpesa">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWallets"
+                aria-expanded="false" aria-controls="collapseWallets">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/wallets-icon.png" alt="">
+                    <p class="accordion-head" data-translate="ban-wallets-payment-method">Wallets</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseWallets" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper w-100">
+                  <!-- Payment Instructions Container -->
+                  <div class="payment-instructions-container">
+                    <div class="payment-instructions-header">
+                      <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                      <span data-translate="payment-instructions">Payment Instructions</span>
+                    </div>
+                    <ol class="payment-instructions-list">
+                      <li>
+                        <div class="payment-instructions-text" data-translate="details-how-to-pay-step-1">
+                          Click Proceed button and copy the wallet number shown in the Beneficiary details section.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          Proceed بٹن پر کلک کریں اور Beneficiary details سیکشن میں دکھایا گیا والیٹ نمبر کاپی کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          انقر على زر المتابعة وانسخ رقم المحفظة الظاهر في قسم تفاصيل المستفيد.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Cliquez sur le bouton Continuer et copiez le numéro de portefeuille affiché dans la section Détails du bénéficiaire.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text" data-translate="details-how-to-pay-step-2">
+                          Open your wallet app and transfer the exact amount to the copied wallet number.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          اپنی والیٹ ایپ کھولیں اور کاپی شدہ والیٹ نمبر پر درست رقم منتقل کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          افتح تطبيق المحفظة وحوّل المبلغ المحدد إلى رقم المحفظة المنسوخ.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Ouvrez votre application de portefeuille et transférez le montant exact vers le numéro de portefeuille copié.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text" data-translate="details-how-to-pay-step-3">
+                          Enter your wallet number and upload a screenshot of the payment receipt.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          اپنا والیٹ نمبر درج کریں اور ادائیگی کی رسید کا اسکرین شاٹ اپ لوڈ کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          أدخل رقم محفظتك وحمّل لقطة شاشة لإيصال الدفع.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Saisissez votre numéro de portefeuille et téléchargez une capture d'écran du reçu de paiement.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text" data-translate="details-how-to-pay-step-4">
+                          Click on Submit button
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          Submit بٹن پر کلک کریں
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          انقر على زر الإرسال
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Cliquez sur le bouton Envoyer
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+
+                  <!-- Continue Button -->
+                  <div class="button-wrapper w-100">
+                    <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" onclick="goToWalletDetails('wallet')">
+                      <span data-translate="continue">Proceed</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Morocco Nagupay flow: Mobile Wallet Accordion -->
+          <div class="accordion-item accordion-mpesa">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMobileWallets"
+                aria-expanded="false" aria-controls="collapseMobileWallets">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/wallets-icon.png" alt="">
+                  <p class="accordion-head">Mobile Wallet</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseMobileWallets" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper w-100">
+                  <!-- Mobile Wallet Dropdown -->
+                  <div class="d-flex flex-column gap-08-box w-100">
+                    <label class="form-label" data-translate="mobile-wallet-dropdown-label">Mobile Wallet</label>
+
+                    <div class="custom-dropdown-wrapper">
+                      <div class="custom-dropdown-selected" id="mobileWalletDropdownSelected">
+                        <span class="selected-text" data-translate="select-wallet-app">Select your wallet app</span>
+                        <span class="dropdown-arrow"></span>
+                      </div>
+
+                      <div class="custom-dropdown-options" id="mobileWalletDropdownOptions">
+                        <div class="custom-dropdown-option" data-value="" data-translate="select-wallet-app">Select your wallet app</div>
+
+                        <div class="custom-dropdown-option" data-value="cashplus">
+                          <img src="images/cashplus.png" alt="CashPlus" class="wallet-option-icon">
+                          <span>CashPlus</span>
+                        </div>
+
+                        <div class="custom-dropdown-option" data-value="orange-money">
+                          <img src="images/orange.png" alt="Orange Money" class="wallet-option-icon">
+                          <span>Orange Money</span>
+                        </div>
+
+                        <div class="custom-dropdown-option" data-value="mt-cash">
+                          <img src="images/mt.png" alt="MT Cash" class="wallet-option-icon">
+                          <span>MT Cash</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <select class="form-select d-none" id="mobileWalletSelect" aria-hidden="true">
+                      <option value="">Select your wallet app</option>
+                      <option value="cashplus">CashPlus</option>
+                      <option value="orange-money">Orange Money</option>
+                      <option value="mt-cash">MT Cash</option>
+                    </select>
+                  </div>
+
+                  <!-- Payment Instructions Container -->
+                  <div class="payment-instructions-container">
+                    <div class="payment-instructions-header">
+                      <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                      <span data-translate="payment-instructions">Payment Instructions</span>
+                    </div>
+                    <ol class="payment-instructions-list">
+                      <li>
+                        <div class="payment-instructions-text">
+                          Open the selected mobile wallet app.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          منتخب کردہ موبائل والیٹ ایپ کھولیں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          افتح تطبيق المحفظة الإلكترونية الذي اخترته.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Ouvrez l'application de portefeuille mobile sélectionnée.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Transfer the amount to the selected wallet within 15 minutes.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          منتخب کردہ والیٹ پر 15 منٹ کے اندر رقم منتقل کریں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          حوّل المبلغ إلى المحفظة التي اخترتها خلال 15 دقيقة.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Transférez le montant au portefeuille sélectionné dans les 15 minutes.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Provide the below transfer details after making the payment:
+                          <br>• Wallet details (wallet number &amp; wallet name from which the transfer was made)
+                          <br>• Proof of payment (receipt/screenshot)
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          ادائیگی مکمل ہونے کے بعد درج ذیل تفصیلات فراہم کریں:
+                          <br>• والیٹ کی تفصیلات (والیٹ نمبر اور والیٹ نام جہاں سے ادائیگی کی گئی)
+                          <br>• ادائیگی کا ثبوت (رسید/اسکرین شاٹ)
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          بعد إتمام الدفع، يرجى تقديم تفاصيل التحويل أدناه:
+                          <br>• تفاصيل المحفظة (رقم المحفظة واسم المحفظة التي تم التحويل منها)
+                          <br>• إثبات الدفع (إيصال أو لقطة شاشة)
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Fournissez les détails de transfert ci-dessous après avoir effectué le paiement:
+                          <br>• Détails du portefeuille (numéro du portefeuille et nom du portefeuille à partir duquel le transfert a été effectué)
+                          <br>• Preuve de paiement (reçu / capture d'écran)
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Submit the details to complete the payment process.
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          ادائیگی کا عمل مکمل کرنے کے لیے تفصیلات جمع کروائیں۔
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          أرسل التفاصيل لإكمال عملية الدفع.
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Soumettez les informations pour finaliser le processus de paiement.
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+
+                  <!-- Continue Button -->
+                  <div class="button-wrapper w-100">
+                    <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="mobileWalletsContinueButton" onclick="goToWalletDetails('mobile-wallet')" disabled>
+                      <span data-translate="continue">Proceed</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Morocco Nagupay flow: Bank Transfer Accordion -->
+          <div class="accordion-item accordion-mpesa">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBankTransferMethod"
+                aria-expanded="false" aria-controls="collapseBankTransferMethod">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/bank-deposit-icon.png" alt="">
+                  <p class="accordion-head">Bank Transfer</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseBankTransferMethod" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper w-100">
+                  <!-- Bank Dropdown -->
+                  <div class="d-flex flex-column gap-08-box w-100">
+                    <label class="form-label" data-translate="bank-dropdown-label">Bank</label>
+
+                    <div class="custom-dropdown-wrapper">
+                      <div class="custom-dropdown-selected" id="bankTransferDropdownSelected">
+                        <span class="selected-text" data-translate="select-bank">Select your bank</span>
+                        <span class="dropdown-arrow"></span>
+                      </div>
+
+                      <div class="custom-dropdown-options" id="bankTransferDropdownOptions">
+                        <div class="custom-dropdown-option" data-value="" data-translate="select-bank">Select your bank</div>
+                        <div class="custom-dropdown-option" data-value="cih-bank">
+                          <img src="images/cih.png" alt="CIH Bank" class="bank-logo">
+                          <span>CIH Bank</span>
+                        </div>
+                        <div class="custom-dropdown-option" data-value="attijariwafabank">
+                          <img src="images/attijari.png" alt="AttijariWafaBank" class="bank-logo">
+                          <span>AttijariWafaBank</span>
+                        </div>
+                        <div class="custom-dropdown-option" data-value="lbanka-lik">
+                          <img src="images/lbanka.png" alt="Lbanka Lik" class="bank-logo">
+                          <span>Lbanka Lik</span>
+                        </div>
+                        <div class="custom-dropdown-option" data-value="bcp">
+                          <img src="images/bcp.png" alt="BCP" class="bank-logo">
+                          <span>BCP</span>
+                        </div>
+                        <div class="custom-dropdown-option" data-value="bank-of-africa">
+                          <img src="images/baf.jpg" alt="Bank Of Africa" class="bank-logo">
+                          <span>Bank Of Africa</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <select class="form-select d-none" id="bankTransferSelect" aria-hidden="true">
+                      <option value="">Select your bank</option>
+                      <option value="cih-bank">CIH Bank</option>
+                      <option value="attijariwafabank">AttijariWafaBank</option>
+                      <option value="lbanka-lik">Lbanka Lik</option>
+                      <option value="bcp">BCP</option>
+                      <option value="bank-of-africa">Bank Of Africa</option>
+                    </select>
+                  </div>
+
+                  <!-- Payment Instructions Container -->
+                  <div class="payment-instructions-container">
+                    <div class="payment-instructions-header">
+                      <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                      <span data-translate="payment-instructions">Payment Instructions</span>
+                    </div>
+                    <ol class="payment-instructions-list">
+                      <li>
+                        <div class="payment-instructions-text">Open the selected Bank Website/App.</div>
+                        <div class="payment-instructions-text-urdu">منتخب کردہ بینک ویب سائٹ/ایپ کھولیں۔</div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">افتح موقع/تطبيق البنك الذي اخترته.</div>
+                        <div class="payment-instructions-text-french" style="display: none;">Ouvrez le site/app bancaire sélectionné.</div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">Transfer the amount to the selected bank within 15 minutes.</div>
+                        <div class="payment-instructions-text-urdu">منتخب کردہ بینک میں 15 منٹ کے اندر رقم منتقل کریں۔</div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">حوّل المبلغ إلى البنك المحدد خلال 15 دقيقة.</div>
+                        <div class="payment-instructions-text-french" style="display: none;">Transférez le montant à la banque sélectionnée dans les 15 minutes.</div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Provide the below transfer details after making the payment:
+                          <br>• Bank account details (bank account number &amp; bank account name from which transfer was made)
+                          <br>• Proof of transfer (receipt/screenshot)
+                        </div>
+                        <div class="payment-instructions-text-urdu">
+                          ادائیگی کرنے کے بعد نیچے دی گئی ٹرانسفر کی تفصیلات فراہم کریں:
+                          <br>• بینک اکاؤنٹ کی تفصیلات (بینک اکاؤنٹ نمبر اور بینک اکاؤنٹ نام جہاں سے ٹرانسفر کیا گیا)
+                          <br>• ٹرانسفر کا ثبوت (رسید/اسکرین شاٹ)
+                        </div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">
+                          بعد إتمام الدفع، يرجى تقديم تفاصيل التحويل أدناه:
+                          <br>• تفاصيل حساب البنك (رقم حساب البنك واسم حساب البنك الذي تم التحويل منه)
+                          <br>• إثبات الدفع (إيصال أو لقطة شاشة)
+                        </div>
+                        <div class="payment-instructions-text-french" style="display: none;">
+                          Veuillez fournir les détails de virement ci-dessous après avoir effectué le paiement:
+                          <br>• Coordonnées bancaires (numéro de compte bancaire et nom du compte à partir duquel le virement a été effectué)
+                          <br>• Preuve du virement (reçu / capture d'écran)
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">Submit the details to complete the payment process.</div>
+                        <div class="payment-instructions-text-urdu">ادائیگی کا عمل مکمل کرنے کے لیے تفصیلات جمع کروائیں۔</div>
+                        <div class="payment-instructions-text-arabic" style="display: none;">أرسل التفاصيل لإكمال عملية الدفع.</div>
+                        <div class="payment-instructions-text-french" style="display: none;">Soumettez les informations pour finaliser le processus de paiement.</div>
+                      </li>
+                    </ol>
+                  </div>
+
+                  <!-- Continue Button -->
+                  <div class="button-wrapper w-100">
+                    <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="bankTransferContinueButton" onclick="goToWalletDetails('bank-transfer')" disabled>
+                      <span data-translate="continue">Proceed</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- This is for DFNN Phillipines QRPH -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePhilippinesQrph"
+                aria-expanded="false" aria-controls="collapsePhilippinesQrph">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/qr_code_icon.png" alt="QR code">
+                  <p class="accordion-head" data-translate="philippines-qrph-accordion-title">QR PH</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapsePhilippinesQrph" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper w-100">
+                  <div class="philippines-qrph-qr-section d-flex flex-column gap-16-box w-100">
+                    <div class="qr-code-container">
+                      <div class="qr-code-wrapper">
+                        <img class="qr-code-image" src="images/QRPH.png" alt="QR PH QR Code" id="philippinesQrphQRCode">
+                        <button type="button" class="show-qr-button" id="philippinesQrphShowQRButton">
+                          <img src="images/visibility.png" alt="Show QR">
+                          <span data-translate="show-qr">Show QR</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="button-wrapper w-100 d-none" id="philippinesQrphDownloadQRWrapper">
+                      <a href="#" class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" id="philippinesQrphDownloadQRButton" role="button" onclick="event.preventDefault();">
+                        <span data-translate="download-qr">Download QR</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="payment-instructions-container">
+                    <div class="payment-instructions-header">
+                      <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                      <span data-translate="payment-instructions">Payment Instructions</span>
+                    </div>
+                    <ol class="payment-instructions-list">
+                      <li>
+                        <div class="payment-instructions-text" data-translate="philippines-qrph-instruction-1">Click <strong>Show QR</strong> to display the QR code. You can also <strong>Download the QR</strong> to save it.</div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text" data-translate="philippines-qrph-instruction-2">Open your preferred QRPH-compatible banking or e-wallet app.</div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text" data-translate="philippines-qrph-instruction-3">Use the app's QR payment feature to scan the displayed QR code or upload the downloaded QR image.</div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text" data-translate="philippines-qrph-instruction-4">Review the details and confirm the payment.</div>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VCA Bank Transfer Phillipines -->
+          <div class="accordion-item accordion-bank-deposit">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePhilippinesVcaBankTransfer"
+                aria-expanded="false" aria-controls="collapsePhilippinesVcaBankTransfer">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/bank-deposit-icon.png" alt="">
+                  <p class="accordion-head" data-translate="philippines-vca-bank-transfer-method">Bank Transfer</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapsePhilippinesVcaBankTransfer" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column align-items-end form-wrapper gap-32-wrapper">
+                  <div class="d-flex flex-column gap-16-box w-100">
+                    <div class="button-wrapper w-100" id="philippinesVcaShowPaymentDetailsWrapper">
+                      <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="philippinesVcaShowPaymentDetailsButton">
+                        <span data-translate="show-payment-details">Pay via Bank Transfer</span>
+                      </button>
+                    </div>
+
+                    <div class="philippines-vca-instructions-container">
+                      <div class="philippines-vca-instructions-header">
+                        <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                        <span data-translate="payment-instructions">Payment Instructions</span>
+                      </div>
+                      <ol class="philippines-vca-instructions-list">
+                        <li>
+                          <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-1">Click "Pay via Bank Transfer" to view the account number and use it to complete the transfer via your banking app or portal.</div>
+                        </li>
+                        <li>
+                          <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-2">Open your preferred banking app or portal.</div>
+                        </li>
+                        <li>
+                          <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-3">Select "Send Money" via InstaPay and choose "Other Banks or Wallets".</div>
+                        </li>
+                        <li>
+                          <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-4">Enter the account details (Virtual Account Number) and exact amount shown at checkout.</div>
+                        </li>
+                        <li>
+                          <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-5">Review the details and confirm the payment.</div>
+                        </li>
+                        <li>
+                          <div class="philippines-vca-instructions-text" data-translate="philippines-vca-instruction-6">Once the payment is successful, your transaction status will be updated automatically.</div>
+                        </li>
+                      </ol>
+                      <p class="philippines-vca-instructions-text" style="margin-top: 1rem;">
+                        <strong data-translate="philippines-vca-important-label">Important:</strong>
+                        <span data-translate="philippines-vca-important-text"> The VCA number is unique to this transaction and should be used only for this payment.</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- This is for Philippines DFNN -->
+          <div class="accordion-item accordion-mpesa">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDfnnWallets"
+                aria-expanded="false" aria-controls="collapseDfnnWallets">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/wallets-icon.png" alt="">
+                  <p class="accordion-head" data-translate="wallets-payment-method">Wallets</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseDfnnWallets" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper w-100">
+                  <!-- Wallet Dropdown -->
+                  <div class="d-flex flex-column gap-08-box w-100">
+                    <label class="form-label" data-translate="wallet">Wallet</label>
+
+                    <div class="custom-dropdown-wrapper">
+                      <div class="custom-dropdown-selected" id="dfnnWalletDropdownSelected">
+                        <span class="selected-text" data-translate="select-wallet-app">Select your wallet app</span>
+                        <span class="dropdown-arrow"></span>
+                      </div>
+
+                      <div class="custom-dropdown-options" id="dfnnWalletDropdownOptions">
+                        <div class="custom-dropdown-option" data-value="" data-translate="select-wallet-app">Select your wallet app</div>
+
+                        <div class="custom-dropdown-option" data-value="gcash">
+                          <span>GCash</span>
+                        </div>
+
+                        <div class="custom-dropdown-option" data-value="maya">
+                          <span>Maya</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <select class="form-select d-none" id="dfnnWalletSelect" aria-hidden="true">
+                      <option value="">Select your wallet app</option>
+                      <option value="gcash">GCash</option>
+                      <option value="maya">Maya</option>
+                    </select>
+                  </div>
+
+                  <!-- Mobile Number -->
+                  <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper w-100">
+                    <label for="dfnnWalletMobileInput" class="form-label" data-translate="mobile-number">Mobile number</label>
+                    <input type="tel" class="form-control" id="dfnnWalletMobileInput" placeholder="09XXXXXXXXX" maxlength="11" data-translate-placeholder="dfnn-wallet-mobile-placeholder">
+                    <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="dfnnWalletMobileError">
+                      <span class="error-exclamation">!</span>
+                      <span data-translate="dfnn-valid-mobile-number">Enter a valid mobile number (Must be 11 digits starting with 09)</span>
+                    </p>
+                  </div>
+
+                  <!-- Payment Instructions Container -->
+                  <div class="payment-instructions-container">
+                    <div class="payment-instructions-header">
+                      <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                      <span data-translate="payment-instructions">Payment Instructions</span>
+                    </div>
+                    <ol class="payment-instructions-list">
+                      <li>
+                        <div class="payment-instructions-text">
+                          Select your preferred wallet.
+                        </div>
+                        <div class="payment-instructions-text-tagalog" style="display: none;">
+                          Piliin ang iyong preferred na wallet.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Enter the mobile number linked to the wallet.
+                        </div>
+                        <div class="payment-instructions-text-tagalog" style="display: none;">
+                          Ilagay ang mobile number na naka-link sa wallet.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Click Pay to proceed. You will be redirected to a secure payment page, to complete the payment in your wallet app.
+                        </div>
+                        <div class="payment-instructions-text-tagalog" style="display: none;">
+                          I-click ang Pay para magpatuloy. Ire-redirect ka sa secure na payment page para tapusin ang bayad sa wallet app mo.
+                        </div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">
+                          Open your <span id="dfnnSelectedWalletAppName">GCash/Maya</span> app, and authorize the payment.
+                        </div>
+                        <div class="payment-instructions-text-tagalog" style="display: none;">
+                          Buksan ang iyong <span id="dfnnSelectedWalletAppNameTl">GCash/Maya</span> app, at i-authorize ang bayad.
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+
+                  <!-- Pay Button -->
+                  <div class="button-wrapper w-100">
+                    <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="dfnnWalletPayButton" disabled>
+                      <span id="dfnnWalletButtonText" data-translate="pay-amount-php">Pay PHP 500</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Egypt Fawry flow: Cash Accordion -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseCashMethod" aria-expanded="false" aria-controls="collapseCashMethod">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/Cash_icon.png" alt="">
+                  <p class="accordion-head" data-translate="cash">Cash</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseCashMethod" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column netbanking-wrapper">
+                  <div class="d-flex flex-column gap-32-wrapper">
+                    <div class="form-check bank-check d-flex">
+                      <input class="form-check-input" type="radio" name="cashPaymentMethod" id="fawryRadio" checked>
+                      <label class="form-check-label d-flex flex-column align-items-center w-100 h-100" for="fawryRadio">
+                        <img class="fawry-logo" src="images/fawry.png" alt="Fawry logo">
+                        <div class="bank-label" data-translate="pay-at-fawry">Pay at Fawry</div>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="button-wrapper d-flex w-100 justify-content-end">
+                    <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center w-100 justify-content-center"
+                      type="button" onclick="goToWalletDetails('cash')">
+                      <span data-translate="continue">Continue</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Egypt Kashier Wallets Accordion -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseWalletEgyptMethod" aria-expanded="false" aria-controls="collapseWalletEgyptMethod">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/wallets-icon.png" alt="">
+                  <p class="accordion-head" data-translate="wallet">Wallet</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseWalletEgyptMethod" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column netbanking-wrapper">
+                  <div class="d-flex flex-column gap-32-wrapper">
+                    <div class="form-wrapper d-flex flex-column">
+                      <label class="form-label-as-heading" data-translate="phone-number">Phone Number</label>
+                      <input type="tel" class="form-control" id="walletPhoneNumberEgypt" placeholder="010XXXXXXXXX" data-translate-placeholder="wallet-phone-placeholder" maxlength="12">
+                      <div id="walletPhoneErrorEgypt" class="field-error">
+                        <span class="error-exclamation">!</span>
+                        <span class="error-text" data-translate="valid-phone">Please enter a valid phone number</span>
+                      </div>
+                    </div>
+
+                    <div class="payment-instructions-container">
+                      <div class="payment-instructions-header">
+                        <img src="images/bulb.svg" alt="" class="bulb-icon">
+                        <span data-translate="payment-instructions">Payment Instructions</span>
+                      </div>
+                      <ol class="payment-instructions-list">
+                        <li>
+                          <div class="payment-instructions-text" data-translate="wallet-instruction-1">Enter your phone number.</div>
+                          <div class="payment-instructions-text-urdu" data-translate="wallet-instruction-1">اپنا فون نمبر درج کریں۔</div>
+                          <div class="payment-instructions-text-arabic" style="display: none;" data-translate="wallet-instruction-1">أدخل رقم هاتفك.</div>
+                          <div class="payment-instructions-text-french" style="display: none;" data-translate="wallet-instruction-1">Entrez votre numéro de téléphone.</div>
+                        </li>
+                        <li>
+                          <div class="payment-instructions-text" data-translate="wallet-instruction-2">SMS is sent on your phone number.</div>
+                          <div class="payment-instructions-text-urdu" data-translate="wallet-instruction-2">آپ کے فون نمبر پر SMS بھیجا جاتا ہے۔</div>
+                          <div class="payment-instructions-text-arabic" style="display: none;" data-translate="wallet-instruction-2">يتم إرسال رسالة SMS إلى رقم هاتفك.</div>
+                          <div class="payment-instructions-text-french" style="display: none;" data-translate="wallet-instruction-2">Un SMS est envoyé à votre numéro de téléphone.</div>
+                        </li>
+                        <li>
+                          <div class="payment-instructions-text" data-translate="wallet-instruction-3">Complete the payment by clicking on link to approve the payment in your wallet app, OR dial the USSD code sent on SMS.</div>
+                          <div class="payment-instructions-text-urdu" data-translate="wallet-instruction-3">اپنے والیٹ ایپ میں ادائیگی کی منظوری کے لیے لنک پر کلک کریں، یا SMS میں بھیجا گیا USSD کوڈ ڈائل کریں۔</div>
+                          <div class="payment-instructions-text-arabic" style="display: none;" data-translate="wallet-instruction-3">أكمل الدفع بالنقر على الرابط للموافقة على الدفع في تطبيق المحفظة، أو اطلب رمز USSD المرسل عبر SMS.</div>
+                          <div class="payment-instructions-text-french" style="display: none;" data-translate="wallet-instruction-3">Terminez le paiement en cliquant sur le lien pour approuver le paiement dans votre application portefeuille, ou composez le code USSD envoyé par SMS.</div>
+                        </li>
+                      </ol>
+                    </div>
+                  </div>
+                  <div class="button-wrapper d-flex w-100 justify-content-end">
+                    <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center w-100 justify-content-center"
+                      type="button" id="walletPayButtonEgypt" disabled onclick="if(typeof handleEgyptWalletPayClick === 'function') { handleEgyptWalletPayClick(); } return false;">
+                      <span data-translate="pay-amount-egp">Pay EGP 500</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- India UPI QR Accordion -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUPIQR"
+                aria-expanded="false" aria-controls="collapseUPIQR">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon upi-first-accordion-icon-desktop" src="images/qr_code_icon.png" alt="QR code">
+                  <img class="p-method-icon upi-first-accordion-icon-mobile" src="images/qr_code_icon.png" alt="QR code">
+                  <p class="accordion-head upi-first-accordion-title-desktop" data-translate="upi-qr-accordion-title">UPI QR</p>
+                  <p class="accordion-head upi-first-accordion-title-mobile" data-translate="upi-qr-accordion-title">UPI QR</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseUPIQR" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper" id="upiQRInitialView">
+                  <div class="upi-qr-desktop-flow d-flex flex-column gap-32-wrapper">
+                    <p class="pay-with-qr-text" data-translate="pay-with-qr-code">Pay with QR code</p>
+                    <div class="qr-code-container">
+                      <div class="qr-code-wrapper">
+                        <img class="qr-code-image" src="images/dummy-qr.png" alt="UPI QR Code" id="upiQRCode">
+                        <button type="button" class="show-qr-button" id="showQRButton">
+                          <img src="images/visibility.png" alt="Show QR">
+                          <span data-translate="show-qr">Show QR</span>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="support-text" data-translate="we-support-upi">We support all UPI handles</p>
+                    <div class="upi-handles-logos">
+                      <img src="images/freecharge.png" alt="Freecharge" class="upi-handle-logo">
+                      <img src="images/amazonpay.png" alt="Amazon Pay" class="upi-handle-logo">
+                      <img src="images/gpay.png" alt="Google Pay" class="upi-handle-logo" data-open-app="gpay">
+                      <img src="images/phonepe.png" alt="PhonePe" class="upi-handle-logo">
+                      <img src="images/UPI.png" alt="UPI" class="upi-handle-logo">
+                      <img src="images/mobikwik.png" alt="Mobikwik" class="upi-handle-logo">
+                      <img src="images/bhim.png" alt="BHIM" class="upi-handle-logo" data-open-app="bhim">
+                    </div>
+                  </div>
+                  <div class="mobile-upi-methods-card">
+                    <p class="mobile-upi-methods-title">
+                      <span data-translate="choose-payment-method">Choose any UPI supported app below to complete payment.</span>
+                      <button type="button" class="mobile-how-to-pay-link" data-bs-toggle="modal" data-bs-target="#howToPayUpiModal">
+                        <img src="images/bulb2.svg" alt="" class="how-to-pay-link-icon">
+                        <span data-translate="how-to-pay-link">How to pay</span>
+                      </button>
+                    </p>
+                    <div class="mobile-upi-security-ticker" role="status">
+                      <div class="mobile-upi-security-ticker-icon" aria-hidden="true">
+                        <img src="images/shield.svg" alt="">
+                      </div>
+                      <div class="mobile-upi-security-ticker-text">
+                        <p class="mobile-upi-security-ticker-line1">
+                          <span data-translate="upi-ticker-line1a">Secured by Automatic Routing. </span><strong data-translate="upi-ticker-line1b">Recipient name in UPI app may vary.</strong>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="scroll-down-hint" aria-hidden="true">
+                      Scroll for more <img src="images/scrolldown.svg" alt="" class="scroll-down-icon">
+                    </div>
+                    <button type="button" class="mobile-upi-method-row" data-open-app="paytm"><div class="mobile-upi-method-left"><img src="images/paytm.png" alt="Paytm" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="paytm-app">Paytm</span></div></button>
+                    <button type="button" class="mobile-upi-method-row" data-open-app="phonepe"><div class="mobile-upi-method-left"><img src="images/phonepe2.png" alt="PhonePe" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="phonepe-app">PhonePe</span></div></button>
+                    <button type="button" class="mobile-upi-method-row" data-open-app="gpay"><div class="mobile-upi-method-left"><img src="images/gpay2.png" alt="Google Pay" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="gpay-app">Google Pay</span></div></button>
+                    <button type="button" class="mobile-upi-method-row" data-open-app="bhim"><div class="mobile-upi-method-left"><img src="images/bhim2.png" alt="BHIM" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="bhim-app">BHIM</span></div></button>
+                    <button type="button" class="mobile-upi-method-row" data-open-app="cred"><div class="mobile-upi-method-left"><img src="images/cred.png" alt="CRED" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="cred-app">CRED</span></div></button>
+                    <button type="button" class="mobile-upi-method-row" data-open-app="navi"><div class="mobile-upi-method-left"><img src="images/navi.png" alt="Navi" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="navi-app">Navi</span></div></button>
+                    <button type="button" class="mobile-upi-method-row" data-open-app="supermoney"><div class="mobile-upi-method-left"><img src="images/supermoney.png" alt="Super.money" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="supermoney-app">Super.money</span></div></button>
+                    <button type="button" class="mobile-upi-method-row" data-open-app="amazonpay"><div class="mobile-upi-method-left"><img src="images/amazonpay2.png" alt="Amazon Pay" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="amazonpay-app">Amazon Pay</span></div></button>
+                    <button type="button" class="mobile-upi-method-row"><div class="mobile-upi-method-left"><img src="images/UPI.png" alt="UPI" class="mobile-upi-method-logo mobile-upi-other-apps-logo"><span class="mobile-upi-method-name" data-translate="other-apps">Other Apps</span></div></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- UPI (India) flow: UPI QR accordion (no merchant logo / expiry header swap on checkout) -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseALTUPIQR"
+                aria-expanded="false" aria-controls="collapseALTUPIQR">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon upi-first-accordion-icon-desktop" src="images/qr_code_icon.png" alt="QR code">
+                  <img class="p-method-icon upi-first-accordion-icon-mobile" src="images/qr_code_icon.png" alt="QR code">
+                  <p class="accordion-head upi-first-accordion-title-desktop" data-translate="upi-qr-accordion-title">UPI QR</p>
+                  <p class="accordion-head upi-first-accordion-title-mobile" data-translate="upi-qr-accordion-title">UPI QR</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseALTUPIQR" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column form-wrapper gap-32-wrapper" id="altUpiQRInitialView">
+                  <div class="upi-qr-desktop-flow d-flex flex-column gap-32-wrapper">
+                    <p class="pay-with-qr-text" data-translate="pay-with-qr-code">Pay with QR code</p>
+                    <div class="qr-code-container">
+                      <div class="qr-code-wrapper">
+                        <img class="qr-code-image" src="images/dummy-qr.png" alt="UPI QR Code" id="altUpiQRCode">
+                        <!-- ALT: sets sessionStorage upiQrFlow=alt before redirect to upi-qr-page.html -->
+                        <button type="button" class="show-qr-button" id="showALTQRButton">
+                          <img src="images/visibility.png" alt="Show QR">
+                          <span data-translate="show-qr">Show QR</span>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="support-text" data-translate="we-support-upi">We support all UPI handles</p>
+                    <!-- ALT: four UPI handle logos only (UPI, GPay, PhonePe, Paytm) in one row -->
+                    <div class="upi-handles-logos upi-handles-logos--four">
+                      <img src="images/UPI.png" alt="UPI" class="upi-handle-logo">
+                      <img src="images/gpay.png" alt="Google Pay" class="upi-handle-logo" data-open-app="gpay">
+                      <img src="images/phonepe.png" alt="PhonePe" class="upi-handle-logo">
+                      <img src="images/paytm-handle.png" alt="Paytm" class="upi-handle-logo">
+                    </div>
+                  </div>
+                  <div class="mobile-upi-methods-card">
+                    <p class="mobile-upi-methods-title">
+                      <span data-translate="choose-payment-method">Choose any UPI supported app below to complete payment.</span>
+                      <button type="button" class="mobile-how-to-pay-link" data-bs-toggle="modal" data-bs-target="#howToPayUpiModal">
+                        <img src="images/bulb2.svg" alt="" class="how-to-pay-link-icon">
+                        <span data-translate="how-to-pay-link">How to pay</span>
+                      </button>
+                    </p>
+                    <div class="mobile-upi-security-ticker" role="status">
+                      <div class="mobile-upi-security-ticker-icon" aria-hidden="true">
+                        <img src="images/shield.svg" alt="">
+                      </div>
+                      <div class="mobile-upi-security-ticker-text">
+                        <p class="mobile-upi-security-ticker-line1">
+                          <span data-translate="upi-ticker-line1a">Secured by Automatic Routing. </span><strong data-translate="upi-ticker-line1b">Recipient name in UPI app may vary.</strong>
+                        </p>
+                      </div>
+                    </div>
+                    <!-- ALT: mobile-only four app rows (GPay, PhonePe, Paytm deeplinks; Other Apps display-only last) -->
+                    <button type="button" class="mobile-upi-method-row" data-open-app="gpay"><div class="mobile-upi-method-left"><img src="images/gpay2.png" alt="Google Pay" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="gpay-app">Google Pay</span></div></button>
+                    <button type="button" class="mobile-upi-method-row" data-open-app="phonepe"><div class="mobile-upi-method-left"><img src="images/phonepe2.png" alt="PhonePe" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="phonepe-app">PhonePe</span></div></button>
+                    <button type="button" class="mobile-upi-method-row" data-open-app="paytm"><div class="mobile-upi-method-left"><img src="images/paytm.png" alt="Paytm" class="mobile-upi-method-logo"><span class="mobile-upi-method-name" data-translate="paytm-app">Paytm</span></div></button>
+                    <button type="button" class="mobile-upi-method-row"><div class="mobile-upi-method-left"><img src="images/UPI.png" alt="Other Apps" class="mobile-upi-method-logo mobile-upi-other-apps-logo"><span class="mobile-upi-method-name" data-translate="other-apps">Other Apps</span></div></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- India merchant UPI -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUPI"
+                aria-expanded="false" aria-controls="collapseUPI">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/upi-icon.png" alt="UPI">
+                  <p class="accordion-head" data-translate="upi-accordion-title">UPI</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseUPI" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column align-items-end form-wrapper gap-32-wrapper">
+                  <div class="d-flex flex-column upi-input-wrapper w-100">
+                    <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+                      <div class="d-flex w-100 justify-content-between align-items-center">
+                        <label for="upiIdInput" class="form-label" data-translate="upi-id">UPI ID</label>
+                      </div>
+                      <input type="text" class="form-control upi-input" id="upiIdInput" placeholder="username@ybl, username@paytm..." data-translate-placeholder="upi-id-placeholder">
+                      <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="upiIdError">
+                        <span class="error-exclamation">!</span>
+                        <span data-translate="valid-upi-id">Enter a valid UPI ID (e.g: name@bankhandle)</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column gap-16-box w-100">
+                    <div class="button-wrapper w-100">
+                      <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="upiPayButton" disabled>
+                        <span class="spinner-border spinner-border-sm d-flex align-items-center justify-content-center d-none" id="upiSpinner" aria-hidden="true">
+                          <img class="custom-spinner" src="images/Ellipse-48.png" alt="">
+                        </span>
+                        <span id="upiButtonText" data-translate="pay-amount-inr">Pay INR 500</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PayOK Bangladesh - Wallets -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBanWallets"
+                aria-expanded="false" aria-controls="collapseBanWallets">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon spei-icon" src="images/wallets-icon.png" alt="">
+                  <p class="accordion-head" data-translate="ban-wallets-payment-method">Wallets</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseBanWallets" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column align-items-end form-wrapper gap-32-wrapper">
+                  <div class="d-flex flex-column gap-16-box w-100">
+                    <div class="relative-div">
+                      <div class="overlay-div"></div>
+                      <div class="netbanking-no-overflow">
+                        <div class="d-flex gap-2">
+                          <div class="form-check bank-check d-flex">
+                            <input class="form-check-input" type="radio" name="banWalletOption" id="banWalletNagad" value="nagad" checked>
+                            <label class="form-check-label d-flex flex-column w-100 h-100" for="banWalletNagad">
+                              <img class="banking-logo" src="images/nagad.png" alt="Nagad">
+                              <div class="bank-label">Nagad</div>
+                            </label>
+                          </div>
+                          <div class="form-check bank-check d-flex">
+                            <input class="form-check-input" type="radio" name="banWalletOption" id="banWalletBkash" value="bkash">
+                            <label class="form-check-label d-flex flex-column w-100 h-100" for="banWalletBkash">
+                              <img class="banking-logo" src="images/bkash.png" alt="bKash">
+                              <div class="bank-label">bKash</div>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-column w-100">
+                    <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+                      <label for="banWalletMobileInput" class="form-label" data-translate="mobile-number">Mobile number</label>
+                      <input type="text" class="form-control" id="banWalletMobileInput" placeholder="01XXXXXXXXX" maxlength="11" data-translate-placeholder="wallet-mobile-placeholder">
+                      <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="banWalletMobileError">
+                        <span class="error-exclamation">!</span>
+                        <span data-translate="ban-wallet-valid-mobile-number">Enter a valid mobile number (Must be 11 digits starting with 01)</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="payment-instructions-container">
+                    <div class="payment-instructions-header">
+                      <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                      <span data-translate="payment-instructions">Payment Instructions</span>
+                    </div>
+                    <ol class="payment-instructions-list">
+                      <li>
+                        <div class="payment-instructions-text">Select your preferred wallet from the available options.</div>
+                        <div class="payment-instructions-text-bangla">উপলব্ধ অপশনগুলো থেকে আপনার পছন্দের ওয়ালেট নির্বাচন করুন</div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">Enter the mobile number linked to your selected wallet.</div>
+                        <div class="payment-instructions-text-bangla">আপনার নির্বাচিত ওয়ালেটের সাথে সংযুক্ত মোবাইল নম্বরটি লিখুন</div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">Click Pay to proceed. You will be redirected to a payment page showing:</div>
+                        <div class="payment-instructions-text-bangla">চলতে পে এ ক্লিক করুন আপনাকে একটি পেমেন্ট পেজে রিডাইরেক্ট করা হবে, যেখানে দেখানো হবে:</div>
+                        <ul>
+                          <li>
+                            <div class="payment-instructions-text">Agent ID / Beneficiary Wallet Number.</div>
+                            <div class="payment-instructions-text-bangla">এজেন্ট আইডি / উপকারভোগীর ওয়ালেট নম্বর</div>
+                          </li>
+                          <li>
+                            <div class="payment-instructions-text">Transaction ID field (to be entered after completing the payment in your wallet app).</div>
+                            <div class="payment-instructions-text-bangla">ট্রানজ্যাকশন আইডি ফিল্ড (ওয়ালেট অ্যাপে পেমেন্ট সম্পন্ন করার পর এখানে লিখতে হবে)</div>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">Authorize Payment in Your Wallet App:</div>
+                        <div class="payment-instructions-text-bangla">আপনার ওয়ালেট অ্যাপে পেমেন্ট অনুমোদন করুন</div>
+                        <ul>
+                          <li>
+                            <div class="payment-instructions-text">Open your Nagad or bKash app, enter the Agent ID / Beneficiary Wallet Number and the amount shown on the payment page, and authorize the payment. A transaction ID will be generated.</div>
+                            <div class="payment-instructions-text-bangla">আপনার নগদ বা বিকাশ অ্যাপ খুলুন, এজেন্ট আইডি / উপকারভোগীর ওয়ালেট নম্বর এবং পেমেন্ট পেজে প্রদর্শিত পরিমাণ লিখে পেমেন্ট অনুমোদন করুন একটি ট্রানজ্যাকশন আইডি তৈরি হবে</div>
+                          </li>
+                          <li>
+                            <div class="payment-instructions-text">Complete the payment in your wallet app within 30 minutes.</div>
+                            <div class="payment-instructions-text-bangla">আপনার ওয়ালেট অ্যাপে ৩০ মিনিটের মধ্যে পেমেন্ট সম্পন্ন করুন</div>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">Enter the transaction ID in the Transaction ID field on the payment page.</div>
+                        <div class="payment-instructions-text-bangla">ওয়ালেট অ্যাপে তৈরি হওয়া ট্রানজ্যাকশন আইডি পেমেন্ট পেজের ট্রানজ্যাকশন আইডি ফিল্ডে লিখুন</div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">Click Submit to complete the payment.</div>
+                        <div class="payment-instructions-text-bangla">পেমেন্ট সম্পন্ন করতে সাবমিট এ ক্লিক করুন</div>
+                      </li>
+                      <li>
+                        <div class="payment-instructions-text">After a successful payment, your transaction status will update automatically, and you will receive a confirmation.</div>
+                        <div class="payment-instructions-text-bangla">সফল পেমেন্টের পর আপনার লেনদেনের অবস্থা স্বয়ংক্রিয়ভাবে আপডেট হবে এবং আপনি একটি নিশ্চিতকরণ বার্তা পাবেন</div>
+                      </li>
+                    </ol>
+                  </div>
+
+                  <div class="d-flex flex-column gap-16-box w-100">
+                    <div class="button-wrapper w-100">
+                      <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="banWalletPayButton" disabled>
+                        <span id="banWalletButtonText" data-translate="pay-amount-bdt">Pay BDT 500</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- India merchant Netbanking -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/net-banking-icon.png" alt="">
+                  <p class="accordion-head" data-translate="net-banking-accordion-title">Net Banking</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column netbanking-wrapper">
+                  <label class="form-label-as-heading" data-translate="popular-banks">Popular Banks</label>
+                  <div class="d-flex flex-column gap-32-wrapper">
+                    <div class="relative-div">
+                      <div class="overlay-div"></div>
+                      <div class="netbanking-no-overflow">
+                        <div class="d-flex gap-2">
+                          <div class="form-check bank-check d-flex">
+                            <input class="form-check-input" type="radio" name="indiaNetBankingRadio" id="netBankRadioSbi">
+                            <label class="form-check-label d-flex flex-column w-100 h-100" for="netBankRadioSbi">
+                              <img class="banking-logo" src="images/sbi.png" alt="SBI bank logo">
+                              <div class="bank-label" data-translate="sbi-bank">State Bank Of India</div>
+                            </label>
+                          </div>
+
+                          <div class="form-check bank-check d-flex">
+                            <input class="form-check-input" type="radio" name="indiaNetBankingRadio" id="netBankRadioKotak">
+                            <label class="form-check-label d-flex flex-column w-100 h-100" for="netBankRadioKotak">
+                              <img class="banking-logo" src="images/kotak.png" alt="SBI bank logo">
+                              <div class="bank-label" data-translate="kotak-bank">Kotak Bank</div>
+                            </label>
+                          </div>
+
+                          <div class="form-check bank-check d-flex">
+                            <input class="form-check-input" type="radio" name="indiaNetBankingRadio" id="netBankRadioIcici">
+                            <label class="form-check-label d-flex flex-column w-100 h-100" for="netBankRadioIcici">
+                              <img class="banking-logo" src="images/icici.png" alt="SBI bank logo">
+                              <div class="bank-label" data-translate="icici-bank">ICICI</div>
+                            </label>
+                          </div>
+
+                          <div class="form-check bank-check d-flex">
+                            <input class="form-check-input" type="radio" name="indiaNetBankingRadio" id="netBankRadioAxis">
+                            <label class="form-check-label d-flex flex-column w-100 h-100" for="netBankRadioAxis">
+                              <img class="banking-logo" src="images/axis.png" alt="SBI bank logo">
+                              <div class="bank-label" data-translate="axis-bank">Axis Bank</div>
+                            </label>
+                          </div>
+
+                          <div class="form-check bank-check d-flex buttons-zero">
+                            <input class="form-check-input" type="radio" name="indiaNetBankingRadio"
+                              id="netBankRadioAxisDuplicate">
+                            <label class="form-check-label d-flex flex-column w-100 h-100" for="netBankRadioAxisDuplicate">
+                              <img class="banking-logo" src="images/axis.png" alt="SBI bank logo">
+                              <div class="bank-label" data-translate="axis-bank">Axis Bank</div>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center w-100 or-separator">
+                      <div class="separator-line"></div>
+                      <span class="separator-text" data-translate="or-separator">or</span>
+                      <div class="separator-line"></div>
+                    </div>
+                    <div class="d-flex flex-column pix-input-wrapper w-100">
+                      <div class="d-flex flex-column form-and-label-wrapper">
+                        <label for="formGroupExampleInput" class="form-label" data-translate="bank-label">Bank</label>
+                        <select class="form-select" aria-label="Default select example" id="netBankingSelect">
+                          <option value="" selected disabled data-translate="select-your-bank">Select your bank</option>
+                          <option value="1" data-translate="icici-bank-option">ICICI Bank</option>
+                          <option value="2" data-translate="kotak-bank">Kotak Bank</option>
+                          <option value="4" data-translate="federal-bank">Federal Bank</option>
+                          <option value="5" data-translate="hdfc-bank">HDFC Bank</option>
+                          <option value="6" data-translate="sbi-bank-option">State Bank of India</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="button-wrapper d-flex w-100 justify-content-end w-100">
+                    <button
+                      class="btn btn-primary checkout-button d-flex gap-3 align-items-center w-100 justify-content-center"
+                      type="button" id="netBankingPayButton" disabled>
+                      <span id="netBankingButtonText" data-translate="pay-amount-inr">Pay INR 500</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Easypaisa Simpesa - Easypaisa Accordion -->
+          <div class="accordion-item accordion-mpesa">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" id="easypaisaWalletToggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEasypaisa"
+                aria-expanded="false" aria-controls="collapseEasypaisa">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/easypaisa.png" alt="">
+                  <p class="accordion-head" data-translate="easypaisa-wallet">Easypaisa Wallet</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseEasypaisa" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column align-items-end form-wrapper gap-16-box">
+                  <div class="d-flex flex-column upi-input-wrapper w-100">
+                    <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+                      <div class="d-flex w-100 justify-content-between align-items-center">
+                        <label for="easypaisaInput" class="form-label" data-translate="easypaisa-number">Easypaisa Number</label>
+                      </div>
+                      <input type="text" class="form-control upi-input" id="easypaisaInput" placeholder="03XXXXXXXXX" maxlength="11">
+                      <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="easypaisaNumberError">
+                        <span class="error-exclamation">!</span>
+                        <span data-translate="valid-easypaisa-number">Enter a valid Easypaisa number (Must be 11 digits starting with 03)</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column gap-16-box w-100">
+                    <div class="button-wrapper w-100">
+                      <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="mpesaPayButton" disabled>
+                        <span class="spinner-border spinner-border-sm d-flex align-items-center justify-content-center d-none" id="mpesaSpinner" aria-hidden="true">
+                          <img class="custom-spinner" src="images/Ellipse-48.png" alt="">
+                        </span>
+                        <span id="mpesaButtonText" data-translate="pay-amount-pkr">Pay PKR 500.00</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column gap-16-box w-100">
+                    <div class="payment-instructions-container">
+                      <div class="payment-instructions-header">
+                        <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                        <span data-translate="payment-instructions">Payment Instructions</span>
+                      </div>
+                      <div class="payment-instructions-text">Enter your Easypaisa number (starting with 03) → Click "Pay" button → Approve the payment in your wallet app. <strong>Please note that recipient name in wallet app may vary.</strong></div>
+                      <div class="payment-instructions-text-urdu" style="display: none;">اپنا ایزی پیسہ نمبر درج کریں (03 سے شروع) ← "پے" بٹن پر کلک کریں ← اپنی والیٹ ایپ میں ادائیگی کی منظوری دیں۔ <strong>براہ کرم نوٹ کریں کہ والیٹ ایپ میں وصول کنندہ کا نام مختلف ہو سکتا ہے۔</strong></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--  note: JazzCash Wallet Simpaisa - Accordion starts here -->
+          <div class="accordion-item accordion-mpesa">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" id="jazzcashWalletToggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJazzCash"
+                aria-expanded="false" aria-controls="collapseJazzCash">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/jazzcash.png" alt="">
+                  <p class="accordion-head" data-translate="jazzcash-wallet">JazzCash Wallet</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseJazzCash" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column align-items-end form-wrapper gap-16-box">
+                  <div class="d-flex flex-column upi-input-wrapper w-100">
+                    <div class="d-flex flex-column form-and-label-wrapper form-help-wrapper">
+                      <div class="d-flex w-100 justify-content-between align-items-center">
+                        <label for="jazzcashInput" class="form-label" data-translate="jazzcash-number">JazzCash Number</label>
+                      </div>
+                      <input type="text" class="form-control upi-input" id="jazzcashInput" placeholder="03XXXXXXXXX" maxlength="11">
+                      <p class="help-text help-red d-none d-flex align-items-center gap-08-box" id="jazzcashNumberError">
+                        <span class="error-exclamation">!</span>
+                        <span data-translate="valid-jazzcash-number">Please enter a valid JazzCash number</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column gap-16-box w-100">
+                    <div class="button-wrapper w-100">
+                      <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="jazzcashPayButton" disabled>
+                        <span class="spinner-border spinner-border-sm d-flex align-items-center justify-content-center d-none" id="jazzcashSpinner" aria-hidden="true">
+                          <img class="custom-spinner" src="images/Ellipse-48.png" alt="">
+                        </span>
+                        <span id="jazzcashButtonText" data-translate="pay-amount-pkr">Pay PKR 500.00</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column gap-16-box w-100">
+                    <div class="payment-instructions-container">
+                      <div class="payment-instructions-header">
+                        <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                        <span data-translate="payment-instructions">Payment Instructions</span>
+                      </div>
+                      <div class="payment-instructions-text">Enter your JazzCash number (starting with 03) → Click "Pay" button → Approve the payment by entering your PIN on the pop-up notification or confirming within the wallet app. <strong>Please note that recipient name in wallet app may vary.</strong></div>
+                      <div class="payment-instructions-text-urdu" style="display: none;">اپنا جاز کیش نمبر درج کریں (03 سے شروع) ← "پے" بٹن پر کلک کریں ← پاپ اپ نوٹیفکیشن پر اپنا PIN درج کرکے یا والیٹ ایپ کے اندر تصدیق کرکے ادائیگی کی منظوری دیں۔ <strong>براہ کرم نوٹ کریں کہ والیٹ ایپ میں وصول کنندہ کا نام مختلف ہو سکتا ہے۔</strong></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BANK DEPOSIT - NIGERIA -->
+          <div class="accordion-item accordion-bank-deposit">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBankDepositNigeria"
+                aria-expanded="false" aria-controls="collapseBankDepositNigeria">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/bank-deposit-icon.png" alt="">
+                  <p class="accordion-head" data-translate="bank-deposit">Bank Deposit</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseBankDepositNigeria" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column align-items-end form-wrapper gap-32-wrapper">
+                  <div class="d-flex flex-column gap-16-box w-100">
+                    <div class="payment-instructions-container">
+                      <div class="payment-instructions-header">
+                        <img src="images/bulb.svg" alt="Bulb" class="bulb-icon">
+                        <span data-translate="payment-instructions">Payment Instructions</span>
+                      </div>
+                      <ol class="payment-instructions-list">
+                        <li>
+                          <div class="payment-instructions-text" data-translate="instruction-1">Click "Show Bank Details" to generate your unique bank account number.</div>
+                        </li>
+                        <li>
+                          <div class="payment-instructions-text" data-translate="instruction-2">Copy the account number from bank details and deposit exact amount within 30 minutes.</div>
+                        </li>
+                        <li>
+                          <div class="payment-instructions-text" data-translate="instruction-3">Use your bank's mobile app or internet banking to make the transfer.</div>
+                        </li>
+                      </ol>
+                    </div>
+
+                    <div class="button-wrapper w-100">
+                      <button class="btn btn-primary checkout-button d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="nigeriaBankDepositButton">
+                        <span data-translate="show-bank-details">Show Bank Details</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bank Deposit South Africa -->
+          <div class="accordion-item accordion-bank-deposit">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBottomBankDeposit"
+                aria-expanded="false" aria-controls="collapseBottomBankDeposit">
+                <div class="d-flex align-items-center justify-content-center accordion-head-wrapper">
+                  <img class="p-method-icon" src="images/bank-deposit-icon.png" alt="">
+                  <p class="accordion-head">Bank Deposit</p>
+                </div>
+              </button>
+            </h2>
+            <div id="collapseBottomBankDeposit" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex flex-column align-items-end form-wrapper gap-32-wrapper">
+                  <div class="d-flex flex-column gap-16-box w-100">
+                    <div class="button-wrapper w-100" id="southAfricaBankDepositButtonWrapper">
+                      <button class="btn btn-primary checkout-button checkout-button-non-clickable d-flex gap-3 align-items-center justify-content-center w-100" type="button" id="southAfricaBankDepositLoadingBtn" aria-disabled="true" tabindex="-1">
+                        <span class="spinner-border spinner-border-sm d-flex align-items-center justify-content-center" aria-hidden="true">
+                          <img class="custom-spinner" src="images/Ellipse-48.png" alt="">
+                        </span>
+                        <span>Loading checkout...</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- cancel button -->
+        <div class="button-wrapper w-100 d-flex justify-content-between align-items-center ">
+          <!-- Button trigger modal -->
+          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            class="smallbtn d-flex align-items-center justify-content-center gap-12-box">
+            <span data-translate="order-id">Order ID</span>
+            <img src="images/visibility.png" alt="">
+          </button>
+          <button type="button" class="btn btn-primary checkout-cancel" onclick="handleCancelClick()" data-translate="cancel">Cancel</button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" data-translate="order-id">Order ID</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body scrollable-content">
+                <p class="long-text" id="orderIdDisplay">
+                  9238650934876509347685095876093487609487654598067540968730591287918355873498573098763457897670287870485120145846769502437985436579862583472654897632976452183756386392386509348765093476850958760934876094876545980675409687305912879183558734985730987634578976702878704851201458467695024379854365798625834726548976329764521837563863
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+
+  </div>
+
+
+  </div>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.12.9/bundle/libphonenumber-min.js" crossorigin="anonymous" integrity="sha384-IUXXml69IVQ0IMG8AUU5nG0bPh4HTLNFHhOPtxO0GQ9w7u8co2v01WANgWeasbHU"></script>
+
+  <script src="script.js"></script>
+  <script>
+    // Set language on page load and attach event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Always default index reload to English with Bank Deposit opened.
+      sessionStorage.setItem('selectedLanguage', 'en');
+      const bankDepositCollapse = document.getElementById('collapseBankTransfer');
+      const bankDepositButton = document.querySelector('[data-bs-target="#collapseBankTransfer"]');
+      const upiQrCollapse = document.getElementById('collapseUPIQR');
+      const upiQrButton = document.querySelector('[data-bs-target="#collapseUPIQR"]');
+      // UPI (India) flow: keep ALT UPI QR accordion collapsed on index load
+      const altUpiQrCollapse = document.getElementById('collapseALTUPIQR');
+      const altUpiQrButton = document.querySelector('[data-bs-target="#collapseALTUPIQR"]');
+
+      if (bankDepositCollapse) {
+        bankDepositCollapse.classList.add('show');
+      }
+      if (bankDepositButton) {
+        bankDepositButton.classList.remove('collapsed');
+        bankDepositButton.setAttribute('aria-expanded', 'true');
+      }
+      if (upiQrCollapse) {
+        upiQrCollapse.classList.remove('show');
+      }
+      if (upiQrButton) {
+        upiQrButton.classList.add('collapsed');
+        upiQrButton.setAttribute('aria-expanded', 'false');
+      }
+      if (altUpiQrCollapse) {
+        altUpiQrCollapse.classList.remove('show');
+      }
+      if (altUpiQrButton) {
+        altUpiQrButton.classList.add('collapsed');
+        altUpiQrButton.setAttribute('aria-expanded', 'false');
+      }
+
+      if (typeof switchLanguage === 'function') {
+        switchLanguage('en');
+      }
+
+      const southAfricaBankDepositCollapse = document.getElementById('collapseBottomBankDeposit');
+      const headingLanguagePills = document.getElementById('headingLanguagePills');
+      if (southAfricaBankDepositCollapse) {
+        southAfricaBankDepositCollapse.addEventListener('shown.bs.collapse', function() {
+          if (headingLanguagePills) {
+            headingLanguagePills.classList.add('d-none');
+          }
+          if (southAfricaBankDepositCollapse.dataset.redirectStarted === 'true') {
+            return;
+          }
+          southAfricaBankDepositCollapse.dataset.redirectStarted = 'true';
+          setTimeout(function() {
+            var wrapper = document.getElementById('southAfricaBankDepositButtonWrapper');
+            if (wrapper && !wrapper.dataset.swapped) {
+              wrapper.dataset.swapped = 'true';
+              wrapper.innerHTML = '<img src="images/ozow-bank-select.png" alt="Choose your bank" style="width:100%; height:auto; display:block; border-radius:12px;">';
+            }
+          }, 3000);
+        });
+        southAfricaBankDepositCollapse.addEventListener('hidden.bs.collapse', function() {
+          if (headingLanguagePills) {
+            headingLanguagePills.classList.remove('d-none');
+          }
+        });
+      }
+      
+      // Attach event listeners to language pills
+      const languagePills = document.querySelectorAll('.language-pill');
+      languagePills.forEach(pill => {
+        pill.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const lang = this.getAttribute('data-lang');
+          if (lang && typeof switchLanguage === 'function') {
+            switchLanguage(lang);
+          } else {
+            console.error('Language switching failed. Lang:', lang, 'Function exists:', typeof switchLanguage === 'function');
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- How to Pay Popup -->
+  <div class="how-to-pay-popup d-none" id="howToPayPopup">
+    <div class="popup-overlay" onclick="closeHowToPayPopup()"></div>
+    <div class="popup-container">
+      <div class="popup-instructions-container">
+        <div class="popup-header-section">
+          <h2 class="popup-main-title">How to pay?</h2>
+          <button class="popup-close-btn" onclick="closeHowToPayPopup()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <ol class="payment-instructions-list">
+          <li>
+            <div class="payment-instructions-text">Transfer the exact amount to the wallet number provided.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">دیے گئے والیٹ نمبر پر درست رقم منتقل کریں۔</div>
+          </li>
+          <li>
+            <div class="payment-instructions-text">Enter your Wallet Number along with the Transaction Reference Number.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">اپنا والٹ نمبر اور ٹرانزیکشن ریفرنس نمبر درج کریں۔</div>
+          </li>
+          <li>
+            <div class="payment-instructions-text">Upload a screenshot or receipt as proof.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">ثبوت کے طور پر اسکرین شاٹ یا رسید اپ لوڈ کریں۔</div>
+          </li>
+          <li>
+            <div class="payment-instructions-text">Submit your details to finalize the payment.</div>
+            <div class="payment-instructions-text-urdu" style="display: none;">ادائیگی مکمل کرنے کے لیے اپنی تفصیلات جمع کروائیں۔</div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="feedbackModalLabel" data-translate="feedback">Feedback</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption1" value="explore">
+              <label class="form-check-label" for="feedbackOption1" data-translate="feedback-explore">
+                I would like to explore more before completing transaction.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption2" value="dont_understand">
+              <label class="form-check-label" for="feedbackOption2" data-translate="feedback-dont-understand">
+                I didn't understand what to do next.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption3" value="edit_details">
+              <label class="form-check-label" for="feedbackOption3" data-translate="feedback-edit-details">
+                I want to go back and edit my details.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="feedbackOption" id="feedbackOption4" value="changed_mind">
+              <label class="form-check-label" for="feedbackOption4" data-translate="feedback-changed-mind">
+                I changed my mind.
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link skip-link" data-bs-dismiss="modal" data-translate="skip">Skip</button>
+          <button type="button" class="btn btn-primary feedback-submit-btn" id="submitFeedback" data-translate="submit-feedback">Submit Feedback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPI QR How to Pay Modal -->
+  <div class="modal fade" id="howToPayUpiModal" tabindex="-1" aria-labelledby="howToPayUpiModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="howToPayUpiModalLabel" data-translate="how-to-pay-modal-title">How to pay?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol class="how-to-pay-steps-list">
+            <li data-translate="how-to-pay-step-1">Select your preferred UPI app from the list.</li>
+            <li data-translate="how-to-pay-step-2">Your chosen app will open with payment details pre-filled.</li>
+            <li data-translate="how-to-pay-step-3">Enter your UPI PIN to authorize and complete the payment.</li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary feedback-submit-btn" data-bs-dismiss="modal" data-translate="how-to-pay-got-it">Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to Pay Modal -->
+  <div class="modal fade" id="howToPayModal" tabindex="-1" aria-labelledby="howToPayModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content how-to-pay-modal-content">
+        <div class="modal-header how-to-pay-modal-header">
+          <h5 class="modal-title how-to-pay-modal-title" id="howToPayModalLabel">How to pay?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <hr class="how-to-pay-modal-divider">
+        <div class="modal-body how-to-pay-modal-body">
+          <div class="how-to-pay-instruction-item">
+            <div class="instruction-number">1.</div>
+            <div class="instruction-content-wrapper">
+              <p class="instruction-text-english">Select your Mobile Money operator.</p>
+              <p class="instruction-text-urdu" style="display: none;"><em>اپنا موبائل منی آپریٹر منتخب کریں۔</em></p>
+            </div>
+          </div>
+          <div class="how-to-pay-instruction-item">
+            <div class="instruction-number">2.</div>
+            <div class="instruction-content-wrapper">
+              <p class="instruction-text-english">Enter the mobile number registered with your Mobile Money account.</p>
+              <p class="instruction-text-urdu" style="display: none;"><em>اپنے موبائل منی اکاؤنٹ سے منسلک موبائل نمبر درج کریں۔</em></p>
+            </div>
+          </div>
+          <div class="how-to-pay-instruction-item">
+            <div class="instruction-number">3.</div>
+            <div class="instruction-content-wrapper">
+              <p class="instruction-text-english">Click Pay to proceed.</p>
+              <p class="instruction-text-urdu" style="display: none;"><em>آگے بڑھنے کے لیے "ادا کریں" پر کلک کریں۔</em></p>
+            </div>
+          </div>
+          <div class="how-to-pay-instruction-item">
+            <div class="instruction-number">4.</div>
+            <div class="instruction-content-wrapper">
+              <p class="instruction-text-english">A push notification will be sent to your registered mobile number.</p>
+              <p class="instruction-text-urdu" style="display: none;"><em>آپ کے رجسٹرڈ موبائل نمبر پر پش نوٹیفیکیشن بھیجا جائے گا۔</em></p>
+            </div>
+          </div>
+          <div class="how-to-pay-instruction-item">
+            <div class="instruction-number">5.</div>
+            <div class="instruction-content-wrapper">
+              <p class="instruction-text-english">Enter your PIN to authorize the payment.</p>
+              <p class="instruction-text-urdu" style="display: none;"><em>ادائیگی کی منظوری کے لیے اپنا PIN درج کریں۔</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ---- Injected: filter accordion methods by country, for the
+     Demo page. Hides every accordion item except the
+     ones mapped to the selected country, and auto-opens the first one.
+     Can be called either from the initial ?country= URL param, or live
+     via postMessage from the parent page — the latter lets the parent
+     switch country without reloading this whole iframe (Bootstrap,
+     script.js and all), which is what makes it instant instead of
+     janky. ---- */
+  (function(){
+    var COUNTRY_METHODS = {
+      IN: ['collapseUPIQR', 'collapseUPI', 'collapseThree'],
+      EG: ['collapseCashMethod', 'collapseWalletEgyptMethod'],
+      NG: ['collapseBankDepositNigeria'],
+      PK: ['collapseEasypaisa', 'collapseJazzCash'],
+      ZA: ['collapseBottomBankDeposit'],
+      PH: ['collapsePhilippinesQrph', 'collapsePhilippinesVcaBankTransfer', 'collapseDfnnWallets'],
+      BD: ['collapseBanWallets']
+    };
+
+    function applyCountry(country, preferredMethod){
+      // Persist so that "Return to Home" links elsewhere in this flow
+      // (on details.html, otp-page.html, success.html, etc.) know to
+      // bring the user back to THIS country/method instead of falling
+      // back to the hardcoded default (India, first method).
+      try{
+        sessionStorage.setItem('pfDemoCountry', country || 'IN');
+        sessionStorage.setItem('pfDemoMethod', preferredMethod || '');
+      }catch(err){ /* ignore */ }
+
+      var countryMethods = COUNTRY_METHODS[country] || COUNTRY_METHODS.IN;
+      // If a specific method was requested, show ONLY that method's
+      // accordion — not the rest of the country's methods collapsed
+      // alongside it. Each "See Demo" button is scoped to one payment
+      // method, so the demo should show exactly that method.
+      var allowed = (preferredMethod && countryMethods.indexOf(preferredMethod) !== -1)
+        ? [preferredMethod]
+        : countryMethods;
+      var buttons = document.querySelectorAll('.accordion-button[data-bs-target]');
+      buttons.forEach(function(btn){
+        var targetId = btn.getAttribute('data-bs-target').replace('#', '');
+        var item = btn.closest('.accordion-item');
+        if(!item) return;
+        item.style.display = allowed.indexOf(targetId) === -1 ? 'none' : 'block';
+      });
+
+      var firstId = allowed[0];
+      var firstBtn = document.querySelector('[data-bs-target="#' + firstId + '"]');
+      var collapseEl = document.getElementById(firstId);
+      if(firstBtn && collapseEl){
+        // Deliberately NOT using bootstrap's Collapse().show() here: it
+        // animates by setting an inline pixel height captured at that
+        // instant, and if any content inside (a QR image, an
+        // instructions list, etc.) finishes rendering afterward, that
+        // frozen height clips it — regardless of the outer iframe size.
+        // Setting the final state directly avoids that entirely.
+        collapseEl.classList.remove('collapsing');
+        collapseEl.classList.add('collapse', 'show');
+        collapseEl.style.height = '';
+        firstBtn.classList.remove('collapsed');
+        firstBtn.setAttribute('aria-expanded', 'true');
+
+        // South Africa's "Bank Deposit" panel swaps its loading button
+        // for the bank-selection image after a delay. The page's own
+        // script only does this on the 'shown.bs.collapse' event, which
+        // Bootstrap's Collapse API fires — but we open this accordion by
+        // toggling classes directly (see comment above), so that event
+        // never fires and the swap was never triggered. Do it directly
+        // here instead, for whichever accordion we just force-opened.
+        if(firstId === 'collapseBottomBankDeposit'){
+          setTimeout(function(){
+            var wrapper = document.getElementById('southAfricaBankDepositButtonWrapper');
+            if(wrapper && !wrapper.dataset.swapped){
+              wrapper.dataset.swapped = 'true';
+              wrapper.innerHTML = '<img src="images/ozow-bank-select.png" alt="Choose your bank" style="width:100%; height:auto; display:block; border-radius:12px;">';
+            }
+          }, 3000);
+        }
+      }
+      window.scrollTo(0, 0);
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var storedCountry, storedMethod;
+    try{
+      storedCountry = sessionStorage.getItem('pfDemoCountry');
+      storedMethod = sessionStorage.getItem('pfDemoMethod');
+    }catch(err){ /* ignore */ }
+
+    // "Return to Home" links/buttons throughout this flow (details.html,
+    // otp-page.html, success.html, waiting.html, the transaction-*.html
+    // result pages) all just navigate to plain index.html with no query
+    // params — there are too many different call sites (some hrefs, some
+    // differently-named JS functions) to patch individually. Instead,
+    // fall back here to whatever country/method was last active, so
+    // "Return to Home" brings you back to the flow you were actually in
+    // rather than always defaulting to India's first method.
+    var initialCountry = params.get('country') || storedCountry || 'IN';
+    var initialMethod = params.get('method') || storedMethod || null;
+
+    function run(){ applyCountry(initialCountry, initialMethod); }
+
+    // This script sits at the end of <body>, so the accordion markup
+    // already exists in the DOM by the time this line runs — no need
+    // to wait for anything. Run immediately to reveal the correct
+    // method as fast as possible (everything else is already hidden
+    // via the render-blocking style in <head>).
+    run();
+
+    if(document.readyState === 'complete'){
+      setTimeout(run, 60);
+    } else {
+      window.addEventListener('load', function(){ setTimeout(run, 60); });
+    }
+
+    window.addEventListener('message', function(e){
+      if(e.origin !== location.origin && location.origin !== 'null') return;
+      if(e.data && e.data.source === 'demo-parent' && e.data.action === 'set-country' && e.data.country){
+        applyCountry(e.data.country, e.data.method || null);
+      }
+    });
+
+    // Backstop: if a visitor manually opens a different accordion later,
+    // it goes through Bootstrap's normal animated Collapse again, which
+    // can leave a stale inline pixel height behind if content inside
+    // keeps changing after the open transition completes. Once each
+    // panel settles into '.show', clear any inline height a few times
+    // as things (like an image) finish loading.
+    function clearFrozenHeights(){
+      document.querySelectorAll('.accordion-collapse.show').forEach(function(el){
+        if(el.style.height) el.style.height = '';
+      });
+    }
+    document.addEventListener('shown.bs.collapse', function(){
+      [0, 150, 400, 900].forEach(function(d){ setTimeout(clearFrozenHeights, d); });
+    });
+
+    // Report this page's real content height to whoever is embedding it
+    // in an iframe, via postMessage. This is the reliable mechanism —
+    // unlike direct DOM access (iframe.contentDocument), postMessage
+    // works even when the parent page and this page are each on their
+    // own file:// origin, which Chrome otherwise treats as isolated.
+    //
+    // Measures the visible .bg-card specifically, not document.body —
+    // the body can include other markup (modals, other countries'
+    // hidden sections, etc.) that doesn't actually track the card's
+    // real visible size, which is why collapsing an accordion wasn't
+    // shrinking the reported height before.
+    function reportHeight(){
+      var card = document.querySelector('.bg-card');
+      var h;
+      if(card){
+        var rect = card.getBoundingClientRect();
+        var cs = window.getComputedStyle(card);
+        h = rect.height + parseFloat(cs.marginTop || 0) + parseFloat(cs.marginBottom || 0);
+      } else {
+        h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      }
+      if(h > 0 && window.parent){
+        window.parent.postMessage({ source: 'checkout-demo', height: Math.ceil(h) }, location.origin === 'null' ? '*' : location.origin);
+      }
+    }
+    window.addEventListener('load', function(){
+      reportHeight();
+      [60, 150, 400, 800, 1500].forEach(function(d){ setTimeout(reportHeight, d); });
+      var resizeTarget = document.querySelector('.bg-card') || document.body;
+      if(window.ResizeObserver){
+        new ResizeObserver(reportHeight).observe(resizeTarget);
+      }
+      document.querySelectorAll('img').forEach(function(img){
+        if(!img.complete){
+          img.addEventListener('load', reportHeight, { once: true });
+          img.addEventListener('error', reportHeight, { once: true });
+        }
+      });
+      document.addEventListener('shown.bs.collapse', function(){
+        [0, 150, 400, 900].forEach(function(d){ setTimeout(reportHeight, d); });
+      });
+      document.addEventListener('hidden.bs.collapse', function(){
+        [0, 150, 400, 900].forEach(function(d){ setTimeout(reportHeight, d); });
+      });
+    });
+  })();
+</script>
+</body>
+
+</html>
+</html>
+</html>
