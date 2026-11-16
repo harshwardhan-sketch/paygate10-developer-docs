@@ -23,7 +23,7 @@ Tools: site-wide search (header button, Ctrl/⌘ K or `/`), hash recipe finder, 
 - `guide.js`, `legacy.js`, `home.js`: guide pages, navigation, home page
 - `methods.js`, `demos/`: Payment methods tab and checkout demos
 - `playground.js`, `search.js`, `motion.js`: Hash playground, site search, light animations
-- `data.js`: API content from the live API docs (field tables, hash recipes, examples, error codes)
+- `spec/`: the API spec, one file per request (`payin.js`, `payout.js`, `balance.js`, `other-requests.js`, `refund.js`) plus `error-codes.js`; `spec/load.js` puts them together
 - `assets/`: icon and payment-method data
 
 ## Publishing
@@ -33,7 +33,10 @@ Any static host works. Never add secrets, MID secrets, bank details or internal-
 ## How to update
 
 - Field rules per country and method (required / optional, example values, notes): `fieldrules.js`
-- Guide pages: `guide.js`, `legacy.js`; API pages: `apiref2.js`; API content (field tables, hash recipes, examples, error codes): `data.js`
+- API fields, hash formulas and examples: `spec/payin.js`, `spec/payout.js`, `spec/balance.js`, `spec/other-requests.js` (how to edit is at the top of each file)
+- Error codes: `spec/error-codes.js`; how to fix each code: `error-fixes.js`; grouping: `errgroups.js`
+- Guide pages: `guide.js`, `legacy.js`, `home.js`; payment methods: `methods.js`, `assets/product-data.js`
+- A new spec file needs its own `<script>` line in `index.html`, before `spec/load.js`
 
 After changing any `.css` or `.js` file, run this before committing:
 

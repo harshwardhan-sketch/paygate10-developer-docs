@@ -1,5 +1,5 @@
 /* The product guide and its API reference, under #/legacy/…
-   Data from document.paygate10.com (data.js),
+   API content from spec/*.js,
    commercial specs from the Gaming / Forex / P2P product offering, and the Go-Live Checklist.
    Generic guide pages are reused through relink(), which points their links at this section. */
 

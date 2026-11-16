@@ -1,6 +1,6 @@
 /* Guides layer (modelled on the Airwallex docs IA: overview → get started → integration options → methods →
    operations → test & go live → troubleshooting). API facts come
-   from data.js (the live API docs) so guides and API reference cannot drift apart. */
+   from spec/*.js (the API spec) so guides and API reference cannot drift apart. */
 
 /* live markets with flag and currency */
 const LIVE = [['India', '🇮🇳', 'INR'], ['Pakistan', '🇵🇰', 'PKR'], ['Egypt', '🇪🇬', 'EGP'], ['Nigeria', '🇳🇬', 'NGN'], ['Morocco', '🇲🇦', 'MAD'], ['Philippines', '🇵🇭', 'PHP']];
@@ -8,7 +8,7 @@ const liveFlags = () => `<div class="home-flags">${LIVE.map(([n, f, c]) => `<a h
 
 /* Payment method specs (assets/product-data.js). */
 /* No provider, wallet-brand or bank names on this site: the product sheet's rows are renamed to the method
-   names the live API docs (document.paygate10.com) use. Live markets: IN, PK, EG, NG, MA, PH. */
+   names the API spec (spec/*.js) uses. Live markets: IN, PK, EG, NG, MA, PH. */
 /* limits are set with the local payment networks and banks we work with, and change: say so wherever limits appear */
 const LIMITS_NOTE = 'Limits are indicative. They are set with the local payment networks and banks we work with and can change at short notice, so the limits on your MID when you send a request always apply. Check with your integration contact before you rely on a limit.';
 /* LPL and LP, defined once and shown on the pages where they matter */
@@ -66,7 +66,7 @@ const GUIDE_NAV = [
   ['Troubleshooting', [['hash-help', 'Fixing hash errors'], ['faq', 'FAQ'], ['support', 'Support & raising issues']]],
 ];
 
-/* ---------- facts derived from data.js ---------- */
+/* ---------- facts derived from the API spec (spec/*.js) ---------- */
 const FLAGS = {India: '🇮🇳', Pakistan: '🇵🇰', Egypt: '🇪🇬', Nigeria: '🇳🇬', Morocco: '🇲🇦', Bangladesh: '🇧🇩', Philippines: '🇵🇭'};
 const CCY = {India: 'INR', Pakistan: 'PKR', Egypt: 'EGP', Nigeria: 'NGN', Morocco: 'MAD', Bangladesh: 'BDT', Philippines: 'PHP'};
 

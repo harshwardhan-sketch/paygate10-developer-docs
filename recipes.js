@@ -1,7 +1,7 @@
 /* Hash recipe finder, on Signing & hashes (#/legacy/signing). "Try it" opens the Hash playground on the recipe.
    Instead of one long list, the reader picks: request type (Payin, Payout, Utilities) → integration
    (hosted or seamless) → country → method, and sees three labelled cards: the request hash (sent in `hash`),
-   the response hash and the callback hash (both to check). Recipes come from data.js (the live API docs). */
+   the response hash and the callback hash (both to check). Recipes come from the SHA256(...) blocks in spec/*.js (see spec/load.js). */
 const RP = (() => {
   const OPS = ['Payin', 'Payout'];
   const KIND = {'request hash': 'req', 'request signature': 'req', 'response hash': 'res', 'callback hash': 'cb'};
@@ -70,7 +70,7 @@ const RP = (() => {
       /* the playground builds field lists only: no Try it for a recipe such as "JSON serialization of the quote" */
       const act = playable(r) ? `<a class="rp-try" href="#/playground/${r.i}">Try it →</a>` : '';
       return `<div class="rp-card rp-${k}" id="rp-${k}"><div class="rp-card-h"><b>${t}</b>${act}</div><p>${d}</p><div class="formula"><span>${esc(r.formula)}</span></div><div class="rp-toks">${chips(r.formula)}</div></div>`; };
-    return ['req', 'res', 'cb'].map(card).join('') || '<p class="src">No recipe in the live API docs for this choice.</p>';
+    return ['req', 'res', 'cb'].map(card).join('') || '<p class="src">No recipe for this choice yet.</p>';
   }
   function body(flow, M, s, mode) {
     const o = options(M, s);

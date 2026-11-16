@@ -1,6 +1,6 @@
 /* Paygate10 Developer Docs — renderer.
-   Content comes from data.js (generated from the live docs by tools/build_data.py):
-     legacy     -> document.paygate10.com
+   API content comes from spec/*.js (field tables, hash formulas, examples) and spec/error-codes.js,
+   put together by spec/load.js.
    Hand-written API-side pages (PG10) live in this file. */
 
 /* clickjacking: these docs only run in their own window or inside a page of this site */
@@ -130,7 +130,7 @@ function renderEndpoint(flow, s) {
     ${ep(info['http method'] || 'POST', url ? esc(url) : `&lt;${label.toLowerCase()} URL&gt; ${TC}`)}
     ${info['content-type'] ? table(['Header', 'Value'], [['<code>Content-Type</code>', `<code>${esc(info['content-type'])}</code>`],
       ...(info['header'] ? [[`<code>${esc(info['header'].split(':')[0].trim())}</code>`, `<code>${esc(info['header'].split(':').slice(1).join(':').trim())}</code>`]] : [])]) : ''}
-    ${url ? '' : `<div class="callout warn"><p>The ${label.toLowerCase()} URL is blank on ${D[flow].source}.</p></div>`}</section>`;
+    ${url ? '' : `<div class="callout warn"><p>The ${label.toLowerCase()} URL is missing from the spec.</p></div>`}</section>`;
 }
 function examplesBox(list, heading = 'Examples') {
   if (!list || !list.length) return '';

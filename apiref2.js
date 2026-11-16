@@ -6,7 +6,7 @@
    - right: Request panel (cURL, Node.js, Python, PHP, JSON) and Response panel (success / error), with line numbers.
    Hash recipes and callbacks are not repeated per operation: they have their own pages (Signing & hashes, Callbacks),
    placed before the requests in the menu because a request needs both.
-   Content comes only from the live API docs (data.js, document.paygate10.com). A picked method is kept in the URL (#/legacy/payout/<method>).
+   Content comes from the API spec (spec/*.js). A picked method is kept in the URL (#/legacy/payout/<method>).
    Uses helpers from app.js (esc, hl, norm, strip, pretty, page, fixLinks, renderBlocks, steps). */
 const API2 = (() => {
   const STOP = new Set(['for', 'and', 'seamless', 'hosted', 'the', 'object']);
@@ -133,7 +133,7 @@ const API2 = (() => {
   const GEN = {midCode: 'MID123', merchantRefNo: 'PO-10001', amount: 1500.00, hash: 'd824966e68287e417103830f4c0795cd21b09b6c6827da21550b912fdd343007', notificationUrl: 'https://yourcompany.example/payments/callback',
     returnUrl: 'https://yourcompany.example/payments/done', customField1: 'order-77', customField2: '', customField3: '', customField4: '', customField5: '', user_category: 'Default', device_fingerprint: 'a1b2c3d4e5f6',
     bank_branch: 'Andheri East', bank_address: '12 MG Road, Mumbai', merchant_ref_no: 'PO-10001', address: '12 MG Road', iscompeleted: true,
-    /* businessTransaction (India, businessCategory "Import&Export"): values from the live docs example */
+    /* businessTransaction (India, businessCategory "Import&Export"): values from the spec example */
     businessType: 'Electronics', originCountry: 'INDIA', userIdNumber: 'ID9876543210', userDob: '1990-07-15', userBirthplace: 'Mumbai', shippingNumber: 'AWB1234567890',
     shippingDate: '2025-08-15', hsnCode: '847130', codeOfPurpose: 'P0101', loadingPort: 'Mumbai', userCountry: 'IN', exportTxnCurrency: 'USD', exportTxnAmount: 1250.75};
   function prm(r, kids = '', open = false, idp = '', extra = false, ctx = null, path = '') {
@@ -251,7 +251,7 @@ const API2 = (() => {
       ${panel('Request', Object.entries(SNIP).map(([t, f]) => [t, f(req)]), 'req')}
       ${panel('Response', [['Success', pretty(e.response).text], ...(e.failResponse ? [['Error', pretty(e.failResponse).text]] : [])], 'res')}
       ${e.notes ? `<div class="snip-note">${esc(e.notes.replace(/^\(Notes:\s*|\)$/g, ''))}</div>` : ''}
-      <p class="snip-foot">Example from the live API docs, with sample values. Use your own MID, values and hash.</p>`;
+      <p class="snip-foot">Example with sample values. Use your own MID, values and hash.</p>`;
   }
 
   /* ---------- picker: what to send for the picked method ---------- */
@@ -325,7 +325,7 @@ const API2 = (() => {
             <div class="sendCard"></div>
           </section>` : ''}
         </div>
-        <aside class="api2-code" aria-label="Code examples"><div class="api2-sticky codeBox">${pick ? codeBox(pick, S.opts) : '<p class="snip-foot">No example in the live API docs for this request.</p>'}</div></aside>
+        <aside class="api2-code" aria-label="Code examples"><div class="api2-sticky codeBox">${pick ? codeBox(pick, S.opts) : '<p class="snip-foot">No example for this request yet.</p>'}</div></aside>
         <div class="api2-body">
           <section class="pcard" id="params">
             <div class="pcard-top"><h2>Parameters</h2><div class="ptabs" role="tablist"><button type="button" role="tab" class="on" aria-selected="true" data-ptab="req">Request</button><button type="button" role="tab" aria-selected="false" data-ptab="res">Response</button></div></div>
@@ -533,7 +533,7 @@ content.Headers.Add("X-Callback-Signature", "sha256=" + signature);`,
         ${cb ? `<h3>Callback hash</h3><div class="formula"><span>${esc(cb.formula)}</span></div>` : ''}
         ${ul ? `<h3>Instructions</h3>${ul}` : ''}</section>`;
     };
-    /* the callback body as your server receives it: field names from the live docs, values left as placeholders */
+    /* the callback body as your server receives it: field names from the spec, values left as placeholders */
     const body = ({t}) => t ? t.rows.map(r => `${r.name}=<${r.name}>`).join('&\n') : '';
     const head = `<h1>Callbacks</h1>
       <p class="lead">When a transaction reaches a final status, we send its result to the <code>merchantUrl.notificationUrl</code> you gave in the request. Set up this URL before you send your first request.</p>
@@ -543,7 +543,7 @@ content.Headers.Add("X-Callback-Signature", "sha256=" + signature);`,
         ['Check the callback hash', 'Rebuild it from the callback fields and your MID secret, and compare. Ignore the callback if it does not match.'],
         ['Reply HTTP 200', 'Then update your order. The callback is the final result; use Get Status if one is late.'],
       ])}`;
-    return twoCol(head, cbs.map(block).join(''), sideCode('What your server receives', cbs.map(c => [LABEL[c.key], `POST /your/notification/url\nContent-Type: application/x-www-form-urlencoded\n\n${body(c)}`]), 'Field names from the live API docs; values are placeholders.'));
+    return twoCol(head, cbs.map(block).join(''), sideCode('What your server receives', cbs.map(c => [LABEL[c.key], `POST /your/notification/url\nContent-Type: application/x-www-form-urlencoded\n\n${body(c)}`]), 'Field names from the spec; values are placeholders.'));
   }
 
   /* ---------- events ---------- */

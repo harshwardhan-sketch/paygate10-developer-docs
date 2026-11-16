@@ -1,6 +1,6 @@
 /* Hash playground: build a body hash piece by piece, sign a body with HMAC,
    and let the "hash detective" work out why a merchant's hash doesn't match.
-   Recipes come from data.js (the live docs). Pure JS hashing, so it works offline and on file://. */
+   Recipes come from the SHA256(...) blocks in spec/*.js. Pure JS hashing, so it works offline and on file://. */
 (() => {
   const F = 'legacy';
   const RECIPES = D[F].recipes

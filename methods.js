@@ -10,7 +10,7 @@ const PM = (() => {
     Forex: {blurb: 'Funding and withdrawals for forex and trading platforms.', countries: ORDER.filter(c => c !== 'IN')},
     P2P: {blurb: 'Peer-to-peer collection with proof-of-payment upload.', countries: ['EG'], p2p: true},
   };
-  /* seamless paymentMethod codes from the live API docs (document.paygate10.com) */
+  /* seamless paymentMethod codes from the API spec (spec/*.js) */
   const CODE = {'PK|Easypaisa': 'EP', 'PK|JazzCash': 'JC', 'EG|Wallet': 'WT', 'NG|Bank Deposit': 'BD', 'MA|Wallet': 'WT', 'MA|Bank Transfer': 'BT'};
   const STAGES = [
     ['payins', 'Stage 01 · Accept', 'Pay-ins', 'Accept payments across emerging markets using local payment methods your customers already trust.'],
