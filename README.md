@@ -29,3 +29,16 @@ Tools: site-wide search (header button, Ctrl/⌘ K or `/`), hash recipe finder, 
 ## Publishing
 
 Any static host works. Never add secrets, MID secrets, bank details or internal-only information to the site, and no company names, logos or links: the site is branded Paygate10 only.
+
+## How to update
+
+- Field rules per country and method (required / optional, example values, notes): `fieldrules.js`
+- Guide pages: `guide.js`, `legacy.js`; API pages: `apiref2.js`; API content (field tables, hash recipes, examples, error codes): `data.js`
+
+After changing any `.css` or `.js` file, run this before committing:
+
+```
+python3 tools/stamp.py
+```
+
+It updates the `?v=` stamps in `index.html`, so browsers never mix a new page with cached old files. `python3 tools/stamp.py --check` exits with an error if a stamp is out of date.
