@@ -1,6 +1,9 @@
-/* What to send for each request, country and method: mandatory fields, fields that take dummy data (with a ready
-   example value for that country), optional fields and notes. The Payin and Payout parameter lists use it to mark each
-   field Required / Optional for the picked country (apiref2.js); a "dummy" entry shows as Required with its example value. Paths are relative to data;
+/* What to send for each request, country and method. Each entry has:
+     mandatory: [[field, hint]]          required fields (the hint is shown under the field)
+     dummy:     [[field, value, hint]]   required fields that come with a ready example value for that country
+     optional:  [field, ...]             optional fields
+     notes:     ['...']                  shown under "Good to know"
+   The Payin and Payout parameter lists use it to mark each field Required / Optional for the picked country (apiref2.js). Paths are relative to data;
    "userInfo.*" means the userInfo fields not listed elsewhere. Where integration support has not confirmed a rule, it follows the API spec (spec/*.js).
    Key: <request>|<country>|<H for hosted, else the paymentMethod code>. */
 const FIELD_RULES = (() => {

@@ -1,7 +1,7 @@
 /* "How to fix" for every API error code (shown on the Error codes page and in site search).
    Same file on both docs sites; each site sets ERR_LINKS to its own page routes before this file loads.
    Order: a hand-written fix for the common codes (FIX), then rules by the shape of the message (required field,
-   format, limit, bank decline …), so new codes from a re-import still get useful advice.
+   format, limit, bank decline …), so codes added to spec/error-codes.js still get useful advice.
    Written from the error messages and the API docs. Re-check FIX when the live error list changes. */
 const ERROR_FIX = (() => {
   const L = window.ERR_LINKS || {};

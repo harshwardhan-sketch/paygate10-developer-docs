@@ -16,15 +16,37 @@ Tools: site-wide search (header button, Ctrl/⌘ K or `/`), hash recipe finder, 
 
 ## Files
 
-- `index.html`: page shell (content security policy included)
-- `styles.css`, `redesign.css`: design (light and dark, mobile)
-- `app.js`: router and shared helpers, SHA-256 / HMAC-SHA256 in plain JavaScript
-- `apiref2.js`, `recipes.js`, `fieldrules.js`: API reference pages, hash recipe finder, per-country field rules and examples
-- `guide.js`, `legacy.js`, `home.js`: guide pages, navigation, home page
-- `methods.js`, `demos/`: Payment methods tab and checkout demos
-- `playground.js`, `search.js`, `motion.js`: Hash playground, site search, light animations
-- `spec/`: the API spec, one file per request (`payin.js`, `payout.js`, `balance.js`, `other-requests.js`, `refund.js`) plus `error-codes.js`; `spec/load.js` puts them together
-- `assets/`: icon and payment-method data
+| File | What it does |
+|---|---|
+| `index.html` | Page shell: header, tabs, script order, content security policy |
+| `styles.css`, `redesign.css` | Design (light and dark theme, mobile) |
+| **API spec** | |
+| `spec/payin.js` | Payin: field tables, nested objects, payment methods, callback, hash formulas, examples |
+| `spec/payout.js` | Payout: same structure as Payin |
+| `spec/balance.js` | Get Balance |
+| `spec/other-requests.js` | Get Status, Get Bank List, verifications, Get Transaction List and the other utility requests |
+| `spec/refund.js` | Refund (kept for reference; refunds are manual, so it is hidden on the site, see `HIDDEN` in `app.js`) |
+| `spec/error-codes.js` | Every error code and message, with the matching v1 code |
+| `spec/load.js` | Puts the spec files together for the site and reads the hash recipes from their `SHA256(...)` blocks. No need to edit |
+| **Rules and help text** | |
+| `fieldrules.js` | Per country and method: which fields are required or optional, example values, "Good to know" notes |
+| `error-fixes.js` | "How to fix" text for each error code |
+| `errgroups.js` | How error codes are grouped on the Error codes page |
+| **Pages** | |
+| `app.js` | Router, shared helpers, SHA-256 / HMAC-SHA256 in plain JavaScript, Error codes page, list of pages hidden from the site (`HIDDEN`) |
+| `apiref2.js` | API reference pages (Payin, Payout, Get Balance, utility requests, Signing & hashes, Callbacks): parameters, country and method picker, code samples in cURL / Node.js / Python / PHP |
+| `recipes.js` | Hash recipe finder on the Signing & hashes page |
+| `playground.js` | Hash playground: body hash builder, HMAC signature header, hash detective |
+| `guide.js` | Shared guide pages and building blocks (operations, testing and go-live, troubleshooting, FAQ), used by `legacy.js` |
+| `legacy.js` | Integration guide: its pages (welcome, journey, quickstarts, build rules, payouts and funding), its menu, and the API reference menu and routes |
+| `home.js` | Docs home page and the Payment flows explainers (diagrams) |
+| `methods.js` | Payment methods tab: industry, stage, country, method, with specs and demos |
+| `assets/product-data.js` | Data for the Payment methods tab (method tables, limits, specs) |
+| `assets/icon.svg` | Site icon |
+| `demos/` | Clickable checkout demos used on the Payment methods tab: `checkout-flow` (generic hosted checkout), `egypt-p2p-flow`, `morocco-bank-flow`, `morocco-wallet-flow` |
+| `search.js` | Site search (header button, Ctrl/⌘ K or `/`); runs in the browser only |
+| `motion.js` | Small animations; off when the visitor prefers reduced motion |
+| `tools/stamp.py` | Adds `?v=` version stamps to `index.html` (see How to update) |
 
 ## Publishing
 

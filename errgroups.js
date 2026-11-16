@@ -1,7 +1,7 @@
 /* Error codes page, grouped: the most common codes first, then one folding section per kind of problem
    (signing, request format, setup, fields, limits, declines, status, our side …), each with what to do.
-   Same file on both docs sites. Codes are put in a group by their message, so a re-import still lands each
-   new code somewhere sensible ("Other" is the fallback). */
+   Same file on both docs sites. Codes are put in a group by their message, so a code added to spec/error-codes.js
+   lands somewhere sensible ("Other" is the fallback). */
 const ERR_GROUPS = [
   {k: 'system', t: 'On our side', d: 'Something failed inside the gateway. The payment may still go through.', act: 'Check status first', tone: 'warn',
     m: /internal (system )?error|something went wrong|currently down|could not process transaction|processor not found|could not find bank account|reason unknown|transaction could not be processed/},
