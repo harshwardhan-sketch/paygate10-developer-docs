@@ -175,14 +175,10 @@ function opPage(flow, opId) {
 
 /* ---------- error codes ---------- */
 function errorsPage(flow, q = '') {
-  const list = D[flow].errors;
   return `<h1>Error codes</h1>${sourceLink(flow, 'error-code.shtml')}
-  <p class="lead">Errors are returned in the response <code>error[]</code> array as <code>{ errorCode, errorMessage }</code>. Search for the code or a word from the message to see what it means and how to fix it. Each row shows the API v2 code, with the v1 (PG10) code under it for merchants still on v1.</p>
-  <input class="errsearch" id="errSearch" type="search" placeholder="Search by code or message, e.g. 11031 or hash" aria-label="Search error codes" value="${esc(q)}">
-  <p class="count" id="errCount">${list.length} codes</p>
-  <table id="errTable" class="errtable"><thead><tr><th>Code</th><th>Message</th><th>How to fix</th></tr></thead><tbody>${
-    list.map(e => `<tr data-s="${esc(`${e.ErrorCode} ${e.ErrorMessage || ''} ${e.v1ErrorCode || ''} ${e.v1ErrorMessage || ''}`.toLowerCase()).replace(/"/g, '&quot;')}"><td><code>${esc(e.ErrorCode)}</code>${e.v1ErrorCode ? `<small class="v1">v1 ${esc(e.v1ErrorCode)}</small>` : ''}</td><td>${esc(e.ErrorMessage || '')}</td><td class="errfix">${ERROR_FIX(e.ErrorCode, e.ErrorMessage)}</td></tr>`).join('')
-  }</tbody></table>`;
+  <p class="lead">Errors come back in the response <code>error[]</code> array as <code>{ errorCode, errorMessage }</code>. Each row shows the API v2 code, with the v1 (PG10) code under it for merchants still on v1. Start with the most common codes, open the group that matches your problem, or search for a code or a word from the message.</p>
+  ${errorsGrouped(D[flow].errors, e => `<tr data-c="${esc(`${e.ErrorCode} ${e.v1ErrorCode || ''}`.trim())}" data-s="${esc(`${e.ErrorCode} ${e.ErrorMessage || ''} ${e.v1ErrorCode || ''} ${e.v1ErrorMessage || ''}`.toLowerCase())}"><td><code>${esc(e.ErrorCode)}</code>${e.v1ErrorCode ? `<small class="v1">v1 ${esc(e.v1ErrorCode)}</small>` : ''}</td><td>${esc(e.ErrorMessage || '')}</td><td class="errfix">${ERROR_FIX(e.ErrorCode, e.ErrorMessage)}</td></tr>`,
+    (e, g) => g === 'quotes' || /refund/i.test(e.ErrorMessage || ''), q)}`;
 }
 
 /* ---------- navigation ---------- */
@@ -304,18 +300,6 @@ function render() {
   afterRender(cur[0], arg);
 }
 window.addEventListener('hashchange', render);
-
-/* ---------- error filter: every word must match (code, message or v1 code) ---------- */
-function filterErrors() {
-  const box = document.getElementById('errSearch'); if (!box) return;
-  const words = box.value.toLowerCase().split(/\s+/).filter(Boolean); let n = 0;
-  document.querySelectorAll('#errTable tbody tr').forEach(tr => {
-    const t = tr.dataset.s || tr.textContent.toLowerCase(), show = words.every(w => t.includes(w));
-    tr.style.display = show ? '' : 'none'; n += show;
-  });
-  const total = document.querySelectorAll('#errTable tbody tr').length;
-  document.getElementById('errCount').textContent = n === total ? `${total} codes` : n ? `${n} of ${total} codes` : 'No codes match. Try a code number or one word from the message.';
-}
 
 /* ---------- after every render ---------- */
 function afterRender(pageId, arg) {
