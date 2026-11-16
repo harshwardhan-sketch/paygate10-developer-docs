@@ -1,10 +1,10 @@
 /* What to send for each request, country and method: mandatory fields, fields that take dummy data (with a ready
-   dummy value for that country), optional fields and notes. The Payin and Payout parameter lists use it to mark each
-   field Required / Required, dummy OK / Optional for the picked country (apiref2.js). Paths are relative to data;
+   example value for that country), optional fields and notes. The Payin and Payout parameter lists use it to mark each
+   field Required / Optional for the picked country (apiref2.js); a "dummy" entry shows as Required with its example value. Paths are relative to data;
    "userInfo.*" means the userInfo fields not listed elsewhere. Where integration support has not confirmed a rule, it follows the live API docs.
    Key: <request>|<country>|<H for hosted, else the paymentMethod code>. */
 const FIELD_RULES = (() => {
-  const RISK = ['riskData', {user_category: 'Default', device_fingerprint: ''}, 'Fixed values are fine.'];
+  const RISK = ['riskData.user_category', 'Default'];
   /* realistic dummy customers per country: risk checks decline obvious test data such as test@gmail.com */
   const DUMMY = {
     India: {city: 'Mumbai', state: 'Maharashtra', postCode: '400001', address: '12 MG Road'},
@@ -18,11 +18,13 @@ const FIELD_RULES = (() => {
   R['payin|India|H'] = {
     pm: 'UPI',
     mandatory: [['paymentMethod', '"UPI"'], ['merchantUrl.returnUrl', ''], ['userInfo.firstName', 'the customer\'s first name'], ['userInfo.lastName', 'the customer\'s last name'],
-      ['userInfo.email', 'the customer\'s email'], ['userInfo.phone', 'the customer\'s Indian mobile, 10 digits'], ['userInfo.ipAddress', 'the customer\'s IP']],
+      ['userInfo.email', 'the customer\'s email'], ['userInfo.phone', 'the customer\'s Indian mobile, 10 digits, without +91'], ['userInfo.ipAddress', 'the customer\'s IP']],
     dummy: [...ui('India', ['city', 'state', 'postCode', 'address']), RISK],
     optional: ['businessCategory', 'businessTransaction', 'paymMethodFields', 'customField'],
-    notes: ['Name, email, phone and IP are checked: invalid or test data is declined and no QR is generated.', '<code>state</code> must not be empty (error 11016).',
-      'The customer pays by UPI QR on desktop or UPI Intent (Pay with App) on mobile.'],
+    notes: ['Name, email, phone and IP are checked: invalid or test data is declined and no QR is generated.', '<code>city</code>, <code>state</code>, <code>postCode</code> and <code>address</code> must not be empty or null (a missing state returns error 11016).',
+      'The customer pays by UPI QR on desktop or UPI Intent (Pay with App) on mobile.',
+      'Send <code>businessCategory</code> only if you use it; leave it out otherwise.',
+      'Current limits (indicative, they can change at short notice): 500–499,990 INR.'],
   };
   R['payin|Pakistan|H'] = {
     mandatory: [['merchantUrl.returnUrl', '']],
@@ -79,13 +81,13 @@ const FIELD_RULES = (() => {
     mandatory: [['merchantUrl.returnUrl', 'a valid https URL'], ['userInfo.ipAddress', 'the customer\'s IP']],
     dummy: [...ui('Morocco', maUser), RISK],
     optional: ['paymentMethod', 'paymMethodFields', 'customField', 'businessCategory', 'businessTransaction'],
-    notes: ['Dummy details must look realistic: obvious test data such as test@gmail.com is declined by risk checks.',
+    notes: ['Obvious test data such as test@gmail.com is declined by risk checks.',
       'On the payment page the customer picks the bank, enters their account number and name, and uploads the payment receipt.'],
   };
   const maSeamless = (code, fields, extra) => ({
     mandatory: [['paymentMethod', `"${code}"`], ...fields, ['customField.customField2', 'Base64 image of the customer\'s payment receipt'], ['userInfo.ipAddress', 'the customer\'s IP']],
     dummy: [...ui('Morocco', maUser), RISK], optional: [],
-    notes: ['Dummy details must look realistic: obvious test data such as test@gmail.com is declined by risk checks.',
+    notes: ['Obvious test data such as test@gmail.com is declined by risk checks.',
       'Without <code>customField2</code> the request fails with error 11393.', ...extra],
   });
   R['payin|Morocco|BT'] = maSeamless('BT', [['paymMethodFields.account_number', 'customer\'s account'], ['paymMethodFields.bank_code', 'from Get Bank List for pay-ins'], ['paymMethodFields.account_name', 'account holder']],
@@ -110,7 +112,7 @@ const FIELD_RULES = (() => {
   };
   const pkPayout = {
     mandatory: [['paymentMethod', '"EP" (Easypaisa) or "JC" (JazzCash)'], ['paymMethodFields.wallet_number', 'beneficiary\'s mobile, 11 digits starting 03']],
-    dummy: [['paymMethodFields.document_id', '4210112345671', 'A 13-digit CNIC, no dashes. It does not have to be real, but it must be 13 digits.']],
+    dummy: [['paymMethodFields.document_id', '4210112345671', 'A 13-digit CNIC, no dashes.']],
     optional: [PO, 'userInfo', 'riskData', 'customField', 'merchantUrl.returnUrl'],
     notes: ['Hash: <code>midcode~merchantrefno~wallet_number~document_id~amount~currency~midsecret</code>.',
       'Easypaisa and JazzCash run on separate MIDs: use the MID set up for the method (otherwise error 11393).',
@@ -124,7 +126,7 @@ const FIELD_RULES = (() => {
   R['payout|Pakistan|BT'] = pkBank('BT'); R['payout|Pakistan|BD'] = pkBank('BD');
   R['payout|Egypt|MWALLET'] = {
     mandatory: [['paymentMethod', '"MWALLET"'], ['paymMethodFields.wallet_number', 'beneficiary\'s wallet, 11 digits starting 01']],
-    dummy: [['paymMethodFields.account_name', 'test', 'Any name is accepted.']],
+    dummy: [['paymMethodFields.account_name', 'Ahmed Hassan', 'The beneficiary\'s name.']],
     optional: [PO, 'userInfo', 'riskData', 'paymMethodFields.document_id', 'paymMethodFields.document_type', 'paymMethodFields.bank_name', 'paymMethodFields.bank_branch', 'paymMethodFields.bank_address', 'paymMethodFields.account_type'],
     notes: ['Do not send <code>bank_code</code> for wallet payouts: it makes the payout fail.'],
   };

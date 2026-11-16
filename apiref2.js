@@ -118,9 +118,9 @@ const API2 = (() => {
     const p = lc(path), par = p.includes('.') ? p.slice(0, p.lastIndexOf('.')) : '', leaf = p.slice(p.lastIndexOf('.') + 1);
     const M = R.mandatory.find(([f]) => lc(f) === p); if (M) return {st: 'yes', hint: M[1]};
     const D = R.dummy.find(([f]) => lc(f) === p);
-    if (D) return typeof D[1] === 'object' ? {st: 'yes'} : {st: 'dummy', value: D[1], hint: D[2] || ''};
+    if (D) return typeof D[1] === 'object' ? {st: 'yes'} : {st: 'yes', value: D[1], hint: D[2] || ''};
     const DP = R.dummy.find(([f, v]) => lc(f) === par && typeof v === 'object');
-    if (DP) { const k = Object.keys(DP[1]).find(x => lc(x) === leaf); if (k !== undefined) return {st: 'dummy', value: DP[1][k], hint: DP[2] || ''}; }
+    if (DP) { const k = Object.keys(DP[1]).find(x => lc(x) === leaf); if (k !== undefined) return {st: 'yes', value: DP[1][k], hint: DP[2] || ''}; }
     if (R.optional.some(f => lc(f) === p)) return {st: 'no'};
     if (R.optional.some(f => p.startsWith(lc(f) + '.'))) return {st: 'no'};
     if (par && R.optional.some(f => lc(f) === par + '.*')) return {st: 'no'};
@@ -151,11 +151,11 @@ const API2 = (() => {
       st.auto = true;
     }
     const req = st ? st.st : r.req;
-    const star = req === 'yes' || req === 'dummy' ? '<span class="prm-star" title="Required">*</span>' : '';
+    const star = req === 'yes' ? '<span class="prm-star" title="Required">*</span>' : '';
     /* the body hash is not needed when the request is signed with the X-Callback-Signature header */
     const sigAlt = idp === 'p-' && /^hash$/i.test(path);
-    const tag = sigAlt ? '<span class="prm-req sig">Required unless signed with the header</span>' : req === 'dummy' ? '<span class="prm-req dummy">Required · dummy OK</span>' : req === 'yes' ? '<span class="prm-req yes">Required</span>' : req === 'cond' ? '<span class="prm-req cond">Conditional</span>' : '<span class="prm-req no">Optional</span>';
-    /* the example for the picked country: the dummy value where one is fine, otherwise the value in that country's example request */
+    const tag = sigAlt ? '<span class="prm-req sig">Required unless signed with the header</span>' : req === 'yes' ? '<span class="prm-req yes">Required</span>' : req === 'cond' ? '<span class="prm-req cond">Conditional</span>' : '<span class="prm-req no">Optional</span>';
+    /* the example for the picked country: the rule's example value if it has one, otherwise the value in that country's example request */
     let ex = '';
     if (ctx && path) {
       const leaf0 = path.slice(path.lastIndexOf('.') + 1), E0 = typeof FIELD_EXAMPLES !== 'undefined' && FIELD_EXAMPLES[ctx.country];
@@ -164,7 +164,7 @@ const API2 = (() => {
       const test = x => x === undefined || x === null || /^(test|x+|1{4,}|n\/a|string)$|test@|@test\./i.test(String(x));
       const g = Object.keys(GEN).find(k => lc(k) === lc(leaf0));
       const COMMON = /^(midCode|merchantRefNo|amount|hash|merchantUrl\.notificationUrl|merchantUrl\.returnUrl)$/i;
-      let v = st && st.st === 'dummy' ? st.value : k0 ? E0[k0] : COMMON.test(path) && g ? GEN[g] : valAt(ctx.data, path);
+      let v = st && st.value !== undefined ? st.value : k0 ? E0[k0] : COMMON.test(path) && g ? GEN[g] : valAt(ctx.data, path);
       if (test(v) && g) v = GEN[g];
       /* integrationType and paymentMethod follow the picked method */
       if (test(v) && /^integrationType$/i.test(path)) v = ctx.hosted ? 'PG_H' : 'S';
@@ -176,12 +176,11 @@ const API2 = (() => {
       const real = st && st.hint && /real|customer's|beneficiary|holder/i.test(st.hint);
       const fixed = st && st.hint && /^"[^"]+"/.test(st.hint) ? st.hint.match(/^"[^"]+"/)[0] : '';
       if (st && st.notHere) ex = `<div class="prm-ex"><span>${esc(st.hint)}</span></div>`;
-      else if (st && st.st === 'dummy') ex = `<div class="prm-ex dummy"><b>Pass dummy data.</b> ${lbl()}: <code>${esc(show(v))}</code>${st.hint ? ` <span>${st.hint}</span>` : ''}</div>`;
       else if (real) {
         /* a valid-looking value for this country, so the format is clear */
         const leaf = path.slice(path.lastIndexOf('.') + 1), E = typeof FIELD_EXAMPLES !== 'undefined' && FIELD_EXAMPLES[ctx.country];
         const fx = E && Object.keys(E).find(k => lc(k) === lc(leaf));
-        ex = `<div class="prm-ex real"><b>Send real data:</b> <span>${esc(st.hint)}.</span> Dummy or test values are declined.${fx ? `<br><b>Valid format for ${where}:</b> <code>${esc(show(E[fx]))}</code>` : ''}</div>`;
+        ex = `<div class="prm-ex real"><b>Send real data:</b> <span>${esc(st.hint)}.</span> Test values are declined.${fx ? `<br><b>Valid format for ${where}:</b> <code>${esc(show(E[fx]))}</code>` : ''}</div>`;
       }
       else if (fixed) ex = `<div class="prm-ex"><b>${lbl().replace('Example for', 'For')}:</b> <code>${esc(st.hint)}</code></div>`;
       /* "Example for <country>" only where the value depends on the country; a plain "Example" otherwise */
@@ -290,7 +289,6 @@ const API2 = (() => {
       o.cc || o.ccy ? ['Country · currency', [o.cc, o.ccy].filter(Boolean).map(v => `<code>${esc(v)}</code>`).join(' · ')] : null,
       ['integrationType', o.hosted ? '<code>"PG_H"</code> hosted: the customer pays on our page' : '<code>"S"</code> seamless: you send the details'],
       pm ? ['paymentMethod', esc(pm).replace(/&quot;([^&]+)&quot;/g, '<code>"$1"</code>')] : null,
-      R.dummy.length ? ['Dummy data', `${R.dummy.length} field${R.dummy.length > 1 ? 's' : ''} can take dummy values: see <a href="#" data-jump="params">Parameters</a>`] : null,
     ].filter(Boolean);
     return `<dl class="send-spec">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
       ${R.notes.length ? `<div class="rc-notes2"><b>Good to know</b><ul>${R.notes.map(n => `<li>${n}</li>`).join('')}</ul></div>` : ''}`;

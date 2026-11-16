@@ -316,10 +316,7 @@ html[data-theme=dark] .rc-must,html[data-theme=dark] .rc-must h4{border-left-col
 .rc pre{max-width:100%;overflow-x:auto}
 @media (max-width:640px){.rc-tbl td:first-child{width:46%}.rc-list li span{display:block;margin-left:0}}
 /* parameters follow the picked country (fieldrules.js) */
-.prm-req.dummy{background:#fff4c2;color:#6b5900;border-color:#f0dc7a}
-html[data-theme=dark] .prm-req.dummy{background:#4a4210;color:#f7ea03;border-color:#6b5f17}
 .prm-ex{margin:6px 0 2px;font-size:13.5px;line-height:1.55;padding:6px 10px;border-radius:8px;background:var(--surface-2);border-left:3px solid var(--accent)}
-.prm-ex.dummy{border-left-color:var(--brand-yellow);background:color-mix(in srgb,var(--brand-yellow) 14%,var(--surface))}
 .prm-ex b{font-weight:600}
 .prm-ex span{color:var(--muted)}
 .prm-ex code{word-break:break-all}
