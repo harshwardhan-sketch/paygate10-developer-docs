@@ -41,7 +41,7 @@ ${table(['Setting', 'Value'], [
 ])}
 <h2>Before you start</h2>
 <p>Read <a href="#/legacy/how-it-works">How payments work</a> for the core ideas, then follow the <a href="#/legacy/journey">integration journey</a>. Every page ends with a link to the next one.</p>
-<p class="src">New merchants integrate with API v2 (these pages). Merchants migrating from PG10 use API v1, which stays compatible; see <a href="#/legacy/pg10">v1 and v2 compatibility</a>.</p>`;
+<p class="src">New merchants integrate with API v2 (these pages). Merchants already on API v1 can keep it, as it stays compatible; see <a href="#/legacy/api-versions">v1 and v2 compatibility</a>.</p>`;
 
 /* ---------- Reused generic pages (relinked to this section) ---------- */
 ['how-it-works', 'payin-flows', 'build-rules', 'seamless', 'callbacks', 'reconciliation', 'go-live', 'production', 'after-go-live']
@@ -249,7 +249,7 @@ ${q('Can I send decimal amounts?', '<p>Send amounts with two decimals (e.g. <cod
 ${q('How do I find bank codes for payouts?', '<p>Call <a href="#/legacy/op-get-bank-list">Get Bank List</a> with <code>transaction_type</code> <code>withdrawal</code>; use <code>processor_bankcode</code>.</p>')}
 ${q('Which statuses are final?', '<p>Only <code>APPROVED</code> and <code>DECLINED</code>. Everything else means “still in progress”.</p>')}
 ${q('Which time zone do transaction list dates use?', '<p>IST for merchants registered in India, UTC for everyone else.</p>')}
-${q('I am migrating from PG10. Do I have to move to v2?', '<p>No. Merchants migrating from PG10 use API v1, which stays compatible. New merchants integrate with API v2. If you choose to move to v2, <a href="#/legacy/pg10">v1 and v2 compatibility</a> has the field-by-field mapping.</p>')}`;
+${q('I am on API v1. Do I have to move to v2?', '<p>No. API v1 stays compatible. New merchants integrate with API v2. If you choose to move to v2, <a href="#/legacy/api-versions">v1 and v2 compatibility</a> has the field-by-field mapping.</p>')}`;
 };
 
 LG.support = reuse('support');
@@ -274,7 +274,7 @@ nav = function (flow) {
     ['API reference · Before your first request', [['signing', 'Signing & hashes'], ['api-callbacks', 'Callbacks']]],
     ['API reference · Requests', [['payin', 'Payin'], ['payout', 'Payout']]],
     ['API reference · Utilities', [['balance', 'Get Balance'], ...ops]],
-    ['API reference · Reference', [['errors', 'Error codes'], ['pg10', 'v1 and v2 compatibility']]],
+    ['API reference · Reference', [['errors', 'Error codes'], ['api-versions', 'v1 and v2 compatibility']]],
   ]);
 };
 /* every operation (Payin, Payout, Get Balance, utilities) uses the parameters + code panel layout (apiref2.js) */

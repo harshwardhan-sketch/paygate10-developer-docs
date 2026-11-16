@@ -1,7 +1,7 @@
 /* Paygate10 Developer Docs — renderer.
    API content comes from spec/*.js (field tables, hash formulas, examples) and spec/error-codes.js,
    put together by spec/load.js.
-   Hand-written API-side pages (PG10) live in this file. */
+   Hand-written API pages (error codes, v1 and v2 compatibility) live in this file. */
 
 /* clickjacking: these docs only run in their own window or inside a page of this site */
 (() => { let ok = window.top === window.self; try { ok = ok || window.top.location.origin === location.origin; } catch (_) { ok = false; }
@@ -176,7 +176,7 @@ function opPage(flow, opId) {
 /* ---------- error codes ---------- */
 function errorsPage(flow, q = '') {
   return `<h1>Error codes</h1>${sourceLink(flow, 'error-code.shtml')}
-  <p class="lead">Errors come back in the response <code>error[]</code> array as <code>{ errorCode, errorMessage }</code>. Each row shows the API v2 code, with the v1 (PG10) code under it for merchants still on v1. Start with the most common codes, open the group that matches your problem, or search for a code or a word from the message.</p>
+  <p class="lead">Errors come back in the response <code>error[]</code> array as <code>{ errorCode, errorMessage }</code>. Each row shows the API v2 code, with the v1 code under it for merchants still on v1. Start with the most common codes, open the group that matches your problem, or search for a code or a word from the message.</p>
   ${errorsGrouped(D[flow].errors, e => `<tr data-c="${esc(`${e.ErrorCode} ${e.v1ErrorCode || ''}`.trim())}" data-s="${esc(`${e.ErrorCode} ${e.ErrorMessage || ''} ${e.v1ErrorCode || ''} ${e.v1ErrorMessage || ''}`.toLowerCase())}"><td><code>${esc(e.ErrorCode)}</code>${e.v1ErrorCode ? `<small class="v1">v1 ${esc(e.v1ErrorCode)}</small>` : ''}</td><td>${esc(e.ErrorMessage || '')}</td><td class="errfix">${ERROR_FIX(e.ErrorCode, e.ErrorMessage)}</td></tr>`,
     (e, g) => g === 'quotes' || /refund/i.test(e.ErrorMessage || ''), q)}`;
 }
@@ -188,7 +188,7 @@ function nav(flow) {
     ['Get started', [['overview', 'Overview'], ['getting-started', 'Integration steps'], ['signing', 'Signing & hashes']]],
     ['Transactions', [['payin', 'Payin'], ['payout', 'Payout'], ['refund', 'Refund']]],
     ['Account & utilities', [['balance', 'Get Balance'], ...ops]],
-    ['Reference', [['errors', 'Error codes'], ['pg10', 'v1 and v2 compatibility']]],
+    ['Reference', [['errors', 'Error codes'], ['api-versions', 'v1 and v2 compatibility']]],
   ];
   return groups;
 }
@@ -197,15 +197,15 @@ function nav(flow) {
 const P = {};
 
 
-P.pg10 = () => `
+P['api-versions'] = () => `
 <h1>v1 and v2 compatibility</h1>
-<p class="lead">The Gateway accepts both API versions: v1 (the PG10 format) and v2 (the format on these pages). They are compatible, so a v1 integration keeps working.</p>
+<p class="lead">The Gateway accepts both API versions: v1 and v2 (the format on these pages). They are compatible, so a v1 integration keeps working.</p>
 ${table(['You are', 'Use'], [
   ['<b>A new merchant</b>, integrating for the first time', '<b>API v2</b>, as documented on these pages.'],
-  ['<b>An existing merchant migrating</b> from PG10', '<b>API v1</b>: keep your current integration. You can move to v2 when it suits you; the mapping below shows what changes.'],
+  ['<b>An existing merchant</b> on API v1', '<b>API v1</b>: keep your current integration. You can move to v2 when it suits you; the mapping below shows what changes.'],
 ])}
 <h2>Field mapping: v1 to v2</h2>
-${table(['PG10 (v1)', 'API v2'], [
+${table(['API v1', 'API v2'], [
   ['Header <code>X-Version</code>', 'Header <code>api-version: 2.0</code>'],
   ['<code>request_type</code>: <code>deposit</code> / <code>withdrawal</code>', '<code>requestType</code>: <code>PAYIN</code> / <code>PAYOUT</code>'],
   ['<code>midcode</code>', '<code>midCode</code>'],
