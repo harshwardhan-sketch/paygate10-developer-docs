@@ -1,4 +1,2 @@
 REVIEW.md
-tools/*
-!tools/stamp.py
 .DS_Store
