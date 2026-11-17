@@ -110,7 +110,7 @@ const LIFECYCLE_SVG = `<svg class="flowsvg" viewBox="0 0 760 190" role="img" ari
 const G = {};
 
 G['how-it-works'] = () => `<h1>How payments work</h1>
-<p class="lead">Everything you send to Paygate10 goes to one endpoint. You tell it what to do with <code>requestType</code>, prove it is you with a signature (a header or a <code>hash</code> field), and we tell you the outcome in the response and in a callback.</p>
+<p class="lead">Everything you send to Paygate10 goes to one endpoint. You tell it what to do with <code>requestType</code>, prove it is you with the <code>X-Callback-Signature</code> header, and we tell you the outcome in the response and in a callback.</p>
 ${LIFECYCLE_SVG}
 <h2>Key concepts</h2>
 ${table(['Concept', 'What it is'], [
@@ -120,7 +120,7 @@ ${table(['Concept', 'What it is'], [
   ['<code>integrationType</code>', '<code>PG_H</code> = hosted checkout, <code>S</code> = seamless (you collect the details).'],
   ['<code>merchantRefNo</code>', 'Your unique reference for the transaction. Reusing one is rejected — which makes retries safe.'],
   ['<code>transaction_id</code>', 'Our ID, returned in the response (e.g. <code>INVWED1757498791747</code>). Store it next to your reference.'],
-  ['<b>Signature</b>', 'Proves a request is yours. Either sign the whole body with HMAC-SHA256 in the <code>X-Callback-Signature</code> header, or send a <code>hash</code> field: SHA-256 over specific fields + your secret. Responses and callbacks carry a <code>hash</code> too. See <a href="#/legacy/signing">Signing</a>.'],
+  ['<b>Signature</b>', 'Proves a request is yours. Sign the whole body with HMAC-SHA256 and send it in the <code>X-Callback-Signature</code> header. (Existing integrations may still use the older <code>hash</code> field: SHA-256 over specific fields + your secret.) Responses and callbacks carry a <code>hash</code> too. See <a href="#/legacy/signing">Signing</a>.'],
   ['<code>notificationUrl</code>', 'Your server endpoint that receives the callback with the final status.'],
   ['<code>returnUrl</code>', 'Where the customer is sent back to after a hosted checkout.'],
 ])}
@@ -194,8 +194,8 @@ ${table(['Cause', 'How to spot it', 'Fix'], [
   ['<b>Value mismatch</b>', 'Hashed one value, sent another (trimmed name, different account).', 'Build the hash from exactly the strings you put in the JSON.'],
   ['<b>Wrong secret</b>', 'Nothing matches.', 'Test and production MIDs have different secrets; each MID has its own.'],
 ])}
-<h2>Using the signature header?</h2>
-<p>If you sign with <code>X-Callback-Signature</code> (HMAC), a wrong header gives <code>11031</code> even when the body <code>hash</code> is right. Check these:</p>
+<h2>Signing with the header?</h2>
+<p>If you sign with <code>X-Callback-Signature</code> (HMAC, the recommended method), a wrong header gives <code>11031</code> even when the body <code>hash</code> is right. Check these:</p>
 ${table(['Cause', 'Fix'], [
   ['<b>Body changed after signing</b>', 'Serialise the JSON once, sign that string and send the same string. Don\'t let your HTTP library re-serialise it (spaces and key order matter).'],
   ['<b>Wrong key</b>', 'The key is your MID secret in lower case.'],
@@ -297,8 +297,8 @@ ${checklist('s2-req', [
 ])}
 <h2>Hash (signature)</h2>
 ${checklist('s2-hash', [
-  'Choose how you sign: the <code>X-Callback-Signature</code> header (HMAC of the whole body, same for every request) or the body <code>hash</code>. See <a href="#/legacy/signing">Signing</a>.',
-  'If you use the body hash, build it with the formula for that exact request type — deposit, payout, status check, balance and callbacks each use different fields.',
+  'Sign every request with the <code>X-Callback-Signature</code> header (HMAC of the whole body, same for every request). The body <code>hash</code> is the older method; don\'t use it for new integrations. See <a href="#/legacy/signing">Signing</a>.',
+  'Existing integration on the older body hash? Build it with the formula for that exact request type — deposit, payout, status check, balance and callbacks each use different fields.',
   'Use the same amount format in the hash as in the request (e.g. <code>100.00</code>).',
   'For status checks, send <code>transaction_type</code> in lowercase (<code>payin</code> / <code>payout</code>).',
   'If you get “hash does not match”, share the <b>pre-hash string with the secret removed</b> in your integration channel — the fastest way for us to help. See <a href="#/guide/hash-help">Fixing hash errors</a>.',

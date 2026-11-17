@@ -21,7 +21,8 @@ const RP = (() => {
   }).filter(r => !r.hide);
   const uniq = a => [...new Set(a)];
   const playable = r => /^SHA256\(/i.test(r.formula) && !/serializ/i.test(r.formula);
-  const utilOps = M => uniq(M.filter(r => !OPS.includes(r.op)).map(r => r.op));
+  /* Get Status first: utilities are listed by how much merchants use them */
+  const utilOps = M => uniq(M.filter(r => !OPS.includes(r.op)).map(r => r.op)).sort((a, b) => (b === 'Get Status') - (a === 'Get Status'));
 
   /* state → the recipes to show */
   function pick(M, s) {

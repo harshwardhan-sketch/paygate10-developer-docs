@@ -37,7 +37,7 @@ ${table(['Setting', 'Value'], [
   ['Method', '<code>POST</code>, <code>Content-Type: application/json</code>'],
   ['Version header', '<code>api-version: 2.0</code>'],
   ['Test environment', 'LPL — live with small limits (see <a href="#/legacy/journey">Integration journey</a>)'],
-  ['Signing', 'HMAC-SHA256 <code>X-Callback-Signature</code> header, or a SHA-256 <code>hash</code> per request. See <a href="#/legacy/signing">Signing &amp; hashes</a>'],
+  ['Signing', 'HMAC-SHA256 <code>X-Callback-Signature</code> header. Existing integrations may still use the older SHA-256 <code>hash</code> per request. See <a href="#/legacy/signing">Signing &amp; hashes</a>'],
 ])}
 <h2>Before you start</h2>
 <p>Read <a href="#/legacy/how-it-works">How payments work</a> for the core ideas, then follow the <a href="#/legacy/journey">integration journey</a>. Every page ends with a link to the next one.</p>
@@ -67,41 +67,35 @@ LG['quickstart-payin'] = () => {
 <p class="lead">Accept a payment with hosted checkout in five steps — one request, one redirect, one callback.</p>
 <h2>1. Have these ready</h2>
 <ul><li>An LPL <code>midCode</code> and MID secret for the currency you will charge.</li><li>Your server IP whitelisted.</li><li>An HTTPS <code>notificationUrl</code> and a <code>returnUrl</code> result page.</li></ul>
-<h2>2. Compute the hash</h2>
-<div class="formula"><span>SHA256(midcode~merchantrefno~amount~currency~midsecret)</span>${hostedIdx >= 0 ? `<a href="#/playground/${hostedIdx}">Try it →</a>` : ''}</div>
-<ul><li>Amount with two decimals: <code>100.00</code>.</li><li>MID secret in lower case.</li><li>A new hash for every request, unless you sign with the <code>X-Callback-Signature</code> header instead (see <a href="#/legacy/signing">Signing &amp; hashes</a>).</li></ul>
+<h2>2. Build the body and sign it</h2>
+<p>Serialise the JSON body once, sign that exact string with HMAC-SHA256 (key: your MID secret in lower case), and send the signature in the <code>X-Callback-Signature</code> header.</p>
 ${tabs([
   ['Node.js', code(`const crypto = require('crypto');
-const mid = '123', ref = 'ORDER-1001', amount = '100.00', currency = 'PKR';
-const hash = crypto.createHash('sha256')
-  .update([mid, ref, amount, currency, process.env.MID_SECRET.toLowerCase()].join('~'))
-  .digest('hex');`, 'js')],
-  ['Python', code(`import hashlib, os
-mid, ref, amount, currency = "123", "ORDER-1001", "100.00", "PKR"
-hash_ = hashlib.sha256("~".join([mid, ref, amount, currency, os.environ["MID_SECRET"].lower()]).encode()).hexdigest()`, 'python')],
+const body = JSON.stringify({
+  requestType: 'PAYIN',
+  data: {
+    midCode: '123', integrationType: 'PG_H', amount: 100.00, currency: 'PKR', country: 'PK', merchantRefNo: 'ORDER-1001',
+    merchantUrl: { notificationUrl: 'https://yourshop.example/notify', returnUrl: 'https://yourshop.example/checkout/done' },
+    userInfo: { firstName: 'Asha', lastName: 'Khan', email: 'asha.khan@example.com', phone: '03001234567' },
+    riskData: { user_category: 'Default', device_fingerprint: 'abc123' }
+  }
+});
+const sig = crypto.createHmac('sha256', process.env.MID_SECRET.toLowerCase()).update(body, 'utf8').digest('hex');`, 'js')],
+  ['Python', code(`import hmac, hashlib, json, os
+body = json.dumps({"requestType": "PAYIN", "data": {"midCode": "123", "integrationType": "PG_H", "amount": 100.00,
+  "currency": "PKR", "country": "PK", "merchantRefNo": "ORDER-1001",
+  "merchantUrl": {"notificationUrl": "https://yourshop.example/notify", "returnUrl": "https://yourshop.example/checkout/done"},
+  "userInfo": {"firstName": "Asha", "lastName": "Khan", "email": "asha.khan@example.com", "phone": "03001234567"},
+  "riskData": {"user_category": "Default", "device_fingerprint": "abc123"}}}).encode()
+sig = hmac.new(os.environ["MID_SECRET"].lower().encode(), body, hashlib.sha256).hexdigest()`, 'python')],
 ])}
+<ul><li>Sign exactly the bytes you send: don't re-serialise or pretty-print the body after signing.</li><li>With a valid header, no <code>hash</code> field is needed in the body.</li><li>Existing integration on the older body hash? Its recipe here is <code>SHA256(midcode~merchantrefno~amount~currency~midsecret)</code>${hostedIdx >= 0 ? ` (<a href="#/playground/${hostedIdx}">try it</a>)` : ''}. See <a href="#/legacy/signing">Signing &amp; hashes</a>.</li></ul>
 <h2>3. Send the request</h2>
 ${code(`curl -X POST '${prodUrl(LF)}' \\
   -H 'Content-Type: application/json' \\
   -H 'api-version: 2.0' \\
-  -d '{
-  "requestType": "PAYIN",
-  "data": {
-    "midCode": "123",
-    "integrationType": "PG_H",
-    "amount": 100.00,
-    "currency": "PKR",
-    "country": "PK",
-    "merchantRefNo": "ORDER-1001",
-    "merchantUrl": {
-      "notificationUrl": "https://yourshop.example/notify",
-      "returnUrl": "https://yourshop.example/checkout/done"
-    },
-    "userInfo": { "firstName": "Test", "lastName": "User", "email": "test@example.com", "phone": "03001234567" },
-    "riskData": { "user_category": "Default", "device_fingerprint": "abc123" },
-    "hash": "<from step 2>"
-  }
-}'`, 'bash')}
+  -H "X-Callback-Signature: sha256=$SIG" \\
+  --data-binary "$BODY"     # the exact string you signed in step 2`, 'bash')}
 <p>Required <code>userInfo</code> fields vary by country and method. Pick yours on the <a href="#/legacy/payin">Payin</a> page: each field shows whether it is required, and an example.</p>
 <h2>4. Redirect the customer</h2>
 <p>Send the customer to <code>data.checkout_url</code>. They return to your <code>returnUrl</code> when done — <b>the return is not proof of payment</b>.</p>
@@ -127,8 +121,9 @@ LG['quickstart-payout'] = () => {
 <p>Payouts are paid from your balance. Call <a href="#/legacy/balance">GetBalance</a> (hash <code>SHA256(midcode~midsecret)</code>) and check <code>available_instant_payout_balance</code>.</p>
 <h2>2. Get the bank code</h2>
 <p>Call <a href="#/legacy/op-get-bank-list">GetBankList</a> with <code>transaction_type</code> <code>withdrawal</code>. Use the returned <code>processor_bankcode</code> as <code>bank_code</code>.</p>
-<h2>3. Compute the hash</h2>
-<div class="formula"><span>SHA256(midcode~account_name~account_number~bank_code~amount~currency~midsecret)</span>${btIdx >= 0 ? `<a href="#/playground/${btIdx}">Try it →</a>` : ''}</div>
+<h2>3. Sign the request</h2>
+<p>Serialise the body below once, sign that exact string with HMAC-SHA256 (key: your MID secret in lower case) and send <code>X-Callback-Signature: sha256=&lt;hex&gt;</code>, exactly as in the <a href="#/legacy/quickstart-payin">pay-in quickstart</a>. With a valid header, no <code>hash</code> field is needed.</p>
+<p class="pnote">Existing integration on the older body hash? This payout's recipe is <code>SHA256(midcode~account_name~account_number~bank_code~amount~currency~midsecret)</code>${btIdx >= 0 ? ` (<a href="#/playground/${btIdx}">try it</a>)` : ''}.</p>
 <h2>4. Send the payout</h2>
 ${code(`{
   "requestType": "PAYOUT",
@@ -145,8 +140,7 @@ ${code(`{
       "account_number": "<account number or IBAN>",
       "account_name": "<account holder name>",
       "bank_code": "<processor_bankcode from GetBankList>"
-    },
-    "hash": "<from step 3>"
+    }
   }
 }`)}
 <p>Use the test accounts agreed for LPL. Whether your method accepts decimals is in the <a href="#/legacy/build-rules">build rules</a> and your method's page in the API reference.</p>
@@ -273,7 +267,8 @@ nav = function (flow) {
     ['API reference · Get started', [['api-overview', 'Overview']]],
     ['API reference · Before your first request', [['signing', 'Signing & hashes'], ['api-callbacks', 'Callbacks']]],
     ['API reference · Requests', [['payin', 'Payin'], ['payout', 'Payout']]],
-    ['API reference · Utilities', [['balance', 'Get Balance'], ...ops]],
+    /* utilities in order of how much merchants use them: Get Status, Get Balance, then the rest in spec order */
+    ['API reference · Utilities', [...ops.filter(([id]) => id === 'op-get-status'), ['balance', 'Get Balance'], ...ops.filter(([id]) => id !== 'op-get-status')]],
     ['API reference · Reference', [['errors', 'Error codes'], ['api-versions', 'v1 and v2 compatibility']]],
   ]);
 };
@@ -295,11 +290,11 @@ LG['api-overview'] = () => {
   return `<h1>API overview</h1>
 <p class="lead">One endpoint for everything you do in code: accept pay-ins, send payouts, check your balance and a transaction's status, and pull your transactions for reconciliation. Every transaction also gets a callback.</p>
 <div class="ep2"><span class="method post">POST</span><code>${esc(API_URL)}</code><button type="button" class="ep2-copy" data-copy-text="${esc(API_URL)}" aria-label="Copy endpoint">Copy</button></div>
-<div class="ep2-h"><span>Headers</span> <code>Content-Type: application/json</code> <code>api-version: 2.0</code> <span>· the operation is chosen by <code>requestType</code> in the body</span></div>
+<div class="ep2-h"><span>Headers</span> <code>Content-Type: application/json</code> <code>api-version: 2.0</code> <code>X-Callback-Signature: sha256=&lt;hex&gt;</code> <span>· the operation is chosen by <code>requestType</code> in the body</span></div>
 <h2>Build in this order</h2>
 <div class="seqs">
   ${step(1, '#/legacy/stage-1', 'Before you start', 'MID and secret, IP whitelisting, callback URL')}
-  ${step(2, '#/legacy/signing', 'Signing & hashes', 'Signature header or body hash, and the recipe for each request')}
+  ${step(2, '#/legacy/signing', 'Signing & hashes', 'Sign with the signature header; response and callback hash recipes')}
   ${step(3, '#/legacy/api-callbacks', 'Callbacks', 'What we send to your notificationUrl')}
   ${step(4, '#/legacy/payin', 'Payin or Payout', 'Your first request')}
   ${step(5, '#/legacy/op-get-status', 'Get Status and Get Balance', 'Check results and funds')}
@@ -309,8 +304,8 @@ LG['api-overview'] = () => {
 <div class="op-cards">
   ${op('#/legacy/payin', 'PAYIN', 'Payin', 'Collect a payment.')}
   ${op('#/legacy/payout', 'PAYOUT', 'Payout', 'Send money to a bank account or wallet.')}
-  ${op('#/legacy/balance', 'GetBalance', 'Get Balance', 'Your available balance.')}
   ${op('#/legacy/op-get-status', 'GetStatus', 'Get Status', 'The status of one transaction.')}
+  ${op('#/legacy/balance', 'GetBalance', 'Get Balance', 'Your available balance.')}
   ${op('#/legacy/op-get-transaction-list', 'GetTransactionList', 'Get Transaction List', 'Your transactions, for reconciliation.')}
 </div>
 <h2>Request and response shape</h2>
@@ -318,8 +313,7 @@ ${code(`{
   "requestType": "PAYIN",
   "data": { "midCode": "<your MID>", "...": "..." }
 }`)}
-<p>Read <code>success</code> and <code>error[]</code> in every response; each error code is explained, with how to fix it, in <a href="#/legacy/errors">Error codes</a>.</p>
-${sourceLink(LF)}`;
+<p>Read <code>success</code> and <code>error[]</code> in every response; each error code is explained, with how to fix it, in <a href="#/legacy/errors">Error codes</a>.</p>`;
 };
 
 /* no company pages on this site */

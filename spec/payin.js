@@ -52,7 +52,7 @@
             ['<code>midCode</code>', 'String', 'Max 50', 'Yes', 'Your unique Merchant ID.'],
             ['<code>integrationType</code>', 'String', 'Max 10', 'Yes', "'S' for Seamless, ‘PG_H’ for Hosted."],
             ['<code>amount</code>', 'Number', 'Max 10.2', 'Yes', 'Transaction amount.'],
-            ['<code>hash</code>', 'String', 'Max 500', 'Yes', 'SHA256 signature.'],
+            ['<code>hash</code>', 'String', 'Max 500', 'Yes', 'Older signing method, kept for existing integrations: SHA-256 of the fields listed under Hash Generation. New integrations sign with the <code>X-Callback-Signature</code> header instead and leave this field out.'],
             ['<code>currency</code>', 'String', '3', 'Yes', '3-character ISO currency code.'],
             ['<code>country</code>', 'String', '2', 'Yes', '2-character ISO country code.'],
             ['<code>merchantUrl</code>', 'Object', 'N/A', 'Yes', 'Object with notification/return URLs.'],
@@ -295,7 +295,7 @@
       id: 'request-signature',
       title: 'Request Signature',
       blocks: [
-        {kind: 'p', html: 'All requests sent to the gateway (payin, payout, refund, get status, get balance and every other request type) can be signed with one standard method. Sign the full request body with the midsecret provided during onboarding and send the signature in the <code>X-Callback-Signature</code> header.'},
+        {kind: 'p', html: 'All requests sent to the gateway (payin, payout, refund, get status, get balance and every other request type) are signed with one standard method. This is the recommended way to sign, and all new integrations should use it. Sign the full request body with the midsecret provided during onboarding and send the signature in the <code>X-Callback-Signature</code> header.'},
         {kind: 'pre', html: 'X-Callback-Signature: sha256=HEX( HMAC-SHA256( key = midsecret, message = raw request body bytes ) )'},
         {kind: 'h4', html: 'Instructions:'},
         {
@@ -306,7 +306,7 @@
             'The hex digest may be lower or upper case. The <code>sha256=</code> prefix is recommended.',
             'When the header is present and valid, the <code>hash</code> field in the request body is not required and is ignored.',
             'When the header is present but does not match, the request is rejected with error <code>11031</code> (hash does not match), even if the body <code>hash</code> is correct.',
-            'When the header is not sent, the request is validated with the existing per-request <code>hash</code> described below (backward compatible).',
+            'When the header is not sent, the request is validated with the older per-request <code>hash</code> described below. That method is kept only so existing integrations keep working; don\'t build new integrations on it.',
           ],
         },
         {kind: 'h4', html: 'Example (C#):'},
@@ -320,7 +320,7 @@
       title: 'Hash Generation',
       blocks: [
         {kind: 'h3', html: 'Request Hash'},
-        {kind: 'p', html: 'Not required when the request is signed with the <code>X-Callback-Signature</code> header. See <a href="#request-signature">Request Signature</a>.'},
+        {kind: 'p', html: 'Older signing method, kept for existing integrations. New integrations sign with the <code>X-Callback-Signature</code> header instead and leave out the <code>hash</code> field. See <a href="#/legacy/signing/hmac">Request Signature</a>.'},
         {kind: 'h4', html: 'All Hosted Hash'},
         {kind: 'pre', html: 'SHA256(midcode~merchantrefno~amount~currency~midsecret)'},
         {kind: 'h4', html: 'Seamless Card (Nigeria)'},

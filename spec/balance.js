@@ -50,7 +50,7 @@
           head: ['Parameter', 'Type', 'Length', 'Mandatory', 'Description'],
           rows: [
             ['<code>midcode</code>', 'String', '3', 'Yes', 'Your unique Merchant ID.'],
-            ['<code>hash</code>', 'String', 'Max 500', 'Yes', 'SHA256 signature.'],
+            ['<code>hash</code>', 'String', 'Max 500', 'Yes', 'Older signing method, kept for existing integrations: SHA-256 of the fields listed under Hash Generation. New integrations sign with the <code>X-Callback-Signature</code> header instead and leave this field out.'],
           ],
         },
       ],
@@ -101,7 +101,7 @@
       title: 'Hash Generation',
       blocks: [
         {kind: 'h3', html: 'Request Hash'},
-        {kind: 'p', html: 'Not required when the request is signed with the <code>X-Callback-Signature</code> header. See <a href="index.shtml#request-signature">Request Signature</a>.'},
+        {kind: 'p', html: 'Older signing method, kept for existing integrations. New integrations sign with the <code>X-Callback-Signature</code> header instead and leave out the <code>hash</code> field. See <a href="#/legacy/signing/hmac">Request Signature</a>.'},
         {kind: 'pre', html: 'SHA256(midcode~midsecret)'},
         {kind: 'h3', html: 'Response Hash'},
         {kind: 'pre', html: 'SHA256(midcode~available_balance~running_balance~currency~midsecret)'},

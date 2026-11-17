@@ -10,7 +10,7 @@ A static site with no build step: open `index.html` in a browser, or serve the f
 | Integration guide | Payment flows, integration journey (5 stages), quickstarts, build rules, operations, testing and go-live, troubleshooting |
 | Payment methods | Gaming / Forex / P2P → pay-ins, payouts, settlements → country → method, with specs and demos |
 | API reference | Overview, signing & hashes, callbacks, Payin, Payout, Get Balance, Get Status and the other utility requests, error codes, v1 and v2 compatibility |
-| Hash playground | Body hash builder, HMAC signature header, hash detective |
+| Hash playground | Signature header (HMAC, recommended), older body hash builder, hash detective |
 
 Tools: site-wide search (header button, Ctrl/⌘ K or `/`), hash recipe finder, error-code filter, go-live checklists.
 
@@ -36,7 +36,7 @@ Tools: site-wide search (header button, Ctrl/⌘ K or `/`), hash recipe finder, 
 | `app.js` | Router, shared helpers, SHA-256 / HMAC-SHA256 in plain JavaScript, Error codes page, list of pages hidden from the site (`HIDDEN`) |
 | `apiref2.js` | API reference pages (Payin, Payout, Get Balance, utility requests, Signing & hashes, Callbacks): parameters, country and method picker, code samples in cURL / Node.js / Python / PHP |
 | `recipes.js` | Hash recipe finder on the Signing & hashes page |
-| `playground.js` | Hash playground: body hash builder, HMAC signature header, hash detective |
+| `playground.js` | Hash playground: signature header (HMAC, recommended), older body hash builder, hash detective |
 | `guide.js` | Shared guide pages and building blocks (operations, testing and go-live, troubleshooting, FAQ), used by `legacy.js` |
 | `legacy.js` | Integration guide: its pages (welcome, journey, quickstarts, build rules, payouts and funding), its menu, and the API reference menu and routes |
 | `home.js` | Docs home page and the Payment flows explainers (diagrams) |
@@ -46,7 +46,10 @@ Tools: site-wide search (header button, Ctrl/⌘ K or `/`), hash recipe finder, 
 | `demos/` | Clickable checkout demos used on the Payment methods tab: `checkout-flow` (generic hosted checkout), `egypt-p2p-flow`, `morocco-bank-flow`, `morocco-wallet-flow` |
 | `search.js` | Site search (header button, Ctrl/⌘ K or `/`); runs in the browser only |
 | `motion.js` | Small animations; off when the visitor prefers reduced motion |
-| `tools/stamp.py` | Adds `?v=` version stamps to `index.html` (see How to update) |
+| `tools/check.py` | Full check of the site: run it after every change (see How to update) |
+| `tools/selftest.html`, `tools/selftest.js` | The browser part of the check: opens every page and link, clicks every tab and picker, checks hashing, search and phone width. Banned words are listed at the top of `selftest.js` |
+| `tools/probe.js` | Helper the self-test loads into the site; not used by the site itself |
+| `tools/stamp.py` | Adds `?v=` version stamps to `index.html` (run by `check.py --write`) |
 
 ## Publishing
 
@@ -60,10 +63,10 @@ Any static host works. Never add secrets, MID secrets, bank details or internal-
 - Guide pages: `guide.js`, `legacy.js`, `home.js`; payment methods: `methods.js`, `assets/product-data.js`
 - A new spec file needs its own `<script>` line in `index.html`, before `spec/load.js`
 
-After changing any `.css` or `.js` file, run this before committing:
+Everything is plain text: edit any file by hand. After a change, run this before committing:
 
 ```
-python3 tools/stamp.py
+python3 tools/check.py --write
 ```
 
-It updates the `?v=` stamps in `index.html`, so browsers never mix a new page with cached old files. `python3 tools/stamp.py --check` exits with an error if a stamp is out of date.
+It re-stamps `index.html` (so browsers never mix a new page with cached old files), then tests the whole site in Chrome: every page and link, the country and method pickers, hashing, search and phone width. It lists anything wrong and exits with an error. `python3 tools/check.py` (without `--write`) only checks. It needs Python 3 and Google Chrome.

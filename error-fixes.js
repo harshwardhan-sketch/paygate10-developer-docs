@@ -19,7 +19,7 @@ const ERROR_FIX = (() => {
     '11003': () => `Your MID is disabled, so every request fails until it is re-enabled. Contact your integration channel.`,
     '11008': () => `Send ${c('merchantUrl.notificationUrl')}: a public HTTPS URL on your server where we post the ${a('callbacks', 'callback')}.`,
     '11009': () => `Send ${c('merchantUrl.returnUrl')}: where the customer comes back after the payment page. It is needed for hosted checkout and for seamless methods that redirect the customer.`,
-    '11010': () => `Sign the request: send the ${c('hash')} field, or the ${c('X-Callback-Signature')} header. See ${a('signing', 'Signing')}.`,
+    '11010': () => `Sign the request with the ${c('X-Callback-Signature')} header (or, on an existing integration, the older body ${c('hash')} field). See ${a('signing', 'Signing')}.`,
     '11011': () => `Send ${c('amount')} as a positive number with up to 2 decimals (for example ${c('100.00')}), not as text.`,
     '11023': () => `This currency is not enabled on your MID. Send the market's own currency (for example INR for India), or ask your integration contact to enable it.`,
     '11024': () => `This country is not enabled on your MID. Check ${c('country')} is the 2-letter ISO code of a live market, or ask your integration contact.`,
@@ -94,7 +94,7 @@ const ERROR_FIX = (() => {
     '11440': () => `This payout must be a whole number (no decimals). Round the amount, for example ${c('1500')} instead of ${c('1500.50')}.`,
     '11441': () => `The processing currency is not set up on your MID. Ask your integration contact.`,
     '11453': () => `Your ${c('X-Callback-Signature')} doesn't match. Sign the exact bytes you send with HMAC-SHA256 and the lower-case MID secret, and send ${c('sha256=<hex>')}. See ${a('signing', 'Signing')}.`,
-    '11454': () => `The ${c('X-Callback-Signature')} header is empty. Send ${c('sha256=<hex>')}, or leave the header out and sign with the body ${c('hash')}.`,
+    '11454': () => `The ${c('X-Callback-Signature')} header is empty. Send ${c('sha256=<hex>')}: HMAC-SHA256 of the exact body with your lower-case MID secret. See ${a('signing', 'Signing')}.`,
   };
   Object.assign(FIX, {
     '11005': () => `Send ${c('currency')} as a 3-letter ISO code, for example ${c('INR')}.`,

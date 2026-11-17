@@ -78,10 +78,10 @@ const API2 = (() => {
     });
   }
   function specFromPage(flow, key) {
-    const [p, title, path] = API_PAGES[key], d = page(flow, p);
+    const [p, title] = API_PAGES[key], d = page(flow, p);
     const req = tablesOf(sec(d, 'request-body')), res = tablesOf(sec(d, 'response-body'));
     const intro = sec(d, 'introduction'), ex = d.examples || [];
-    return {key, title, d, source: path === './' ? '' : path,
+    return {key, title, d,
       lead: intro ? strip(intro.blocks.map(b => b.html || '').join(' ')) : '',
       req: req[0], reqNested: req.slice(1).concat(tablesOf(sec(d, 'nested-objects'))),
       res: res[0], resNested: res.slice(1),
@@ -95,7 +95,7 @@ const API2 = (() => {
     const recipe = recipesIn(ph.hash).find(r => /request/i.test(r.group)) || recipesIn(ph.hash)[0] || null;
     const ps = ph.intro.filter(b => b.kind === 'p').map(b => strip(b.html)).filter(t => !/^Request, Response and Callback structure/i.test(t));
     const notes = [...ph.req, ...ph.res].filter(b => b.kind === 'p' || b.kind === 'ul').concat(ph.hash.filter(b => b.kind === 'ul'));
-    return {key: 'op-' + opId, title: s.title, d, source: 'other.shtml', lead: ps.join(' ') || `The ${s.title} request.`,
+    return {key: 'op-' + opId, title: s.title, d, lead: ps.join(' ') || `The ${s.title} request.`,
       req: common.req[0], reqNested: tablesIn(ph.req).concat(common.req.slice(1)),
       res: common.res[0], resNested: tablesIn(ph.res).concat(common.res.slice(1)),
       opts: ex.map(e => ({id: slug(e.title), title: strip(e.title), ex: e, recipe})), picker: false, notes, recipe};
@@ -152,9 +152,9 @@ const API2 = (() => {
     }
     const req = st ? st.st : r.req;
     const star = req === 'yes' ? '<span class="prm-star" title="Required">*</span>' : '';
-    /* the body hash is not needed when the request is signed with the X-Callback-Signature header */
+    /* the body hash is the older signing method: not needed when the request is signed with the X-Callback-Signature header */
     const sigAlt = idp === 'p-' && /^hash$/i.test(path);
-    const tag = sigAlt ? '<span class="prm-req sig">Required unless signed with the header</span>' : req === 'yes' ? '<span class="prm-req yes">Required</span>' : req === 'cond' ? '<span class="prm-req cond">Conditional</span>' : '<span class="prm-req no">Optional</span>';
+    const tag = sigAlt ? '<span class="prm-req sig">Older method · not needed with the header</span>' : req === 'yes' ? '<span class="prm-req yes">Required</span>' : req === 'cond' ? '<span class="prm-req cond">Conditional</span>' : '<span class="prm-req no">Optional</span>';
     /* the example for the picked country: the rule's example value if it has one, otherwise the value in that country's example request */
     let ex = '';
     if (ctx && path) {
@@ -192,7 +192,7 @@ const API2 = (() => {
     if (pid && USED.has(pid)) { pid = idp + slug(path || r.name); let n = 2; while (USED.has(pid)) pid = idp + slug(path || r.name) + '-' + n++; }
     if (pid) USED.add(pid);
     return `<div class="prm${st ? ' st-' + st.st : ''}"${pid ? ` id="${pid}"` : ''}><div class="prm-h"><code class="prm-n">${esc(r.name)}</code>${star}${meta.map(m => `<span class="prm-t">${esc(m)}</span>`).join('')}${tag}</div>
-      <div class="prm-d">${r.desc || ''}${sigAlt ? ` <span class="prm-cond">Not needed when you sign the whole request with the <code>X-Callback-Signature</code> header instead: see <a href="#/legacy/signing/hmac">Signing &amp; hashes</a>.</span>` : ''}${extra && EXTRA[r.name] ? EXTRA[r.name] : ''}${r.cond && (!st || (st.auto && !st.notHere)) ? `<span class="prm-cond">${esc(r.cond)}</span>` : ''}</div>${ex}${kids ? `<details class="prm-kids"${open ? ' open' : ''}><summary>Child parameters</summary>${kids}</details>` : ''}</div>`;
+      <div class="prm-d">${r.desc || ''}${sigAlt ? ` <span class="prm-cond">Older signing method, kept for existing integrations. If you are integrating for the first time, sign with the <code>X-Callback-Signature</code> header instead and leave this field out: see <a href="#/legacy/signing/hmac">Signing &amp; hashes</a>.</span>` : ''}${extra && EXTRA[r.name] ? EXTRA[r.name] : ''}${r.cond && (!st || (st.auto && !st.notHere)) ? `<span class="prm-cond">${esc(r.cond)}</span>` : ''}</div>${ex}${kids ? `<details class="prm-kids"${open ? ' open' : ''}><summary>Child parameters</summary>${kids}</details>` : ''}</div>`;
   }
   function prmList(rows, nested, opts = {}, base = '') {
     return rows.map(r => {
@@ -213,10 +213,52 @@ const API2 = (() => {
   /* one block per line (for the line numbers); copying the pane still gives one line per row */
   const lines = txt => hl(txt, 'json').split('\n').map(l => `<span class="ln">${l || ' '}</span>`).join('');
   const SNIP = {
-    'cURL': body => `curl -X POST '${API_URL}' \\\n  -H 'Content-Type: application/json' \\\n  -H 'api-version: 2.0' \\\n  -d '${pretty(body).text.replace(/'/g, "'\\''")}'`,
-    'Node.js': body => `const body = ${pretty(body).text};\n\nconst res = await fetch('${API_URL}', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json', 'api-version': '2.0' },\n  body: JSON.stringify(body),\n});\nconst result = await res.json(); // check result.success and result.error`,
-    'Python': body => `import requests\n\nbody = ${pretty(body).text.replace(/\btrue\b/g, 'True').replace(/\bfalse\b/g, 'False').replace(/\bnull\b/g, 'None')}\n\nres = requests.post(\n    "${API_URL}",\n    json=body,\n    headers={"api-version": "2.0"},\n)\nresult = res.json()  # check result["success"] and result["error"]`,
-    'PHP': body => `<?php\n$body = '${pretty(body).text.replace(/'/g, "\\'")}';\n\n$ch = curl_init('${API_URL}');\ncurl_setopt_array($ch, [\n    CURLOPT_POST => true,\n    CURLOPT_POSTFIELDS => $body,\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'api-version: 2.0'],\n]);\n$result = json_decode(curl_exec($ch), true); // always HTTP 200: check success and error`,
+    'cURL': body => `BODY='${pretty(body).text.replace(/'/g, "'\\''")}'
+# sign the exact body: HMAC-SHA256 with your MID secret in lower case
+SIG=$(printf '%s' "$BODY" | openssl dgst -sha256 -hmac "$MID_SECRET" | sed 's/^.* //')
+
+curl -X POST '${API_URL}' \\
+  -H 'Content-Type: application/json' \\
+  -H 'api-version: 2.0' \\
+  -H "X-Callback-Signature: sha256=$SIG" \\
+  --data-binary "$BODY"`,
+    'Node.js': body => `const crypto = require('crypto');
+
+const body = JSON.stringify(${pretty(body).text});
+// sign the exact body: HMAC-SHA256 with your MID secret in lower case
+const sig = crypto.createHmac('sha256', process.env.MID_SECRET.toLowerCase()).update(body, 'utf8').digest('hex');
+
+const res = await fetch('${API_URL}', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json', 'api-version': '2.0', 'X-Callback-Signature': \`sha256=\${sig}\` },
+  body, // send the same string you signed
+});
+const result = await res.json(); // check result.success and result.error`,
+    'Python': body => `import hashlib, hmac, json, os, requests
+
+body = json.dumps(${pretty(body).text.replace(/\btrue\b/g, 'True').replace(/\bfalse\b/g, 'False').replace(/\bnull\b/g, 'None')}).encode()
+# sign the exact body: HMAC-SHA256 with your MID secret in lower case
+sig = hmac.new(os.environ["MID_SECRET"].lower().encode(), body, hashlib.sha256).hexdigest()
+
+res = requests.post(
+    "${API_URL}",
+    data=body,  # send the same bytes you signed
+    headers={"Content-Type": "application/json", "api-version": "2.0", "X-Callback-Signature": "sha256=" + sig},
+)
+result = res.json()  # check result["success"] and result["error"]`,
+    'PHP': body => `<?php
+$body = '${pretty(body).text.replace(/'/g, "\\'")}';
+// sign the exact body: HMAC-SHA256 with your MID secret in lower case
+$sig = hash_hmac('sha256', $body, strtolower(getenv('MID_SECRET')));
+
+$ch = curl_init('${API_URL}');
+curl_setopt_array($ch, [
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => $body,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'api-version: 2.0', 'X-Callback-Signature: sha256=' . $sig],
+]);
+$result = json_decode(curl_exec($ch), true); // always HTTP 200: check success and error`,
     'JSON': body => pretty(body).text,
   };
   let LANG = (() => { try { return localStorage.getItem('pf-lang') || 'cURL'; } catch (_) { return 'cURL'; } })();
@@ -317,7 +359,7 @@ const API2 = (() => {
           <h1>${esc(S.title)}</h1>${S.lead ? `<p class="lead">${esc(S.lead)}</p>` : ''}
           <nav class="toc" aria-label="On this page">${toc.map(([id, t]) => `<a href="#" data-jump="${id}">${t}</a>`).join('')}</nav>
           <div class="ep2" id="endpoint"><span class="method post">POST</span><code>${esc(API_URL)}</code><button type="button" class="ep2-copy" data-copy-text="${esc(API_URL)}" aria-label="Copy endpoint">Copy</button></div>
-          <div class="ep2-h"><span>Headers</span> <code>Content-Type: application/json</code> <code>api-version: 2.0</code> <span>· signed with a body <a href="${hashLink(S)}">hash</a> or the <a href="#/legacy/signing/hmac">signature header</a></span></div>
+          <div class="ep2-h"><span>Headers</span> <code>Content-Type: application/json</code> <code>api-version: 2.0</code> <code>X-Callback-Signature: sha256=&lt;hex&gt;</code> <span>· see <a href="#/legacy/signing/hmac">Signing</a>. Existing integrations may still use the older body <a href="${hashLink(S)}">hash</a>.</span></div>
           ${S.picker ? `<section id="pick"><h2>Country and method</h2>
             <p class="pick-help">Each method needs different fields. Pick one to see what to send and its example.</p>
             <div class="pk-c" role="group" aria-label="Country">${countries.map(c => { const s = statusFn(S.key, c); return `<button type="button" class="chip" data-pk-c="${esc(c)}">${FLAG[c] || ''} ${esc(c || 'All')}${s ? `<span class="pk-dot ${s}" title="${STATUS_TXT[s]}"></span>` : ''}</button>`; }).join('')}</div>
@@ -333,7 +375,6 @@ const API2 = (() => {
             <div class="ppane" data-ppane="res"><p class="pnote">Check <code>success</code> and <code>error[]</code> in every response.${S.picker ? ' The final result arrives in the <a href="#/legacy/api-callbacks">callback</a>.' : ''}</p>${list(S.res, S.resNested, {idp: 'r-'})}</div>
           </section>
           ${S.notes.length ? `<section id="notes" class="op-notes"><h2>Notes</h2>${renderBlocks(flow, S.notes)}</section>` : ''}
-          ${sourceLink(flow, S.source)}
         </div>
       </div>
     </div>`;
@@ -453,16 +494,16 @@ content.Headers.Add("X-Callback-Signature", "sha256=" + signature);`,
   function signingPage(flow, arg) {
     const play = '#/playground';
     const head = `<h1>Signing &amp; hashes</h1>
-      <p class="lead">Every request must prove it comes from you, and every response and callback from us carries a hash you should check. Both use the MID secret you get at onboarding, in lower case.</p>
-      <nav class="toc" aria-label="On this page"><a href="#" data-jump="choose">Choose how to sign</a><a href="#" data-jump="hmac">Option A · Signature header</a><a href="#" data-jump="body-hash">Option B · Body hash</a><a href="#" data-jump="check">Check our hashes</a><a href="#" data-jump="all-recipes">All recipes</a></nav>
-      <section id="choose" class="hsec"><h2>Choose how to sign</h2>
+      <p class="lead">Every request must prove it comes from you: sign it with the <code>X-Callback-Signature</code> header. Every response and callback from us carries a hash you should check. Both use the MID secret you get at onboarding, in lower case.</p>
+      <nav class="toc" aria-label="On this page"><a href="#" data-jump="choose">How to sign</a><a href="#" data-jump="hmac">Signature header</a><a href="#" data-jump="check">Check our hashes</a><a href="#" data-jump="body-hash">Older method · Body hash</a><a href="#" data-jump="check">Check our hashes</a><a href="#" data-jump="all-recipes">All recipes</a></nav>
+      <section id="choose" class="hsec"><h2>How to sign</h2>
       <div class="grid2">
-        <a class="tile" href="#" data-jump="hmac"><span class="tag">Option A · one method for all requests</span><b>Signature header</b><span>Sign the whole request body with HMAC-SHA256 and send it in the <code>X-Callback-Signature</code> header. The same code works for every request type.</span></a>
-        <a class="tile" href="#" data-jump="body-hash"><span class="tag">Option B · per request type</span><b>Body hash</b><span>Join specific fields with <code>~</code>, add your secret and send the SHA-256 in the <code>hash</code> field. The fields and their order differ per request, method and country.</span></a>
+        <a class="tile" href="#" data-jump="hmac"><span class="tag">Recommended · use this for new integrations</span><b>Signature header</b><span>Sign the whole request body with HMAC-SHA256 and send it in the <code>X-Callback-Signature</code> header. The same code works for every request type.</span></a>
+        <a class="tile" href="#" data-jump="body-hash"><span class="tag">Older method · existing integrations only</span><b>Body hash</b><span>Join specific fields with <code>~</code>, add your secret and send the SHA-256 in the <code>hash</code> field. The fields and their order differ per request, method and country.</span></a>
       </div>
-      <p class="pick-help"><b>Which one?</b> Option A is simpler: one piece of code for every request. When the header is valid, the body <code>hash</code> is ignored. Whichever you choose, check the hashes on our responses and callbacks (<a href="#" data-jump="check">below</a>).</p></section>`;
+      <p class="pick-help"><b>Integrating for the first time?</b> Use the signature header: one piece of code for every request. The body hash is the older method. It still works so existing integrations keep running, but don't build new integrations on it. When the header is valid, the body <code>hash</code> is ignored. Either way, check the hashes on our responses and callbacks (<a href="#" data-jump="check">below</a>).</p></section>`;
     /* each option: what to do (numbered steps), then the same steps worked through with real values */
-    const optHead = (letter, title, sub) => `<div class="opt-h"><span class="opt-badge">Option ${letter}</span><h2>${title}</h2><p>${sub}</p></div>`;
+    const optHead = (badge, title, sub) => `<div class="opt-h"><span class="opt-badge">${badge}</span><h2>${title}</h2><p>${sub}</p></div>`;
     const doSteps = items => `<h3>What you do</h3><ol class="do-steps">${items.map(([t, d]) => `<li><b>${t}</b><span>${d}</span></li>`).join('')}</ol>`;
     const example = (rows, act = '', foot = false) => `<div class="anat"><div class="anat-bar"><span class="anat-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>Worked example</span>${act}</div>
       ${rows.map(([n, label, val]) => `<div class="ex-row"><span class="anat-n a${n}">${n}</span><div><span class="ex-l">${label}</span><div class="ex-v">${val}</div></div></div>`).join('')}
@@ -470,7 +511,7 @@ content.Headers.Add("X-Callback-Signature", "sha256=" + signature);`,
     const EX_BODY = '{"requestType":"GetBalance","data":{"midCode":"MID123"}}', EX_SIG = '9be56556b3b102b63267d53bcb460e830e80f483bdb81d29d97c50e8b8a4ff03';
     const EX_HASH = 'eeeba1863e8cb1866afd4ff1f515036bc0436fdd11700c36d05679a49fcc20b1';
     const tk = (c, t) => `<span class="${c}">${esc(t)}</span>`, sep = '<span class="t-p">~</span>';
-    const hmac = `<section id="hmac" class="hsec opt">${optHead('A', 'Signature header', 'Sign the whole request body once, and send the signature in a header (the API docs call this the Request Signature). The same code works for every request.')}
+    const hmac = `<section id="hmac" class="hsec opt">${optHead('Recommended', 'Signature header', 'Sign the whole request body once, and send the signature in a header (the API docs call this the Request Signature). The same code works for every request. Use this if you are integrating for the first time.')}
       ${doSteps([
         ['Turn your request into a JSON string', 'Serialise the body once and keep that exact string. You sign it and you send it, byte for byte.'],
         ['Sign the string with HMAC-SHA256', 'Use your MID secret <b>in lower case</b> as the key and the string as the message. Take the result as hex.'],
@@ -487,9 +528,10 @@ content.Headers.Add("X-Callback-Signature", "sha256=" + signature);`,
       <ul class="opt-rules">
       <li>Header valid: the request goes through, and the <code>hash</code> field in the body is ignored, so you can leave it out.</li>
       <li>Header sent but wrong: the request fails with <a href="#/${flow}/errors/11031"><code>11031</code> hash does not match</a>, even if the body <code>hash</code> is right.</li>
-      <li>No header: we check the body hash (Option B) instead.</li>
+      <li>No header: we check the older body hash instead (<a href="#" data-jump="body-hash">see below</a>).</li>
       </ul></section>`;
-    const body = `<section id="body-hash" class="hsec opt">${optHead('B', 'Body hash', 'Build a hash from a few fields of the request plus your secret, and send it in the <code>hash</code> field. Each request, method and country has its own recipe.')}
+    const body = `<section id="body-hash" class="hsec opt">${optHead('Older method', 'Body hash', 'The older way to sign a request, kept so existing integrations keep working. Build a hash from a few fields of the request plus your secret, and send it in the <code>hash</code> field. Each request, method and country has its own recipe.')}
+      <div class="callout warn"><p><b>Integrating for the first time?</b> Don't use this. Sign with the <a href="#" data-jump="hmac">signature header</a> instead. The recipes below are still how you check the hashes on our responses and callbacks.</p></div>
       ${doSteps([
         ['Find the recipe for your request', 'Use the finder below: request type, integration, country and method. The recipe lists the fields and their order.'],
         ['Put the values in that order, joined with ~', 'Use the values exactly as you send them: same case, amounts with two decimals like <code>100.00</code>. Put your MID secret <b>in lower case</b> where the recipe says <code>midsecret</code> (it is not always last).'],
@@ -507,7 +549,7 @@ content.Headers.Add("X-Callback-Signature", "sha256=" + signature);`,
       <p>Pick the request type, then your integration, country and method. <b>Try it</b> opens the recipe in the <a href="${play}">Hash playground</a>, where you can type your values and see the hash.</p>
       ${RP.picker(flow, 'ref', arg)}</section>`;
     const check = `<section id="check" class="hsec"><h2>Check our hashes</h2>
-      <p>Our responses and callbacks carry a <code>hash</code> too. Rebuild it from the fields you received and your MID secret, and compare before you trust the result. Pick your request in the finder above: the <b>Response hash</b> and <b>Callback hash</b> cards show the recipes.</p>
+      <p>Our responses and callbacks carry a <code>hash</code> too. Rebuild it from the fields you received and your MID secret, and compare before you trust the result. Pick your request in the recipe finder (<a href="#" data-jump="body-hash">below</a>): the <b>Response hash</b> and <b>Callback hash</b> cards show the recipes.</p>
       <ul>
       <li><b>Response hash:</b> check it before you act on the response.</li>
       <li><b>Callback hash:</b> the values are joined with <b>no separator</b>. Ignore a callback whose hash doesn't match; reply HTTP 200 once you have stored a valid one. See <a href="#/${flow}/api-callbacks">Callbacks</a>.</li>
@@ -516,10 +558,10 @@ content.Headers.Add("X-Callback-Signature", "sha256=" + signature);`,
     const all = `<section id="all-recipes" class="hsec"><h2>All recipes</h2>${RP.table(flow, RP.model(flow))}</section>`;
     const aside = `<aside class="api2-code" aria-label="Code examples"><div class="api2-sticky">
       <div class="snip-head"><span class="snip-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>Sign a request</span></div>
-      ${panel('Option A · Signature header', Object.entries(HMAC_CODE), 'side')}
-      ${panel('Option B · Body hash', Object.entries(HASH_CODE), 'side')}
+      ${panel('Signature header (recommended)', Object.entries(HMAC_CODE), 'side')}
+      ${panel('Body hash (older method)', Object.entries(HASH_CODE), 'side')}
       <p class="snip-foot">Sign on your server: never put the MID secret in an app or browser.</p></div></aside>`;
-    return twoCol(head, hmac + body + check + all, aside);
+    return twoCol(head, hmac + check + body + all, aside);
   }
 
   /* ---------- Callbacks page ---------- */
@@ -576,5 +618,5 @@ content.Headers.Add("X-Callback-Signature", "sha256=" + signature);`,
   /* for other pages (home, corridors): the same terminal panels */
   const requestPanel = (body, title = 'Request') => panel(title, Object.entries(SNIP).map(([t, f]) => [t, f(body)]), 'req');
   const jsonPanel = (title, panes) => panel(title, panes, 'side');
-  return {render, renderOp, init, options: d => exampleOptions(d, d.examples || []), signingPage, callbacksPage, requestPanel, jsonPanel};
+  return {specFromPage, specFromOp, tablesOf, recipesOf, render, renderOp, init, options: d => exampleOptions(d, d.examples || []), signingPage, callbacksPage, requestPanel, jsonPanel};
 })();

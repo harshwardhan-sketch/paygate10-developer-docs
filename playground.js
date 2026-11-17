@@ -1,4 +1,4 @@
-/* Hash playground: build a body hash piece by piece, sign a body with HMAC,
+/* Hash playground: sign a body with HMAC (signature header, the recommended method), build an older-style body hash piece by piece,
    and let the "hash detective" work out why a merchant's hash doesn't match.
    Recipes come from the SHA256(...) blocks in spec/*.js. Pure JS hashing, so it works offline and on file://. */
 (() => {
@@ -6,7 +6,7 @@
   const RECIPES = D[F].recipes
     .map((r, i) => ({i, label: r.label, formula: r.formula, parts: r.label.split(' · ')}))
     .filter(r => /^SHA256\(/i.test(r.formula) && !/serializ/i.test(r.formula) && !HIDE_RECIPE(r));
-  const MAIN = ['Payin', 'Payout', 'Get Balance', 'Get Status'];
+  const MAIN = ['Payin', 'Payout', 'Get Status', 'Get Balance'];
   const groupOf = r => MAIN.includes(r.parts[0]) ? r.parts[0] : 'More';
   const GROUPS = [...MAIN, 'More'].filter(g => RECIPES.some(r => groupOf(r) === g));
   const recipeName = r => groupOf(r) === 'More' ? r.parts.join(' · ') : r.parts.slice(1).join(' · ').replace(/ Hash\b/, '');
@@ -22,11 +22,17 @@
   const two = v => /^\s*-?\d+(\.\d+)?\s*$/.test(v) ? Number(v).toFixed(2) : v;
 
   LG.playground = () => `<h1>Hash playground</h1>
-<p class="lead">Build a signature piece by piece and watch it change as you type. Paste the hash your code made and the hash detective tells you what went wrong. Everything runs in your browser; nothing is sent anywhere.</p>
+<p class="lead">Sign a request body with the signature header, or build an older-style body hash piece by piece and watch it change as you type. Paste the hash your code made and the hash detective tells you what went wrong. Everything runs in your browser; nothing is sent anywhere.</p>
 <div class="callout warn"><p>Use a <b>test</b> secret only. The demo secret below is made up.</p></div>
 <div class="pg">
 ${tabs([
-  ['Body hash', `<div class="pg-split"><div class="pg-in"><div class="pg-l">Request type</div><div class="chips" id="pgGroups">${GROUPS.map((g, i) => `<button type="button" class="chip${i ? '' : ' on'}" data-g="${esc(g)}">${esc(g)}</button>`).join('')}</div>
+  ['Signature header', `<p>The recommended way to sign: HMAC-SHA256 over the <b>raw request body</b>, sent in the <code>X-Callback-Signature</code> header. Use this if you are integrating for the first time. One extra space changes the signature completely, so sign exactly the bytes you send. Try the buttons below.</p>
+    <div class="pg-split"><div class="pg-in"><label class="pg-l" for="hmBody">Raw request body</label><textarea id="hmBody" rows="5" spellcheck="false">{"requestType":"GetBalance","data":{"midCode":"MID123"}}</textarea>
+    <div class="chips"><button type="button" class="chip" id="hmPretty">Pretty-print it</button><button type="button" class="chip" id="hmMin">Minify it</button></div>
+    <label class="pg-l" for="hmSecret">MID secret</label><input id="hmSecret" value="Demo_Secret_42" autocomplete="off" spellcheck="false">
+    </div><div class="pg-res"><div class="pg-l">Header to send</div><div class="pg-out"><code id="hmOut"></code><button type="button" class="copy-mini" data-copy="hmOut">Copy</button></div>
+    <p id="hmNote" class="pg-note"></p></div></div>`],
+  ['Body hash (older method)', `<p class="pg-note"><b>Older signing method</b>, kept so existing integrations keep working. New integrations sign with the signature header instead. Use these recipes to check the hashes on our responses and callbacks, or to maintain an existing integration.</p><div class="pg-split"><div class="pg-in"><div class="pg-l">Request type</div><div class="chips" id="pgGroups">${GROUPS.map((g, i) => `<button type="button" class="chip${i ? '' : ' on'}" data-g="${esc(g)}">${esc(g)}</button>`).join('')}</div>
     <div class="pg-l">Recipe</div><div class="chips chips-sm" id="pgRecipes"></div>
     <div class="pg-formula" id="pgFormula"></div>
     <div class="pg-grid"><div id="pgFields" class="pg-fields"></div>
@@ -36,24 +42,18 @@ ${tabs([
     <div class="pg-fixes" id="pgFixes"></div>
     <div class="pg-l">SHA-256 · send this in <code>hash</code></div><div class="pg-out"><code id="pgHash"></code><button type="button" class="copy-mini" data-copy="pgHash">Copy</button></div>
     <div class="pg-l">The same in your code</div><div id="pgCode"></div></div></div>`],
-  ['Signature header', `<p>Option A signs the <b>raw request body</b> with HMAC-SHA256 instead. One extra space changes the signature completely, so sign exactly the bytes you send. Try the buttons below.</p>
-    <div class="pg-split"><div class="pg-in"><label class="pg-l" for="hmBody">Raw request body</label><textarea id="hmBody" rows="5" spellcheck="false">{"requestType":"GetBalance","data":{"midCode":"MID123"}}</textarea>
-    <div class="chips"><button type="button" class="chip" id="hmPretty">Pretty-print it</button><button type="button" class="chip" id="hmMin">Minify it</button></div>
-    <label class="pg-l" for="hmSecret">MID secret</label><input id="hmSecret" value="Demo_Secret_42" autocomplete="off" spellcheck="false">
-    </div><div class="pg-res"><div class="pg-l">Header to send</div><div class="pg-out"><code id="hmOut"></code><button type="button" class="copy-mini" data-copy="hmOut">Copy</button></div>
-    <p id="hmNote" class="pg-note"></p></div></div>`],
   ['Hash detective', `<p>Pick the recipe and type your values on the <b>Body hash</b> tab first. Then paste the hash <b>your code</b> produced. The detective tries the usual mistakes and tells you which one you made.</p>
     <div class="det-row"><input id="detIn" placeholder="Paste your 64-character hash" autocomplete="off" spellcheck="false"><button type="button" class="btn btn-navy" id="detGo">Investigate</button></div>
     <div id="detOut" class="det-out" aria-live="polite"></div>`],
 ])}
 </div>
 <h2>The rules, once more</h2>
-<ul><li>Fields in exactly the recipe order, joined with <code>~</code>. Callback hashes join them with <b>no separator</b>.</li><li>Amounts with two decimals: <code>100.00</code>.</li><li>The MID secret in lower case.</li><li>Still stuck? See <a href="#/legacy/hash-help">Fixing hash errors</a>, or all recipes on <a href="#/legacy/signing">Signing &amp; hashes</a>.</li></ul>`;
+<ul><li>Signature header: HMAC-SHA256 of the exact bytes you send, MID secret in lower case as the key, sent as <code>X-Callback-Signature: sha256=&lt;hex&gt;</code>.</li><li>Body hash (older method): fields in exactly the recipe order, joined with <code>~</code>. Callback hashes join them with <b>no separator</b>.</li><li>Amounts with two decimals: <code>100.00</code>.</li><li>The MID secret in lower case.</li><li>Still stuck? See <a href="#/legacy/hash-help">Fixing hash errors</a>, or all recipes on <a href="#/legacy/signing">Signing &amp; hashes</a>.</li></ul>`;
 
   function init() {
     const $ = id => document.getElementById(id);
     let group = GROUPS[0], rec = RECIPES.find(r => groupOf(r) === group);
-    /* #/playground/<recipe number> opens that recipe; #/playground/hmac opens the signature header tab */
+    /* the signature header tab opens first; #/playground/<recipe number> opens that recipe on the body hash tab */
     const arg = (location.hash.split('/')[2] || '').trim();
     const pre = /^\d+$/.test(arg) && RECIPES.find(r => r.i === +arg);
     if (pre) { group = groupOf(pre); rec = pre; $('pgGroups').querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c.dataset.g === group)); }
@@ -63,6 +63,7 @@ ${tabs([
       const k = t.toLowerCase();
       if (k === 'currency') { const c = CCY.find(([n]) => rec.label.includes(n)); if (c) return c[1]; }
       if (k === 'transaction_type' && /Get Status/.test(rec.label)) return 'payout';
+      if (k === 'transaction_type' && /Get Bank List/.test(rec.label)) return 'withdrawal'; /* deposit or withdrawal */
       return vals[k] ?? '';
     };
     const build = (o = {}) => {
@@ -156,7 +157,7 @@ ${tabs([
     $('detIn').onkeydown = e => { if (e.key === 'Enter') investigate(); };
 
     drawRecipes(); draw();
-    if (arg === 'hmac') [...document.querySelectorAll('.pg .tabs button')].find(b => /signature/i.test(b.textContent))?.click();
+    if (pre) [...document.querySelectorAll('.pg .tabs button')].find(b => /body hash/i.test(b.textContent))?.click();
   }
 
   document.addEventListener('pf:rendered', e => { if (e.detail.pageId === 'playground' && document.getElementById('pgGroups')) init(); });

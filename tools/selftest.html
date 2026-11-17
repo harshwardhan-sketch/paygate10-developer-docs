@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docs self-test</title>
+<style>body{font:14px/1.5 system-ui,sans-serif;margin:16px;background:#fff;color:#111}iframe{width:1280px;height:900px;border:1px solid #ccc}pre{white-space:pre-wrap}</style>
+</head>
+<body>
+<h1>Docs self-test</h1>
+<p>Opens the site in the frame below, visits every page and link, clicks the tabs and pickers, and checks hashing, search and phone width.
+Run it with <code>python3 tools/check.py</code> (or open this page through a local web server and wait).</p>
+<pre id="status">running…</pre>
+<pre id="result"></pre>
+<iframe id="site" title="site under test"></iframe>
+<script src="selftest.js"></script>
+</body>
+</html>

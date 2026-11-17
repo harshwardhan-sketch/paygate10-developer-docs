@@ -76,7 +76,6 @@ const steps = items => `<ol class="steps">${items.map(([b, t]) => `<li><b>${b}</
 const INIT = {};
 /* sidebar groups the reader folded away (kept in this browser) */
 const CLOSED = new Set((() => { try { return JSON.parse(localStorage.getItem('pf-nav-closed') || '[]'); } catch (_) { return []; } })());
-const sourceLink = () => ''; /* this site is the source of truth: no links to other sites */
 
 /* ---------- generic block rendering ---------- */
 function mandatoryCell(v) {
@@ -92,9 +91,8 @@ function renderTable(b) {
     b.rows.map(r => `<tr>${r.map((c, i) => `<td>${i === 0 && !/<code>/.test(c) && b.head[0] === 'Parameter' ? `<code>${c}</code>` : i === mi ? mandatoryCell(c) : c}</td>`).join('')}</tr>`).join('')
   }</tbody></table>`;
 }
-const fixLinks = h => String(h)
-  .replace(/href="(?:index\.shtml)?#request-signature"/g, 'href="#/legacy/signing/hmac"')
-  .replace(/href="(payout|refund|balance|other|error-code)\.shtml[^"]*"/g, (m, p) => `href="#/legacy/${{payout: 'payout', refund: 'refund', balance: 'balance', other: 'op-get-status', 'error-code': 'errors'}[p]}"`);
+/* spec text links straight to this site's routes (#/legacy/...); nothing to rewrite */
+const fixLinks = h => String(h);
 function renderBlocks(flow, blocks) {
   return blocks.map(b => {
     switch (b.kind) {
@@ -150,23 +148,22 @@ function toc(secs, extra = []) {
 }
 
 /* ---------- API pages from source ---------- */
-const API_PAGES = {payin: ['index', 'Payin', './'], payout: ['payout', 'Payout', 'payout.shtml'], refund: ['refund', 'Refund', 'refund.shtml'], balance: ['balance', 'Get Balance', 'balance.shtml']};
+const API_PAGES = {payin: ['index', 'Payin'], payout: ['payout', 'Payout'], refund: ['refund', 'Refund'], balance: ['balance', 'Get Balance']};
 function apiPage(flow, key) {
-  const [p, title, path] = API_PAGES[key];
+  const [p, title] = API_PAGES[key];
   const d = page(flow, p);
   const intro = d.sections.filter(s => s.id === 'introduction'), rest = d.sections.filter(s => s.id !== 'introduction');
   return `<h1>${title}</h1>${intro.map(s => renderSection(flow, s)).join('')}
     ${toc(rest, d.examples && d.examples.length ? [['examples', 'Examples']] : [])}
     ${rest.map(s => renderSection(flow, s)).join('')}
-    ${examplesBox(d.examples)}
-    ${sourceLink(flow, path === './' ? '' : path)}`;
+    ${examplesBox(d.examples)}`;
 }
 function opPage(flow, opId) {
   const d = page(flow, 'other');
   const s = d.sections.find(x => x.id === opId);
   const ex = (d.examples || []).filter(e => norm(e.title).startsWith(norm(s.title)));
   const common = d.sections.filter(x => SKIP_OTHER.has(x.id) && x.id !== 'introduction');
-  return `<h1>${s.title}</h1>${sourceLink(flow, 'other.shtml')}
+  return `<h1>${s.title}</h1>
     ${renderBlocks(flow, s.blocks)}
     ${examplesBox(ex)}
     <h2>Common to all “Others” requests</h2>
@@ -175,7 +172,7 @@ function opPage(flow, opId) {
 
 /* ---------- error codes ---------- */
 function errorsPage(flow, q = '') {
-  return `<h1>Error codes</h1>${sourceLink(flow, 'error-code.shtml')}
+  return `<h1>Error codes</h1>
   <p class="lead">Errors come back in the response <code>error[]</code> array as <code>{ errorCode, errorMessage }</code>. Each row shows the API v2 code, with the v1 code under it for merchants still on v1. Start with the most common codes, open the group that matches your problem, or search for a code or a word from the message.</p>
   ${errorsGrouped(D[flow].errors, e => `<tr data-c="${esc(`${e.ErrorCode} ${e.v1ErrorCode || ''}`.trim())}" data-s="${esc(`${e.ErrorCode} ${e.ErrorMessage || ''} ${e.v1ErrorCode || ''} ${e.v1ErrorMessage || ''}`.toLowerCase())}"><td><code>${esc(e.ErrorCode)}</code>${e.v1ErrorCode ? `<small class="v1">v1 ${esc(e.v1ErrorCode)}</small>` : ''}</td><td>${esc(e.ErrorMessage || '')}</td><td class="errfix">${ERROR_FIX(e.ErrorCode, e.ErrorMessage)}</td></tr>`,
     (e, g) => g === 'quotes' || /refund/i.test(e.ErrorMessage || ''), q)}`;
