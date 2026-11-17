@@ -3,6 +3,8 @@
 Guides, API reference and tools for merchants integrating directly with the Paygate10 Gateway.
 A static site with no build step: open `index.html` in a browser, or serve the folder from any static host.
 
+**Maintaining the site? Start with [MAINTAINING.md](MAINTAINING.md):** how to make each kind of change, check it and publish it.
+
 ## What's in it
 
 | Tab | Content |
@@ -18,6 +20,7 @@ Tools: site-wide search (header button, Ctrl/⌘ K or `/`), hash recipe finder, 
 
 | File | What it does |
 |---|---|
+| `MAINTAINING.md` | Guide for developers: how to make each kind of change, check it and publish |
 | `index.html` | Page shell: header, tabs, script order, content security policy |
 | `styles.css`, `redesign.css` | Design (light and dark theme, mobile) |
 | **API spec** | |
